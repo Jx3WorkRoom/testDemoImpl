@@ -133,7 +133,7 @@ public class levelingListDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append(" update F_USER_COLL_INFO set " +
-                " isvalid = '"+isValided+"'"+
+                " COLL_TYPE = '"+isValided+"'"+
                 " where user_id = '"+userId+"'"+
                 " and main_id = '"+mainId+"'");
         System.out.println(sql);

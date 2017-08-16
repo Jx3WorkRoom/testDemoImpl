@@ -139,7 +139,7 @@ public class appearanceSaleDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append(" update F_USER_COLL_INFO set " +
-                " isvalid = '"+isValid+"'"+
+                " COLL_TYPE = '"+isValid+"'"+
                 " where user_id = '"+userId+"'"+
                 " and main_id = '"+mainId+"'");
         System.out.println(sql);

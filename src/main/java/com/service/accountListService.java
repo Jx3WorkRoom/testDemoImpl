@@ -1,10 +1,10 @@
 package com.service;
 
+import com.utils.MyDateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import com.dao.accountListDao;
 import org.springframework.stereotype.Service;
 
@@ -82,5 +82,82 @@ public class accountListService {
             e.printStackTrace();
         }
         return resArr;
+    }
+
+    public Object queryAccountDetailInfo(int favorId) {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = accountListDao.queryAccountDetailInfo(favorId);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
+
+    public String userIsvalid(String userName, int mainId, int isValided, String replyTime) throws Exception {
+        String userId = accountListDao.selectUserId(userName);
+        int result = accountListDao.selectIsvalid(userId,mainId);
+        if(result==-1){
+            String COLLECT_DATE = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");
+            String recordId = UUID.randomUUID().toString();
+            int COLLECT_TYPE = 1;
+            int MOD_ID = 12;
+            int COLL_TYPE = 1;
+            StringBuffer COLLECT_CONT = new StringBuffer();
+            int COLLECT_STUSTA = isValided;
+            String FAVOR_DATE = replyTime.replace("\\s*","");
+            List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+            try {
+                resArr = accountListDao.queryCollectCont(mainId);
+                Map<String,Object> map = resArr.get(0);
+                for (Map.Entry<String, Object> entry : map.entrySet()) {
+                    COLLECT_CONT.append(entry.getKey()+":"+entry.getValue()+"\n");
+                }
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            int insertResult = accountListDao.insertuserIsvalid(recordId,userId,mainId,COLLECT_DATE,COLLECT_TYPE,MOD_ID,COLL_TYPE,COLLECT_CONT.toString(),COLLECT_STUSTA,FAVOR_DATE);
+            if(insertResult==1) {
+                return "收藏成功!";
+            }else{
+                return "收藏成功!";
+            }
+        }else {
+            if (result != isValided) {
+                int edutResult = accountListDao.edituserIsvalid(userId,mainId,isValided);
+            }
+            if (isValided == 1)
+                return "已收藏";
+            else
+                return "已取消收藏";
+        }
+    }
+
+    public Object queryaccountDetailSource(int mainId, int sourceType, int userId,int startNum,int endNum) {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            if(sourceType==1) {
+                resArr = accountListDao.queryaccountDetailSource(mainId,startNum,endNum);
+            }else{
+                resArr = accountListDao.queryaccountDetailSource2(userId);
+            }
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
+
+    public String accountDetailSubmitIsValid(int favorId) throws Exception {
+        int result = accountListDao.accountDetailSubmitIsValid(favorId);
+        if(result==1){
+            return "提交成功";
+        }else{
+            return "提交失败";
+        }
     }
 }
