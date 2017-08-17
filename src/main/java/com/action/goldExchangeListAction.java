@@ -83,4 +83,21 @@ public class goldExchangeListAction {
         System.out.println("查询账号交易页面搜索框填充信息接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
     }
+
+    @ApiOperation(value="获取金币页面查看源信息", notes="默认返回数据",produces = "application/json")
+    @RequestMapping(value="goldExchangeSource",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> getGoldExchangeSourceAction(
+            @RequestParam(value="userId",required=true) int userId
+
+    ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object dataList = goldExchangeListService.queryGoldExchangeSource(userId);
+        resmap.put("datas", dataList);
+        resmap.put("success", true);
+        long post=System.currentTimeMillis();
+        System.out.println("查询金币交易接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
 }

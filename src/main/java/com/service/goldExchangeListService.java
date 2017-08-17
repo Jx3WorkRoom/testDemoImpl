@@ -97,4 +97,15 @@ public class goldExchangeListService {
                 return "已取消收藏";
         }
     }
+
+    public Object queryGoldExchangeSource(int userId) {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = goldExchangeListDao.queryappearanceSaleSource(userId);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
 }

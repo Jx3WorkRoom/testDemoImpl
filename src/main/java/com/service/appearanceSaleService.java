@@ -109,4 +109,20 @@ public class appearanceSaleService {
                 return "已取消收藏";
         }
     }
+
+    public Object queryappearanceSaleSource(int mainId, int sourceType, int userId) {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            if(sourceType==1) {
+                resArr = appearanceSaleDao.queryappearanceSaleSource(mainId);
+            }else{
+                resArr = appearanceSaleDao.queryappearanceSaleSource2(userId);
+            }
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
 }

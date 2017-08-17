@@ -133,4 +133,12 @@ public class goldExchangeListDao {
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
+
+    public List<Map<String,Object>> queryappearanceSaleSource(int userId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append("select user_qq from f_user_info where USER_ID = "+userId);
+        System.out.println(sql);
+        return this.commondao.query(sql.toString(), paramList);
+    }
 }

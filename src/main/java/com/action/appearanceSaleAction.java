@@ -86,4 +86,25 @@ public class appearanceSaleAction {
         System.out.println("查询账号交易页面搜索框填充信息接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
     }
+
+
+    @ApiOperation(value="获取外观页面查看源信息", notes="默认返回数据",produces = "application/json")
+    @RequestMapping(value="appearanceSaleSource",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> getAppearanceSaleSourceAction(
+            @RequestParam(value="mainId",required=true) int mainId,
+            @RequestParam(value="sourceType",required=true) int sourceType,
+            @RequestParam(value="userId",required=true) int userId
+
+    ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object dataList = appearanceSaleService.queryappearanceSaleSource(mainId,sourceType,userId);
+        resmap.put("datas", dataList);
+        resmap.put("success", true);
+        long post=System.currentTimeMillis();
+        System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
 }

@@ -176,10 +176,10 @@ public class accountListDao {
         return this.commondao.update(sql.toString(), paramList);
     }
 
-    public List<Map<String,Object>> queryaccountDetailSource(int id, int startNum, int mainId) throws Exception {
+    public List<Map<String,Object>> queryaccountDetailSource(int mainId, int startNum, int endNum) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append("select REPLY_TIME,PAGE_URL,BELONG_FLOOR from C_POST_BAR_12 where MAIN_ID ="+mainId+" limit startNum,mainId");
+        sql.append("select REPLY_TIME,PAGE_URL,BELONG_FLOOR from C_POST_BAR_12 where MAIN_ID ="+mainId+" limit "+startNum+","+mainId);
         System.out.println(sql);
         listSql = sql.toString();
         return this.commondao.query(sql.toString(), paramList);
