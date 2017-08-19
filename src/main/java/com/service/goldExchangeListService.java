@@ -55,10 +55,10 @@ public class goldExchangeListService {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return resArr;
+        return resArr.size();
     }
 
-    public String userIsvalid(String userName, int mainId, int isValided, String replyTime) throws Exception {
+    public String userIsvalid(String userName, String mainId, int isValided, String replyTime) throws Exception {
         String userId = goldExchangeListDao.selectUserId(userName);
         int result = goldExchangeListDao.selectIsvalid(userId,mainId);
         if(result==-1){

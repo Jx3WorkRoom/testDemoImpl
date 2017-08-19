@@ -27,16 +27,14 @@ public class propSaleDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append("SELECT" +
-                " a.*, count(DISTINCT a.MAIN_ID) rowNum," +
-                " b.*" +
+                " a.* " +
                 " FROM" +
-                " c_post_bar_15 a," +
-                " f_user_follow b" +
+                " c_post_bar_15 a " +
+                " LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
                 " WHERE" +
-                " a.MAIN_ID = b.MAIN_ID" +
+                " a.TRADE_TYPE = "+tradeType +
                 " AND a.BELONG_QF like '"+selectTion1+"%"+selectTion2+"%"+selectTion3+"%'" +
                 " AND a.prop_NAME like '%"+shape+"%'" +
-                " AND a.TRADE_TYPE = "+tradeType+" " +
                 " AND a.BELONG_QF is not NULL" +
                 " AND a.prop_NAME is not NULL" +
                 " AND a.post_CONTENT IS NOT NULL" +
@@ -55,9 +53,8 @@ public class propSaleDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append(
-                " select a.*, count(distinct a.MAIN_ID) rowNum, b.* FROM c_post_bar_15 a, f_user_follow b " +
-                        " WHERE a.MAIN_ID = b.MAIN_ID " +
-                        " AND a.TRADE_TYPE = "+tradeType +
+                " select a.* FROM c_post_bar_15 a LEFT JOIN f_user_follow b on a.main_id = b.main_id" +
+                        " WHERE a.TRADE_TYPE = "+tradeType +
                         " AND a.BELONG_QF is not NULL" +
                         " AND a.prop_NAME is not NULL" +
                         " AND a.post_CONTENT IS NOT NULL" +
@@ -81,7 +78,8 @@ public class propSaleDao {
     public List<Map<String,Object>> queryPageListNum() throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(listSql.substring(0,listSql.length()-10));
+        int num = listSql.indexOf("LIMIT");
+        sql.append(listSql.substring(0,num-1));
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }
@@ -102,7 +100,7 @@ public class propSaleDao {
         return this.commondao.queryOne(sql.toString(), paramList);
     }
 
-    public int selectIsvalid(String userId, int mainId) {
+    public int selectIsvalid(String userId, String mainId) {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append(" SELECT COLL_TYPE FROM f_user_COLL_info WHERE MAIN_ID = '"+mainId+"' AND USER_ID = '"+userId+"' ");
@@ -116,25 +114,25 @@ public class propSaleDao {
         return COLL_TYPE;
     }
 
-    public List<Map<String,Object>> queryCollectCont(int mainId) throws Exception {
+    public List<Map<String,Object>> queryCollectCont(String mainId) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(" select BELONG_QF,prop_name,post_content from C_POST_BAR_15 where main_id ="+mainId + " GROUP BY MAIN_ID");
+        sql.append(" select BELONG_QF,prop_name,post_content from C_POST_BAR_15 where main_id ='"+mainId + "' GROUP BY MAIN_ID");
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }
 
-    public int insertuserIsvalid(String uuid, String userId, int mainId, String collect_date, int collect_type, int mod_id, int coll_type, String collect_cont, int collect_stusta, String favor_date) throws Exception {
+    public int insertuserIsvalid(String uuid, String userId, String mainId, String collect_date, int collect_type, int mod_id, int coll_type, String collect_cont, int collect_stusta, String favor_date) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
         sql.append(" insert into F_USER_COLL_INFO(record_id,createtime,updatetime,user_id,main_id,collect_date,collect_type,mod_id,coll_type,collect_cont,collect_stusta,favor_date) " +
-                " VAlUES('"+uuid+"','"+createTime+"','"+createTime+"',"+userId+","+mainId+",'"+collect_date+"',"+collect_type+","+mod_id+","+coll_type+",'"+collect_cont+"','"+collect_stusta+"','"+favor_date+"')");
+                " VAlUES('"+uuid+"','"+createTime+"','"+createTime+"',"+userId+",'"+mainId+"','"+collect_date+"',"+collect_type+","+mod_id+","+coll_type+",'"+collect_cont+"','"+collect_stusta+"','"+favor_date+"')");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
 
-    public int edituserIsvalid(String userId, int mainId, int isValided) throws Exception {
+    public int edituserIsvalid(String userId, String mainId, int isValided) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append(" update F_USER_COLL_INFO set " +

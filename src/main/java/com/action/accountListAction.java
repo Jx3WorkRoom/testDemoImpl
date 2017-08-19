@@ -95,7 +95,7 @@ public class accountListAction {
     @Produces("application/json")
     public Map<String,Object> userIsvalid(
             @RequestParam(value="userName",required=true) String userName,
-            @RequestParam(value="mainId",required=true) int mainId,
+            @RequestParam(value="mainId",required=true) String mainId,
             @RequestParam(value="isValided",required=true) int isValided,
             @RequestParam(value="replyTime",required=true) String replyTime
     ) throws Exception {
@@ -112,7 +112,7 @@ public class accountListAction {
     @RequestMapping(value="accountDetailSource",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> getAccountListAction(
-            @RequestParam(value="mainId",required=true) int mainId,
+            @RequestParam(value="mainId",required=true) String mainId,
             @RequestParam(value="sourceType",required=true) int sourceType,
             @RequestParam(value="userId",required=true) int userId,
             @RequestParam(value="startNum",required=false,defaultValue ="0") int startNum,

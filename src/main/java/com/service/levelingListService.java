@@ -55,7 +55,7 @@ public class levelingListService {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return resArr;
+        return resArr.size();
     }
 
     public Object queryTixinListInfo() {
@@ -70,7 +70,7 @@ public class levelingListService {
         return resArr;
     }
 
-    public String userIsvalid(String userName, int mainId, int isValided, String replyTime) throws Exception {
+    public String userIsvalid(String userName, String mainId, int isValided, String replyTime) throws Exception {
         String userId = levelingListDao.selectUserId(userName);
         int result = levelingListDao.selectIsvalid(userId,mainId);
         if(result==-1){
@@ -108,5 +108,21 @@ public class levelingListService {
             else
                 return "已取消收藏";
         }
+    }
+
+    public Object querylevelingListSource(String mainId, int sourceType, int userId) {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            if(sourceType==1) {
+                resArr = levelingListDao.querylevelingListSource(mainId);
+            }else{
+                resArr = levelingListDao.querylevelingListSource2(userId);
+            }
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
     }
 }

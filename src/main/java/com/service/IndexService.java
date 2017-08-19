@@ -23,4 +23,26 @@ public class IndexService {
         }
         return resArr;
     }
+
+    public Object queryIndex2Info(int tradeType) {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = indexDao.queryIndex2(tradeType);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
+
+    public Object queryIndex3Info(int tradeType) {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = indexDao.queryIndex3(tradeType);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
 }

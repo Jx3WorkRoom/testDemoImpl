@@ -96,7 +96,7 @@ public class accountListService {
         return resArr;
     }
 
-    public String userIsvalid(String userName, int mainId, int isValided, String replyTime) throws Exception {
+    public String userIsvalid(String userName, String mainId, int isValided, String replyTime) throws Exception {
         String userId = accountListDao.selectUserId(userName);
         int result = accountListDao.selectIsvalid(userId,mainId);
         if(result==-1){
@@ -136,7 +136,7 @@ public class accountListService {
         }
     }
 
-    public Object queryaccountDetailSource(int mainId, int sourceType, int userId,int startNum,int endNum) {
+    public Object queryaccountDetailSource(String mainId, int sourceType, int userId,int startNum,int endNum) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
             if(sourceType==1) {

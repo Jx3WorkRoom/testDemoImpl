@@ -70,7 +70,7 @@ public class appearanceSaleService {
         return resArr;
     }
 
-    public String userIsvalid(String userName, int mainId ,  int isValided,String replyTime) throws Exception {
+    public String userIsvalid(String userName, String mainId ,  int isValided,String replyTime) throws Exception {
         String userId = appearanceSaleDao.selectUserId(userName);
         int result = appearanceSaleDao.selectIsvalid(userId,mainId);
         if(result==-1){
@@ -110,7 +110,7 @@ public class appearanceSaleService {
         }
     }
 
-    public Object queryappearanceSaleSource(int mainId, int sourceType, int userId) {
+    public Object queryappearanceSaleSource(String mainId, int sourceType, int userId) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
             if(sourceType==1) {
@@ -124,5 +124,21 @@ public class appearanceSaleService {
             e.printStackTrace();
         }
         return resArr;
+    }
+
+    public Object protDisable(String mainId) {
+        int resArr = 0;
+        try {
+                resArr = appearanceSaleDao.protDisable(mainId);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(resArr==1){
+            return "提交成功";
+        }else{
+            return  "提交失败";
+        }
     }
 }

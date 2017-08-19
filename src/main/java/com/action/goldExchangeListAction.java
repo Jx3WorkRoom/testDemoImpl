@@ -71,7 +71,7 @@ public class goldExchangeListAction {
     @Produces("application/json")
     public Map<String,Object> userIsvalid(
             @RequestParam(value="userName",required=true) String userName,
-            @RequestParam(value="mainId",required=true) int mainId,
+            @RequestParam(value="mainId",required=true) String mainId,
             @RequestParam(value="isValided",required=true) int isValided,
             @RequestParam(value="replyTime",required=true) String replyTime
     ) throws Exception {

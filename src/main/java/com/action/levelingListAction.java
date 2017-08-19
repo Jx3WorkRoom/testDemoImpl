@@ -74,7 +74,7 @@ public class levelingListAction {
     @Produces("application/json")
     public Map<String,Object> userIsvalid(
             @RequestParam(value="userName",required=true) String userName,
-            @RequestParam(value="mainId",required=true) int mainId,
+            @RequestParam(value="mainId",required=true) String mainId,
             @RequestParam(value="isValided",required=true) int isValided,
             @RequestParam(value="replyTime",required=true) String replyTime
     ) throws Exception {
@@ -84,6 +84,25 @@ public class levelingListAction {
         resmap.put("info", IsvaliInfo);
         long post=System.currentTimeMillis();
         System.out.println("查询收藏与失效接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+    @ApiOperation(value="获取代练代打页面查看源信息", notes="默认返回数据",produces = "application/json")
+    @RequestMapping(value="levelingListSource",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> getAppearanceSaleSourceAction(
+            @RequestParam(value="mainId",required=true) String mainId,
+            @RequestParam(value="sourceType",required=true) int sourceType,
+            @RequestParam(value="userId",required=true) int userId
+
+    ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object dataList = levelingListService.querylevelingListSource(mainId,sourceType,userId);
+        resmap.put("datas", dataList);
+        resmap.put("success", true);
+        long post=System.currentTimeMillis();
+        System.out.println("查询代练代打接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
     }
 }

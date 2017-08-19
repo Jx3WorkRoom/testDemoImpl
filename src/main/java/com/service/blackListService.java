@@ -39,7 +39,7 @@ public class blackListService {
         return resArr;
     }
 
-    public String userIsvalid(String userName, int mainId, int isValided, String replyTime) throws Exception {
+    public String userIsvalid(String userName, String mainId, int isValided, String replyTime) throws Exception {
         String userId = blackListDao.selectUserId(userName);
         int result = blackListDao.selectIsvalid(userId,mainId);
         if(result==-1){
@@ -77,5 +77,17 @@ public class blackListService {
             else
                 return "已取消收藏";
         }
+    }
+
+    public Object queryblackListByFavorIdInfo(int favorId) {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = blackListDao.queryblackListByFavorIdInfo(favorId);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
     }
 }

@@ -21,7 +21,7 @@ public class blackListAction {
     @Autowired
     blackListService blackListService;
 
-    @ApiOperation(value="获取外观交易页面填充信息", notes="默认返回根据发布时间排倒序的最近十条数据和选择框及数据字典等数据",produces = "application/json")
+    @ApiOperation(value="获取黑鬼页面填充信息", notes="默认返回根据发布时间排倒序的最近十条数据和选择框及数据字典等数据",produces = "application/json")
     @RequestMapping(value="getblackListAction",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> getblackListAction(
@@ -55,7 +55,7 @@ public class blackListAction {
     @Produces("application/json")
     public Map<String,Object> userIsvalid(
             @RequestParam(value="userName",required=true) String userName,
-            @RequestParam(value="mainId",required=true) int mainId,
+            @RequestParam(value="mainId",required=true) String mainId,
             @RequestParam(value="isValided",required=true) int isValided,
             @RequestParam(value="replyTime",required=true) String replyTime
     ) throws Exception {
@@ -65,6 +65,22 @@ public class blackListAction {
         resmap.put("info", IsvaliInfo);
         long post=System.currentTimeMillis();
         System.out.println("查询账号交易页面搜索框填充信息接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+    @ApiOperation(value="获取黑鬼页面信息", notes="通过favor_id定位具体详情",produces = "application/json")
+    @RequestMapping(value="blackDetail",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> getblackDetailAction(
+            @RequestParam(value="favorId",required=true) int favorId
+    ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object SelectionList = blackListService.queryblackListByFavorIdInfo(favorId);
+        resmap.put("datas", SelectionList);
+        resmap.put("success", true);
+        long post=System.currentTimeMillis();
+        System.out.println("查询账号交易详情页面接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
     }
 }

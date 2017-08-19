@@ -70,7 +70,7 @@ public class propSaleService {
         return resArr;
     }
 
-    public String userIsvalid(String userName, int mainId, int isValided, String replyTime) throws Exception {
+    public String userIsvalid(String userName, String mainId, int isValided, String replyTime) throws Exception {
         String userId = propSaleDao.selectUserId(userName);
         int result = propSaleDao.selectIsvalid(userId,mainId);
         if(result==-1){
