@@ -91,18 +91,36 @@ public class propSaleAction {
     @RequestMapping(value="propSaleSource",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> getPropSaleSourceAction(
-            @RequestParam(value="mainId",required=true) int mainId,
+            @RequestParam(value="mainId",required=true) String mainId,
             @RequestParam(value="sourceType",required=true) int sourceType,
             @RequestParam(value="userId",required=true) int userId
 
-    ){
+    ) throws Exception {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
         Object dataList = propSaleService.queryPropSaleSource(mainId,sourceType,userId);
+        propSaleService.addUserFollow(mainId);
         resmap.put("datas", dataList);
         resmap.put("success", true);
         long post=System.currentTimeMillis();
         System.out.println("查询道具交易接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+    @ApiOperation(value="提交失效信息", notes="默认返回数据",produces = "application/json")
+    @RequestMapping(value="protDisable",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> protDisableAction(
+            @RequestParam(value="mainId",required=true) String mainId
+
+    ) throws Exception {
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object dataList = propSaleService.protDisable(mainId);
+        resmap.put("info", dataList);
+        resmap.put("success", true);
+        long post=System.currentTimeMillis();
+        System.out.println("提交失效信息接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
     }
 }

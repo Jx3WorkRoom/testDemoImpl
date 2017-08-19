@@ -71,11 +71,12 @@ public class accountListAction {
     @Produces("application/json")
     public Map<String,Object> getAccountDetailAction(
             @RequestParam(value="favorId",required=true) int favorId
-    ){
+    ) throws Exception {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        Object SelectionList = accountListService.queryAccountDetailInfo(favorId);
-        resmap.put("datas", SelectionList);
+        Object accountDetail = accountListService.queryAccountDetailInfo(favorId);
+        accountListService.addUserFollow(favorId);
+        resmap.put("datas", accountDetail);
         resmap.put("success", true);
         long post=System.currentTimeMillis();
         System.out.println("查询账号交易详情页面接口执行时间（单位：毫秒）："+ (post-pre));

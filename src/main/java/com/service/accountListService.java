@@ -160,4 +160,11 @@ public class accountListService {
             return "提交失败";
         }
     }
+
+    public void addUserFollow(int favorId) throws Exception {
+        int resultNum = accountListDao.addUserFollow(favorId);
+        if(resultNum==0){
+            accountListDao.insertUserFollow(favorId);
+        }
+    }
 }

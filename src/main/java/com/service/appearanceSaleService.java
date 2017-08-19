@@ -126,7 +126,7 @@ public class appearanceSaleService {
         return resArr;
     }
 
-    public Object protDisable(String mainId) {
+    public Object protDisable(String mainId) throws Exception {
         int resArr = 0;
         try {
                 resArr = appearanceSaleDao.protDisable(mainId);
@@ -138,7 +138,15 @@ public class appearanceSaleService {
         if(resArr==1){
             return "提交成功";
         }else{
-            return  "提交失败";
+            appearanceSaleDao.insertUserFollow(mainId);
+            return "提交成功";
+        }
+    }
+
+    public void addUserFollow(String mainId) throws Exception {
+        int resultNum = appearanceSaleDao.addUserFollow(mainId);
+        if(resultNum==0){
+            appearanceSaleDao.insertUserFollow(mainId);
         }
     }
 }

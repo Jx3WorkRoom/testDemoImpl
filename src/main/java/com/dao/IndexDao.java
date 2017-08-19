@@ -23,7 +23,7 @@ public class IndexDao {
     public List<Map<String,Object>> queryIndex(int tradeType) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(" select a.* FROM c_post_bar_12 a LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
+        sql.append(" select a.*,b.* FROM c_post_bar_12 a LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
                     " WHERE a.TRADE_TYPE = "+tradeType+
                     " AND a.BELONG_QF is not NULL" +
                     " AND a.TIXIN is not NULL" +
@@ -37,7 +37,7 @@ public class IndexDao {
     public List<Map<String,Object>> queryIndex2(int tradeType) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(" select a.* FROM c_post_bar_13 a LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
+        sql.append(" select a.*,b.* FROM c_post_bar_13 a LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
                 " WHERE a.TRADE_TYPE = "+tradeType+
                 " AND a.BELONG_QF is not NULL" +
                 " AND a.VIEW_NAME is not NULL" +
@@ -51,7 +51,7 @@ public class IndexDao {
     public List<Map<String,Object>> queryIndex3(int tradeType) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(" select a.* FROM c_post_bar_15 a LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
+        sql.append(" select a.*,b* FROM c_post_bar_15 a LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
                 " WHERE a.TRADE_TYPE = "+tradeType+
                 " AND a.BELONG_QF is not NULL" +
                 " AND a.THEME_NAME is not NULL" +

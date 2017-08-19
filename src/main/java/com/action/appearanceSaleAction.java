@@ -96,10 +96,11 @@ public class appearanceSaleAction {
             @RequestParam(value="sourceType",required=true) int sourceType,
             @RequestParam(value="userId",required=true) int userId
 
-    ){
+    ) throws Exception {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
         Object dataList = appearanceSaleService.queryappearanceSaleSource(mainId,sourceType,userId);
+        appearanceSaleService.addUserFollow(mainId);
         resmap.put("datas", dataList);
         resmap.put("success", true);
         long post=System.currentTimeMillis();
@@ -113,7 +114,7 @@ public class appearanceSaleAction {
     public Map<String,Object> protDisableAction(
             @RequestParam(value="mainId",required=true) String mainId
 
-    ){
+    ) throws Exception {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
         Object dataList = appearanceSaleService.protDisable(mainId);

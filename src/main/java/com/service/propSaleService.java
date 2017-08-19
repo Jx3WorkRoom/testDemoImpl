@@ -110,7 +110,7 @@ public class propSaleService {
         }
     }
 
-    public Object queryPropSaleSource(int mainId, int sourceType, int userId) {
+    public Object queryPropSaleSource(String mainId, int sourceType, int userId) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
             if(sourceType==1) {
@@ -124,5 +124,29 @@ public class propSaleService {
             e.printStackTrace();
         }
         return resArr;
+    }
+
+    public void addUserFollow(String mainId) throws Exception {
+        int resultNum = propSaleDao.addUserFollow(mainId);
+        if(resultNum==0){
+            propSaleDao.insertUserFollow(mainId);
+        }
+    }
+
+    public Object protDisable(String mainId) throws Exception {
+        int resArr = 0;
+        try {
+            resArr = propSaleDao.protDisable(mainId);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(resArr==1){
+            return "提交成功";
+        }else{
+            propSaleDao.insertUserFollow(mainId);
+            return "提交成功";
+        }
     }
 }

@@ -143,4 +143,21 @@ public class blackListDao {
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }
+
+    public int addUserFollow(int favorId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" UPDATE f_user_follow SET user_follow = USER_FOLLOW + 1 WHERE main_id = ( SELECT main_id FROM c_post_bar_11 WHERE favor_id = "+favorId+")");
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(), paramList);
+    }
+
+    public void insertUserFollow(int favorId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        String dateTime = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");
+        sql.append(" INSERT into f_user_follow(RECORD_ID,CREATETIME,UPDATETIME,ISVALID,MAIN_ID,USER_FOLLOW,USER_ISVALID) VALUES('',"+dateTime+","+dateTime+",'1',(select main_id from c_post_bar_11 where FAVOR_ID ="+favorId+" ),'1',0)");
+        System.out.println(sql);
+        this.commondao.update(sql.toString(), paramList);
+    }
 }

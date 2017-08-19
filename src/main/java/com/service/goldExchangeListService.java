@@ -108,4 +108,28 @@ public class goldExchangeListService {
         }
         return resArr;
     }
+
+    public void addUserFollow(String mainId) throws Exception {
+        int resultNum = goldExchangeListDao.addUserFollow(mainId);
+        if(resultNum==0){
+            goldExchangeListDao.insertUserFollow(mainId);
+        }
+    }
+
+    public Object protDisable(String mainId) throws Exception {
+        int resArr = 0;
+        try {
+            resArr = goldExchangeListDao.protDisable(mainId);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(resArr==1){
+            return "提交成功";
+        }else{
+            goldExchangeListDao.insertUserFollow(mainId);
+            return  "提交成功";
+        }
+    }
 }

@@ -26,7 +26,7 @@ public class levelingListDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append("SELECT" +
-                " a.* " +
+                " a.*,b.USER_FOLLOW,B.USER_ISVALID " +
                 " FROM" +
                 " c_post_bar_17 a " +
                 " LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
@@ -50,7 +50,7 @@ public class levelingListDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append(
-                " select a.*  FROM c_post_bar_17 a LEFT JOIN f_user_follow b on a.main_id = b.main_id" +
+                " select a.*,b.USER_FOLLOW,B.USER_ISVALID  FROM c_post_bar_17 a LEFT JOIN f_user_follow b on a.main_id = b.main_id" +
                         " WHERE a.NEED_TYPE = "+needType +
                         " AND a.BELONG_QF is not NULL" +
                         " AND a.POST_CONTENT IS NOT NULL" +
@@ -151,5 +151,32 @@ public class levelingListDao {
         sql.append("select user_qq from f_user_info where USER_ID = "+userId);
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
+    }
+
+    public int addUserFollow(String mainId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" UPDATE f_user_follow SET user_follow = USER_FOLLOW + 1 WHERE main_id ='"+mainId+"'");
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(), paramList);
+    }
+
+    public void insertUserFollow(String mainId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        String dateTime = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");
+        sql.append(" INSERT into f_user_follow(RECORD_ID,CREATETIME,UPDATETIME,ISVALID,MAIN_ID,USER_FOLLOW,USER_ISVALID) VALUES('',"+dateTime+","+dateTime+",'1','"+mainId+"','1',0)");
+        System.out.println(sql);
+        this.commondao.update(sql.toString(), paramList);
+    }
+
+    public int protDisable(String mainId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" update F_USER_follow set " +
+                " user_isvalid = user_isvalid+1 "+
+                " where main_id = '"+mainId+"'");
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(), paramList);
     }
 }

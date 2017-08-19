@@ -73,10 +73,11 @@ public class blackListAction {
     @Produces("application/json")
     public Map<String,Object> getblackDetailAction(
             @RequestParam(value="favorId",required=true) int favorId
-    ){
+    ) throws Exception {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
         Object SelectionList = blackListService.queryblackListByFavorIdInfo(favorId);
+        blackListService.addUserFollow(favorId);
         resmap.put("datas", SelectionList);
         resmap.put("success", true);
         long post=System.currentTimeMillis();

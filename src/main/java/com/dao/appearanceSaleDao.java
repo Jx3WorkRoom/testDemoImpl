@@ -27,7 +27,7 @@ public class appearanceSaleDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append("SELECT" +
-                " a.* " +
+                " a.*,b.USER_FOLLOW,B.USER_ISVALID " +
                 " FROM" +
                 " c_post_bar_13 a " +
                 " LEFT JOIN f_user_follow b ON a.main_id = b.main_id " +
@@ -53,7 +53,7 @@ public class appearanceSaleDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append(
-                " select a.* FROM c_post_bar_13 a LEFT JOIN f_user_follow b ON a.main_id = b.main_id" +
+                " select a.*,b.USER_FOLLOW,B.USER_ISVALID FROM c_post_bar_13 a LEFT JOIN f_user_follow b ON a.main_id = b.main_id" +
                         " WHERE a.TRADE_TYPE = "+tradeType +
                         " AND a.BELONG_QF is not NULL" +
                         " AND a.VIEW_NAME is not NULL" +
@@ -169,5 +169,23 @@ public class appearanceSaleDao {
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
+
+    public int addUserFollow(String mainId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" UPDATE f_user_follow SET user_follow = USER_FOLLOW + 1 WHERE main_id ='"+mainId+"'");
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(), paramList);
+    }
+
+    public void insertUserFollow(String mainId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        String dateTime = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");
+        sql.append(" INSERT into f_user_follow(RECORD_ID,CREATETIME,UPDATETIME,ISVALID,MAIN_ID,USER_FOLLOW,USER_ISVALID) VALUES('',"+dateTime+","+dateTime+",'1','"+mainId+"','1',0)");
+        System.out.println(sql);
+        this.commondao.update(sql.toString(), paramList);
+    }
+
 }
 

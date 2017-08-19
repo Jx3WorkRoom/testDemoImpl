@@ -125,4 +125,28 @@ public class levelingListService {
         }
         return resArr;
     }
+
+    public void addUserFollow(String mainId) throws Exception {
+        int resultNum = levelingListDao.addUserFollow(mainId);
+        if(resultNum==0){
+            levelingListDao.insertUserFollow(mainId);
+        }
+    }
+
+    public Object protDisable(String mainId) throws Exception {
+        int resArr = 0;
+        try {
+            resArr = levelingListDao.protDisable(mainId);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(resArr==1){
+            return "提交成功";
+        }else{
+            levelingListDao.insertUserFollow(mainId);
+            return  "提交成功";
+        }
+    }
 }

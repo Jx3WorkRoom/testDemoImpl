@@ -95,14 +95,32 @@ public class levelingListAction {
             @RequestParam(value="sourceType",required=true) int sourceType,
             @RequestParam(value="userId",required=true) int userId
 
-    ){
+    ) throws Exception {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
         Object dataList = levelingListService.querylevelingListSource(mainId,sourceType,userId);
+        levelingListService.addUserFollow(mainId);
         resmap.put("datas", dataList);
         resmap.put("success", true);
         long post=System.currentTimeMillis();
         System.out.println("查询代练代打接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+    @ApiOperation(value="提交失效信息", notes="默认返回数据",produces = "application/json")
+    @RequestMapping(value="protDisable",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> protDisableAction(
+            @RequestParam(value="mainId",required=true) String mainId
+
+    ) throws Exception {
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object dataList = levelingListService.protDisable(mainId);
+        resmap.put("info", dataList);
+        resmap.put("success", true);
+        long post=System.currentTimeMillis();
+        System.out.println("提交失效信息接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
     }
 }

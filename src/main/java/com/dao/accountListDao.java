@@ -28,7 +28,7 @@ public class accountListDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append("SELECT" +
-                " a.*" +
+                " a.*,b.USER_FOLLOW,B.USER_ISVALID " +
                 " FROM" +
                 " c_post_bar_12 a" +
                 " LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
@@ -62,7 +62,7 @@ public class accountListDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append(
-                " select a.* FROM c_post_bar_12 a LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
+                " select a.*,b.USER_FOLLOW,B.USER_ISVALID  FROM c_post_bar_12 a LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
                         " WHERE " +
                         "  a.TRADE_TYPE = "+tradeType +
                         " AND a.BELONG_QF is not NULL" +
@@ -119,7 +119,14 @@ public class accountListDao {
     public List<Map<String,Object>> queryAccountDetailInfo(int favorId) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(" SELECT a.* FROM c_post_bar_12 a LEFT JOIN c_post_bar_14 b on a.FAVOR_ID =b.FAVOR_ID WHERE a.FAVOR_ID ="+favorId);
+        sql.append(" SELECT" +
+                " a.*, b.*, c.*" +
+                " FROM" +
+                " c_post_bar_12 a" +
+                " LEFT JOIN c_post_bar_14 b ON a.FAVOR_ID = b.FAVOR_ID" +
+                " LEFT JOIN f_user_follow c ON a.main_id = c.main_id" +
+                " WHERE" +
+                " a.FAVOR_ID =" +favorId);
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }
@@ -195,10 +202,25 @@ public class accountListDao {
     public int accountDetailSubmitIsValid(int favorId) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(" update c_post_bar_12 set " +
-                " ISVALID = 0"+
-                " where favor_id = '"+favorId+"'");
+        sql.append(" update f_user_follow set USER_ISVALID = USER_ISVALID+1 where main_id = (select main_id from c_post_bar_12 WHERE favor_id = "+favorId+")");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
+    }
+
+    public int addUserFollow(int favorId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" UPDATE f_user_follow SET user_follow = USER_FOLLOW + 1 WHERE main_id = ( SELECT main_id FROM c_post_bar_12 WHERE favor_id = "+favorId+")");
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(), paramList);
+    }
+
+    public void insertUserFollow(int favorId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        String dateTime = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");
+        sql.append(" INSERT into f_user_follow(RECORD_ID,CREATETIME,UPDATETIME,ISVALID,MAIN_ID,USER_FOLLOW,USER_ISVALID) VALUES('',"+dateTime+","+dateTime+",'1',(select main_id from c_post_bar_12 where FAVOR_ID ="+favorId+" ),'1',0)");
+        System.out.println(sql);
+        this.commondao.update(sql.toString(), paramList);
     }
 }
