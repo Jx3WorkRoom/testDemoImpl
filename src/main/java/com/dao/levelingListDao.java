@@ -31,9 +31,16 @@ public class levelingListDao {
                 " c_post_bar_17 a " +
                 " LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
                 " WHERE" +
-                " a.NEED_TYPE = "+needType+
-                " AND a.BELONG_QF like '"+selectTion1+"%"+selectTion2+"%"+selectTion3+"%'" +
-                " AND a.THEME_NAME like '%"+shape+"%'" +
+                " a.NEED_TYPE = "+needType);
+        if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3)){
+            sql.append(
+                    " AND a.BELONG_QF like '"+selectTion1+"%"+selectTion2+"%"+selectTion3+"%'" );
+        }
+        if(!"".equals(shape)) {
+            sql.append(
+                    " AND a.POST_CONTENT like '%" + shape + "%'");
+        }
+        sql.append(
                 " AND a.BELONG_QF is not NULL" +
                 " AND a.POST_CONTENT IS NOT NULL" +
                 " GROUP BY" +

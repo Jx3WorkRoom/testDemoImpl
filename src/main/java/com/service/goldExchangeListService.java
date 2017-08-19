@@ -15,11 +15,11 @@ public class goldExchangeListService {
     public Object queryGoldExchangeListInfo(int tradeType, String areaSelection, int pageNumSelected, int startNum, int endNum) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            if((startNum==0 || endNum ==10) && pageNumSelected !=1){
-                startNum = (pageNumSelected-1)*10;
-                endNum = startNum+10;
+            if((startNum==0 || endNum ==20) && pageNumSelected !=1){
+                startNum = (pageNumSelected-1)*20;
+                endNum = 20;
             }
-            if(!"".equals(areaSelection)&&areaSelection!=null){
+            if(!"".equals(areaSelection)){
                 String selectTion1 = areaSelection.split(",")[0];
                 String selectTion2 = areaSelection.split(",")[1];
                 String selectTion3 = areaSelection.split(",")[2];

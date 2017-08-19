@@ -32,9 +32,16 @@ public class propSaleDao {
                 " c_post_bar_15 a " +
                 " LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
                 " WHERE" +
-                " a.TRADE_TYPE = "+tradeType +
-                " AND a.BELONG_QF like '"+selectTion1+"%"+selectTion2+"%"+selectTion3+"%'" +
-                " AND a.prop_NAME like '%"+shape+"%'" +
+                " a.TRADE_TYPE = "+tradeType );
+        if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3)) {
+            sql.append(
+                    " AND a.BELONG_QF like '" + selectTion1 + "%" + selectTion2 + "%" + selectTion3 + "%'");
+        }
+        if(!"".equals(shape)) {
+            sql.append(
+                    " AND a.prop_NAME like '%" + shape + "%'");
+        }
+        sql.append(
                 " AND a.BELONG_QF is not NULL" +
                 " AND a.prop_NAME is not NULL" +
                 " AND a.post_CONTENT IS NOT NULL" +

@@ -15,17 +15,22 @@ public class levelingListService {
     public Object queryLevelingListInfo(int needType, String areaSelection, String shape, int pageNumSelected, int startNum, int endNum) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            if((startNum==0 || endNum ==10) && pageNumSelected !=1){
-                startNum = (pageNumSelected-1)*10;
-                endNum = startNum+10;
+            if((startNum==0 || endNum ==20) && pageNumSelected !=1){
+                startNum = (pageNumSelected-1)*20;
+                endNum = 20;
             }
-            if(!"".equals(areaSelection)&&areaSelection!=null){
-                String selectTion1 = areaSelection.split(",")[0];
-                String selectTion2 = areaSelection.split(",")[1];
-                String selectTion3 = areaSelection.split(",")[2];
-                resArr = levelingListDao.querylevelingListInfo1(needType,selectTion1,selectTion2,selectTion3,shape,startNum,endNum);
-            }else{
+            if("".equals(areaSelection)&&"".equals(shape)){
                 resArr = levelingListDao.querylevelingListInfo2(needType,startNum,endNum);
+            }else{
+                String selectTion1 = "";
+                String selectTion2 = "";
+                String selectTion3 = "";
+                if(!"".equals(areaSelection)) {
+                    selectTion1 = areaSelection.split(",")[0];
+                    selectTion2 = areaSelection.split(",")[1];
+                    selectTion3 = areaSelection.split(",")[2];
+                }
+                resArr = levelingListDao.querylevelingListInfo1(needType,selectTion1,selectTion2,selectTion3,shape,startNum,endNum);
             }
         } catch (Exception e) {
             // TODO Auto-generated catch block
