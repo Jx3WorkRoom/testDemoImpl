@@ -20,9 +20,23 @@ public class goldExchangeListService {
                 endNum = 20;
             }
             if(!"".equals(areaSelection)){
-                String selectTion1 = areaSelection.split(",")[0];
-                String selectTion2 = areaSelection.split(",")[1];
-                String selectTion3 = areaSelection.split(",")[2];
+                String selectTion1 = "";
+                String selectTion2 = "";
+                String selectTion3 = "";
+                    int length = areaSelection.split(",").length;
+                    if(length==1){
+                        selectTion1 = areaSelection.split(",")[0];
+                        selectTion2 = "";
+                        selectTion3 = "";
+                    }else if(length==2){
+                        selectTion1 = areaSelection.split(",")[0];
+                        selectTion2 = areaSelection.split(",")[1];
+                        selectTion3 = "";
+                    }else if(length==3){
+                        selectTion1 = areaSelection.split(",")[0];
+                        selectTion2 = areaSelection.split(",")[1];
+                        selectTion3 = areaSelection.split(",")[2];
+                    }
                 resArr = goldExchangeListDao.querygoldExchangeListInfo1(tradeType,selectTion1,selectTion2,selectTion3,startNum,endNum);
             }else{
                 resArr = goldExchangeListDao.querygoldExchangeListInfo2(tradeType,startNum,endNum);

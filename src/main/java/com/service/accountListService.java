@@ -28,9 +28,20 @@ public class accountListService {
                 String selectTion2 = "";
                 String selectTion3 = "";
                 if(!"".equals(areaSelection)) {
-                    selectTion1 = areaSelection.split(",")[0];
-                    selectTion2 = areaSelection.split(",")[1];
-                    selectTion3 = areaSelection.split(",")[2];
+                    int length = areaSelection.split(",").length;
+                    if(length==1){
+                        selectTion1 = areaSelection.split(",")[0];
+                        selectTion2 = "";
+                        selectTion3 = "";
+                    }else if(length==2){
+                        selectTion1 = areaSelection.split(",")[0];
+                        selectTion2 = areaSelection.split(",")[1];
+                        selectTion3 = "";
+                    }else if(length==3){
+                        selectTion1 = areaSelection.split(",")[0];
+                        selectTion2 = areaSelection.split(",")[1];
+                        selectTion3 = areaSelection.split(",")[2];
+                    }
                 }
                 resArr = accountListDao.queryAccountListInfo1(tradeType,selectTion1,selectTion2,selectTion3,shape,info,startNum,endNum);
             }

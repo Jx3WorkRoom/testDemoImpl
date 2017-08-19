@@ -33,7 +33,7 @@ public class goldExchangeListDao {
                 " LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
                 " WHERE" +
                 " a.TRADE_TYPE = "+tradeType +
-                " AND a.BELONG_QF = '"+selectTion1+"%"+selectTion2+"%"+selectTion3+"%'" +
+                " AND a.BELONG_QF like '%"+selectTion1+"%"+selectTion2+"%"+selectTion3+"%'" +
                 " AND a.BELONG_QF is not NULL" +
                 " AND a.GOLD_TOTAL is not NULL" +
                 " AND a.UNIT_PRICE IS NOT NULL" +

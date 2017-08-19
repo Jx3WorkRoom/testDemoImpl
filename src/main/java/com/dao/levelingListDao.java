@@ -34,7 +34,7 @@ public class levelingListDao {
                 " a.NEED_TYPE = "+needType);
         if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3)){
             sql.append(
-                    " AND a.BELONG_QF like '"+selectTion1+"%"+selectTion2+"%"+selectTion3+"%'" );
+                    " AND a.BELONG_QF like '%"+selectTion1+"%"+selectTion2+"%"+selectTion3+"%'" );
         }
         if(!"".equals(shape)) {
             sql.append(
