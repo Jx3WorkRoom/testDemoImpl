@@ -36,7 +36,7 @@ public class blackListService {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return resArr;
+        return resArr.size();
     }
 
     public String userIsvalid(String userName, String mainId, int isValided, String replyTime) throws Exception {
