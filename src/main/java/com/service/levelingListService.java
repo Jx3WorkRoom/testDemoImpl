@@ -103,7 +103,9 @@ public class levelingListService {
                 resArr = levelingListDao.queryCollectCont(mainId);
                 Map<String,Object> map = resArr.get(0);
                 for (Map.Entry<String, Object> entry : map.entrySet()) {
-                    COLLECT_CONT.append(entry.getKey()+":"+entry.getValue()+"\n");
+                    if(entry.getValue()!=""&&entry.getValue()!="[]") {
+                        COLLECT_CONT.append(entry.getValue());
+                    }
                 }
             } catch (Exception e) {
                 // TODO Auto-generated catch block

@@ -83,7 +83,7 @@ public class IwantReleaseService {
     public String saveDlddInfo(int cheatType, String belongQf, String favorInfo){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            int insertResult = iwantReleaseDao.saveDlddInfo(cheatType, belongQf, String favorInfo);
+            int insertResult = iwantReleaseDao.saveDlddInfo(cheatType, belongQf,  favorInfo);
             if(insertResult==1) {
                 return "保存成功!";
             }else{
