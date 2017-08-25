@@ -65,7 +65,7 @@ public class IwantReleaseDao {
     }
 
     //金币交易
-    public int saveJbjyInfo(int tradeType, String belongQf, int goldTotal, int unitPrice, int ifSploit, String favorInfo) throws Exception {
+    public int saveJbjyInfo(int tradeType, String belongQf, int goldTotal, int unitPrice, int ifSplit, String favorInfo) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
@@ -73,8 +73,8 @@ public class IwantReleaseDao {
         String favorId = "1";
         String userId = "1";
         String favorDate = createTime;
-        sql.append(" insert into D_POST_BAR_19(record_id,createtime,updatetime,isvalid,favor_id,user_id,favor_date,trade_type,belong_qf,gold_total,unit_price,if_sploit,favor_info) " +
-                " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+favorDate+"','"+tradeType+"','"+belongQf+"','"+goldTotal+"','"+unitPrice+"','"+ifSploit+"','"+favorInfo+"')");
+        sql.append(" insert into D_POST_BAR_19(record_id,createtime,updatetime,isvalid,favor_id,user_id,favor_date,trade_type,belong_qf,gold_total,unit_price,if_split,favor_info) " +
+                " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+favorDate+"','"+tradeType+"','"+belongQf+"','"+goldTotal+"','"+unitPrice+"','"+ifSplit+"','"+favorInfo+"')");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
@@ -89,7 +89,7 @@ public class IwantReleaseDao {
         String userId = "1";
         String favorDate = createTime;
         sql.append(" insert into D_POST_BAR_20(record_id,createtime,updatetime,isvalid,favor_id,user_id,cheat_type,belong_qf,favor_info,favorDate) " +
-                " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+favorDate+"','"+cheatType+"','"+belongQf+"','"+favorInfo+"','"+favorDate+"')");
+                " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+cheatType+"','"+belongQf+"','"+favorInfo+"','"+favorDate+"')");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }

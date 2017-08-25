@@ -50,7 +50,7 @@ public class IwantReleaseService {
     public String saveDjjyInfo(int tradeType, String belongQf, String propName, int priceNum, String favorInfo) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            int insertResult = iwantReleaseDao.saveWgjyInfo(tradeType, belongQf, propName, priceNum, favorInfo);
+            int insertResult = iwantReleaseDao.saveDjjyInfo(tradeType, belongQf, propName, priceNum, favorInfo);
             if(insertResult==1) {
                 return "保存成功!";
             }else{
@@ -63,10 +63,10 @@ public class IwantReleaseService {
         return "保存失败!";
     }
     //金币交易
-    public String saveJbjyInfo(int tradeType, String belongQf, int goldTotal, int unitPrice, int ifSploit, String favorInfo){
+    public String saveJbjyInfo(int tradeType, String belongQf, int goldTotal, int unitPrice, int ifSplit, String favorInfo){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            int insertResult = iwantReleaseDao.saveJbjyInfo(tradeType, belongQf, goldTotal, unitPrice, ifSploit, favorInfo);
+            int insertResult = iwantReleaseDao.saveJbjyInfo(tradeType, belongQf, goldTotal, unitPrice, ifSplit, favorInfo);
             if(insertResult==1) {
                 return "保存成功!";
             }else{
