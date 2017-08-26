@@ -28,16 +28,11 @@ public class UserAction {
     @RequestMapping(value="userInfo",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> getUserInfo(
-            @RequestParam(value="conditions",required=false) String conditions
+            @RequestParam(value="username",required=false) String username
             ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        String[] conditionArr = conditions.split("&");
-//        if(conditionArr.length < 4){
-//            resmap.put("msg", "参数不能为空");
-//            return resmap;
-//        }
-        Object dataList = userService.queryUser();
+        Object dataList = userService.queryUser(username);
         resmap.put("datas", dataList);
         resmap.put("success", true);
         long post=System.currentTimeMillis();

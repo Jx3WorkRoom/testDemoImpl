@@ -16,10 +16,10 @@ public class userService {
     @Autowired
     userDao userDao;
 
-    public List<Map<String,Object>> queryUser() {
+    public List<Map<String,Object>> queryUser(String username) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            resArr = userDao.queryUser();
+            resArr = userDao.queryUser(username);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

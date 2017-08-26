@@ -24,11 +24,13 @@ public class userDao {
 
     /**
      * 查询所有用户信息
+     * @param username
      */
-    public List<Map<String,Object>> queryUser() throws Exception{
+    public List<Map<String,Object>> queryUser(String username) throws Exception{
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append("select * from userinfo ");
+        sql.append("select * from userinfo where username = '"+username+"' limit 0 ,1");
+        System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }
 
