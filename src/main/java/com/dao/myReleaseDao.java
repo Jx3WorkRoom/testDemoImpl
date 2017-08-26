@@ -23,7 +23,7 @@ public class myReleaseDao {
     public List<Map<String,Object>> myReleaseInfo(String userName, int num) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(" select * from  F_USER_PUB_INFO where  USER_ID = (select ID from userinfo where username='"+userName+"') AND FAVOR_TYPE =1 LIMIT "+num+",10");
+        sql.append(" select * from  F_USER_PUB_INFO where  USER_ID = (select ID from userinfo where username='"+userName+"') AND COLLECT_STUSTA =1 LIMIT "+num+",10");
         System.out.println(sql);
         listSql = sql.toString();
         return this.commondao.query(sql.toString(), paramList);
@@ -42,7 +42,7 @@ public class myReleaseDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
 
-        sql.append(" update F_USER_PUB_INFO set FAVOR_TYPE = 0 where RECORD_ID='"+ids[0]+"'");
+        sql.append(" update F_USER_PUB_INFO set COLLECT_STUSTA = 0 where RECORD_ID='"+ids[0]+"'");
         for(int i=0;i<ids.length;i++){
             sql.append(" and RECORD_ID='"+ids[0]+"'");
         }
