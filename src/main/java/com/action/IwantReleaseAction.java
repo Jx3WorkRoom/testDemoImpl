@@ -24,10 +24,10 @@ public class IwantReleaseAction {
     IwantReleaseService iwantReleaseService;
 
     @ApiOperation(value="我要举报", notes="保存",produces = "application/json")
-    @RequestMapping(value="reportSave",method = RequestMethod.GET)
+    @RequestMapping(value="saveWyjbInfo",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> getAccountListAction(
-            @RequestParam(value="cheatType",required=false,defaultValue = " ") int tradeType,
+            @RequestParam(value="cheatType",required=false,defaultValue = "") int tradeType,
             @RequestParam(value="belongQf",required=false,defaultValue ="") String belongQf,
             @RequestParam(value="tixin",required=false,defaultValue ="") String tixin,
             @RequestParam(value="roleName",required=false,defaultValue ="") String roleName,
@@ -48,7 +48,7 @@ public class IwantReleaseAction {
     @RequestMapping(value="saveWgjyInfo",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> saveWgjyInfoAction(
-            @RequestParam(value="cheatType",required=false,defaultValue = " ") int tradeType,
+            @RequestParam(value="cheatType",required=false,defaultValue = "") int tradeType,
             @RequestParam(value="belongQf",required=false,defaultValue ="") String belongQf,
             @RequestParam(value="viewName",required=false,defaultValue ="") String viewName,
             @RequestParam(value="priceNum",required=false,defaultValue ="") int priceNum,
@@ -67,7 +67,7 @@ public class IwantReleaseAction {
     @RequestMapping(value="saveDjjyInfo",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> saveDjjyInfoAction(
-            @RequestParam(value="tradeType",required=false,defaultValue = " ") int tradeType,
+            @RequestParam(value="tradeType",required=false,defaultValue = "") int tradeType,
             @RequestParam(value="belongQf",required=false,defaultValue ="") String belongQf,
             @RequestParam(value="propName",required=false,defaultValue ="") String propName,
             @RequestParam(value="priceNum",required=false,defaultValue ="") int priceNum,
@@ -86,16 +86,16 @@ public class IwantReleaseAction {
     @RequestMapping(value="saveJbjyInfo",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> saveDjjyInfoAction(
-            @RequestParam(value="tradeType",required=false,defaultValue = " ") int tradeType,
+            @RequestParam(value="tradeType",required=false,defaultValue = "") int tradeType,
             @RequestParam(value="belongQf",required=false,defaultValue ="") String belongQf,
             @RequestParam(value="goldTotal",required=false,defaultValue ="") int goldTotal,
             @RequestParam(value="unitPrice",required=false,defaultValue ="") int unitPrice,
-            @RequestParam(value="ifSploit",required=false,defaultValue="") int ifSploit,
+            @RequestParam(value="ifSplit",required=false,defaultValue="") int ifSplit,
             @RequestParam(value="favorInfo",required=false,defaultValue="") String favorInfo
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        String returnVal = iwantReleaseService.saveJbjyInfo(tradeType,belongQf,goldTotal,unitPrice,ifSploit,favorInfo);
+        String returnVal = iwantReleaseService.saveJbjyInfo(tradeType,belongQf,goldTotal,unitPrice,ifSplit,favorInfo);
 
         long post=System.currentTimeMillis();
         System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
@@ -107,7 +107,7 @@ public class IwantReleaseAction {
     @RequestMapping(value="saveDlddInfo",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> saveDlddInfoAction(
-            @RequestParam(value="tradeType",required=false,defaultValue = " ") int tradeType,
+            @RequestParam(value="tradeType",required=false,defaultValue = "") int tradeType,
             @RequestParam(value="belongQf",required=false,defaultValue ="") String belongQf,
             @RequestParam(value="favorInfo",required=false,defaultValue="") String favorInfo
     ){
