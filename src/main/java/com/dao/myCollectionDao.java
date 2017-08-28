@@ -43,8 +43,8 @@ public class myCollectionDao {
         List<Object> paramList = new ArrayList<Object>();
 
         sql.append(" update f_user_coll_info set COLL_TYPE = 0 where RECORD_ID='"+ids[0]+"'");
-        for(int i=0;i<ids.length;i++){
-            sql.append(" and RECORD_ID='"+ids[0]+"'");
+        for(int i=1;i<ids.length;i++){
+            sql.append(" || RECORD_ID='"+ids[i]+"'");
         }
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);

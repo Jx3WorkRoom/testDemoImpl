@@ -49,7 +49,7 @@ public class myServiceDao {
     public List<Map<String,Object>> queryServiceInfoByUserId3(String username, int num) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append("  select a.*,b.mod_name FROM f_sys_mod_4 a,f_sys_mod_1 b where a.MOD_ID = b.MOD_ID and a.USER_ID = (select id from userinfo where username = '"+username+"') LIMIT "+num+",20");
+        sql.append("  select a.*,b.mod_name FROM f_sys_mod_4 a,f_sys_mod_1 b where a.MOD_ID = b.MOD_ID and a.USER_ID = (select id from userinfo where username = '"+username+"') order BY a.CHANGE_TIME DESC LIMIT "+num+",20");
         System.out.println(sql);
         listSql = sql.toString();
         return this.commondao.query(sql.toString(), paramList);
