@@ -129,13 +129,19 @@ public class propSaleService {
         }
     }
 
-    public Object queryPropSaleSource(String mainId, int sourceType, int userId) {
+    public Object queryPropSaleSource(String mainId, int sourceType, int userId,String userName) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        List<Map<String, Object>> hasAuth = new ArrayList<Map<String, Object>>();
         try {
-            if(sourceType==1) {
-                resArr = propSaleDao.queryappearanceSaleSource(mainId);
+            hasAuth = propSaleDao.hasAuth(userName);
+            if(hasAuth.size()>0) {
+                if (sourceType == 1) {
+                    resArr = propSaleDao.queryappearanceSaleSource(mainId);
+                } else {
+                    resArr = propSaleDao.queryappearanceSaleSource2(userId);
+                }
             }else{
-                resArr = propSaleDao.queryappearanceSaleSource2(userId);
+                return "noAuth";
             }
 
         } catch (Exception e) {
@@ -145,14 +151,14 @@ public class propSaleService {
         return resArr;
     }
 
-    public void addUserFollow(String mainId) throws Exception {
+    public void addUserFollow(String mainId,String userName) throws Exception {
         int resultNum = propSaleDao.addUserFollow(mainId);
         if(resultNum==0){
-            propSaleDao.insertUserFollow(mainId);
+            propSaleDao.insertUserFollow(mainId,userName);
         }
     }
 
-    public Object protDisable(String mainId) throws Exception {
+    public Object protDisable(String mainId,String userName) throws Exception {
         int resArr = 0;
         try {
             resArr = propSaleDao.protDisable(mainId);
@@ -164,7 +170,7 @@ public class propSaleService {
         if(resArr==1){
             return "提交成功";
         }else{
-            propSaleDao.insertUserFollow(mainId);
+            propSaleDao.insertUserFollow(mainId,userName);
             return "提交成功";
         }
     }

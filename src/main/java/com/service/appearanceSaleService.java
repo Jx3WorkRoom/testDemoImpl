@@ -128,15 +128,20 @@ public class appearanceSaleService {
         }
     }
 
-    public Object queryappearanceSaleSource(String mainId, int sourceType, int userId) {
+    public Object queryappearanceSaleSource(String mainId, int sourceType, int userId,String userName) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        List<Map<String, Object>> hasAuth = new ArrayList<Map<String, Object>>();
         try {
-            if(sourceType==1) {
-                resArr = appearanceSaleDao.queryappearanceSaleSource(mainId);
-            }else{
-                resArr = appearanceSaleDao.queryappearanceSaleSource2(userId);
+            hasAuth = appearanceSaleDao.hasAuth(userName);
+            if(hasAuth.size()>0) {
+                if (sourceType == 1) {
+                    resArr = appearanceSaleDao.queryappearanceSaleSource(mainId);
+                } else {
+                    resArr = appearanceSaleDao.queryappearanceSaleSource2(userId);
+                }
+            }else {
+                return "noAuth";
             }
-
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -144,7 +149,7 @@ public class appearanceSaleService {
         return resArr;
     }
 
-    public Object protDisable(String mainId) throws Exception {
+    public Object protDisable(String mainId,String userName) throws Exception {
         int resArr = 0;
         try {
                 resArr = appearanceSaleDao.protDisable(mainId);
@@ -156,15 +161,15 @@ public class appearanceSaleService {
         if(resArr==1){
             return "提交成功";
         }else{
-            appearanceSaleDao.insertUserFollow(mainId);
+            appearanceSaleDao.insertUserFollow(mainId,userName);
             return "提交成功";
         }
     }
 
-    public void addUserFollow(String mainId) throws Exception {
+    public void addUserFollow(String mainId,String userName) throws Exception {
         int resultNum = appearanceSaleDao.addUserFollow(mainId);
         if(resultNum==0){
-            appearanceSaleDao.insertUserFollow(mainId);
+            appearanceSaleDao.insertUserFollow(mainId,userName);
         }
     }
 }

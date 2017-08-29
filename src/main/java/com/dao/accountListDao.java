@@ -217,12 +217,29 @@ public class accountListDao {
         return this.commondao.update(sql.toString(), paramList);
     }
 
-    public void insertUserFollow(int favorId) throws Exception {
+    public void insertUserFollow(int favorId,String userName) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         String dateTime = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");
-        sql.append(" INSERT into f_user_follow(RECORD_ID,CREATETIME,UPDATETIME,ISVALID,MAIN_ID,USER_FOLLOW,USER_ISVALID) VALUES('',"+dateTime+","+dateTime+",'1',(select main_id from c_post_bar_12 where FAVOR_ID ="+favorId+" ),'1',0)");
+        sql.append(" INSERT into f_user_follow(RECORD_ID,CREATETIME,UPDATETIME,ISVALID,USER_ID,MAIN_ID,USER_FOLLOW,USER_ISVALID) VALUES('',"+dateTime+","+dateTime+",'1',(select id from userinfo where username ='"+userName+"'),(select main_id from c_post_bar_12 where FAVOR_ID ="+favorId+" ),'1',0)");
         System.out.println(sql);
         this.commondao.update(sql.toString(), paramList);
+    }
+
+    public List<Map<String,Object>> queryHasCollected(String mainId, String username) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" select coll_type from f_user_coll_info where main_id = '"+mainId+"' and user_id =(select id from userinfo where username = '"+username+"')");
+        System.out.println(sql);
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
+    public List<Map<String, Object>> hasAuth(String username) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" SELECT a.*, b.mod_name FROM f_sys_mod_5 a, f_sys_mod_1 b WHERE a.MOD_ID = b.MOD_ID AND a.USER_ID = ( \n" +
+                    " SELECT id FROM userinfo WHERE username = '"+username+"') AND b.mod_name LIKE '%账号%' AND a.SURPLUS_NUM>1 ");
+        System.out.println(sql);
+        return this.commondao.query(sql.toString(), paramList);
     }
 }

@@ -70,12 +70,13 @@ public class accountListAction {
     @RequestMapping(value="accountDetail",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> getAccountDetailAction(
-            @RequestParam(value="favorId",required=true) int favorId
+            @RequestParam(value="favorId",required=true) int favorId,
+            @RequestParam(value="userName",required=true) String userName
     ) throws Exception {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
         Object accountDetail = accountListService.queryAccountDetailInfo(favorId);
-        accountListService.addUserFollow(favorId);
+        accountListService.addUserFollow(favorId,userName);
         resmap.put("datas", accountDetail);
         resmap.put("success", true);
         long post=System.currentTimeMillis();
@@ -116,13 +117,14 @@ public class accountListAction {
             @RequestParam(value="mainId",required=true) String mainId,
             @RequestParam(value="sourceType",required=true) int sourceType,
             @RequestParam(value="userId",required=true) int userId,
+            @RequestParam(value="userName",required=true) String userName,
             @RequestParam(value="startNum",required=false,defaultValue ="0") int startNum,
             @RequestParam(value="endNum",required=false,defaultValue ="10") int endNum
 
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        Object dataList = accountListService.queryaccountDetailSource(mainId,sourceType,userId,startNum,endNum);
+        Object dataList = accountListService.queryaccountDetailSource(mainId,sourceType,userId,startNum,endNum,userName);
         resmap.put("datas", dataList);
         if(sourceType==1) {
             Object pageList = accountListService.queryPageListNum();
@@ -144,6 +146,22 @@ public class accountListAction {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
         Object info = accountListService.accountDetailSubmitIsValid(favorId);
+        resmap.put("info", info);
+        long post=System.currentTimeMillis();
+        System.out.println("提交失效详情记录接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+    @ApiOperation(value="查询是否已经收藏", notes="",produces = "application/json")
+    @RequestMapping(value="queryHasCollected",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> queryHasCollected(
+            @RequestParam(value="mainId",required=true) String mainId,
+            @RequestParam(value="username",required=true) String username
+    ) throws Exception {
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object info = accountListService.queryHasCollected(mainId,username);
         resmap.put("info", info);
         long post=System.currentTimeMillis();
         System.out.println("提交失效详情记录接口执行时间（单位：毫秒）："+ (post-pre));

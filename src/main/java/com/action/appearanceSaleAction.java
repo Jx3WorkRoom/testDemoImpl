@@ -94,13 +94,13 @@ public class appearanceSaleAction {
     public Map<String,Object> getAppearanceSaleSourceAction(
             @RequestParam(value="mainId",required=true) String mainId,
             @RequestParam(value="sourceType",required=true) int sourceType,
+            @RequestParam(value="userName",required=true) String userName,
             @RequestParam(value="userId",required=true) int userId
-
     ) throws Exception {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        Object dataList = appearanceSaleService.queryappearanceSaleSource(mainId,sourceType,userId);
-        appearanceSaleService.addUserFollow(mainId);
+        Object dataList = appearanceSaleService.queryappearanceSaleSource(mainId,sourceType,userId,userName);
+        appearanceSaleService.addUserFollow(mainId,userName);
         resmap.put("datas", dataList);
         resmap.put("success", true);
         long post=System.currentTimeMillis();
@@ -112,12 +112,12 @@ public class appearanceSaleAction {
     @RequestMapping(value="protDisable",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> protDisableAction(
-            @RequestParam(value="mainId",required=true) String mainId
-
+            @RequestParam(value="mainId",required=true) String mainId,
+            @RequestParam(value="userName",required=true) String userName
     ) throws Exception {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        Object dataList = appearanceSaleService.protDisable(mainId);
+        Object dataList = appearanceSaleService.protDisable(mainId,userName);
         resmap.put("info", dataList);
         resmap.put("success", true);
         long post=System.currentTimeMillis();

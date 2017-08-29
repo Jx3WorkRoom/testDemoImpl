@@ -154,13 +154,19 @@ public class accountListService {
         }
     }
 
-    public Object queryaccountDetailSource(String mainId, int sourceType, int userId,int startNum,int endNum) {
+    public Object queryaccountDetailSource(String mainId, int sourceType, int userId,int startNum,int endNum,String userName) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        List<Map<String, Object>> hasAuth = new ArrayList<Map<String, Object>>();
         try {
-            if(sourceType==1) {
-                resArr = accountListDao.queryaccountDetailSource(mainId,startNum,endNum);
+            hasAuth = accountListDao.hasAuth(userName);
+            if(hasAuth.size()>0) {
+                if (sourceType == 1) {
+                    resArr = accountListDao.queryaccountDetailSource(mainId, startNum, endNum);
+                } else {
+                    resArr = accountListDao.queryaccountDetailSource2(userId);
+                }
             }else{
-                resArr = accountListDao.queryaccountDetailSource2(userId);
+                return "noAuth";
             }
 
         } catch (Exception e) {
@@ -179,10 +185,22 @@ public class accountListService {
         }
     }
 
-    public void addUserFollow(int favorId) throws Exception {
+    public void addUserFollow(int favorId,String userName) throws Exception {
         int resultNum = accountListDao.addUserFollow(favorId);
         if(resultNum==0){
-            accountListDao.insertUserFollow(favorId);
+            accountListDao.insertUserFollow(favorId,userName);
         }
+    }
+
+    public Object queryHasCollected(String mainId, String username) {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = accountListDao.queryHasCollected(mainId,username);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
     }
 }
