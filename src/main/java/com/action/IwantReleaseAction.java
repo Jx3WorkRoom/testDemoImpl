@@ -120,4 +120,22 @@ public class IwantReleaseAction {
         return resmap;
     }
 
+    @ApiOperation(value="账号快售快速发布", notes="保存",produces = "application/json")
+    @RequestMapping(value="saveZhssInfo",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> saveZhssInfoAction(
+            @RequestParam(value="belongQf",required=false,defaultValue ="") String belongQf,
+            @RequestParam(value="tixin",required=false,defaultValue ="") String tixin,
+            @RequestParam(value="priceNum",required=false,defaultValue ="") int priceNum,
+            @RequestParam(value="accoInfo",required=false,defaultValue ="") String accoInfo
+    ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        String returnVal = iwantReleaseService.saveZhssInfo(belongQf,tixin,priceNum,accoInfo);
+
+        long post=System.currentTimeMillis();
+        System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
 }

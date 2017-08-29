@@ -95,4 +95,21 @@ public class IwantReleaseService {
         }
         return "保存失败!";
     }
+
+    //账号快售快速发布
+    public String saveZhssInfo(String belongQf,String tixin,int priceNum,String accoInfo){
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            int insertResult = iwantReleaseDao.saveZhssInfo(belongQf,tixin,priceNum,accoInfo);
+            if(insertResult==1) {
+                return "保存成功!";
+            }else{
+                return "保存失败!";
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "保存失败!";
+    }
 }

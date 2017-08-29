@@ -94,4 +94,20 @@ public class IwantReleaseDao {
         return this.commondao.update(sql.toString(), paramList);
     }
 
+    //账号快售快速发布
+    public int saveZhssInfo(String belongQf,String tixin,int priceNum,String accoInfo) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+        String recordId = UUID.randomUUID().toString().replace("-", "");
+        String favorId = "1";
+        String userId = "1";
+        String tradeType = "1";
+        String favorDate = createTime;
+        sql.append(" insert into D_POST_BAR_13(record_id,createtime,updatetime,isvalid,favor_id,user_id,trade_type,favor_date,belong_qf,tixin,price_num) " +
+                " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+tradeType+"','"+favorDate+"','"+belongQf+"','"+tixin+"','"+priceNum+"')");
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(), paramList);
+    }
+
 }
