@@ -128,15 +128,20 @@ public class levelingListService {
         }
     }
 
-    public Object querylevelingListSource(String mainId, int sourceType, int userId) {
+    public Object querylevelingListSource(String mainId, int sourceType, int userId,String userName) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        List<Map<String, Object>> hasAuth = new ArrayList<Map<String, Object>>();
         try {
-            if(sourceType==1) {
-                resArr = levelingListDao.querylevelingListSource(mainId);
-            }else{
-                resArr = levelingListDao.querylevelingListSource2(userId);
+            hasAuth = levelingListDao.hasAuth(userName);
+            if(hasAuth.size()>0) {
+                if(sourceType==1) {
+                    resArr = levelingListDao.querylevelingListSource(mainId);
+                }else{
+                    resArr = levelingListDao.querylevelingListSource2(userId);
+                }
+            }else {
+                return "noAuth";
             }
-
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -144,14 +149,14 @@ public class levelingListService {
         return resArr;
     }
 
-    public void addUserFollow(String mainId) throws Exception {
+    public void addUserFollow(String mainId,String userName) throws Exception {
         int resultNum = levelingListDao.addUserFollow(mainId);
         if(resultNum==0){
-            levelingListDao.insertUserFollow(mainId);
+            levelingListDao.insertUserFollow(mainId,userName);
         }
     }
 
-    public Object protDisable(String mainId) throws Exception {
+    public Object protDisable(String mainId,String userName) throws Exception {
         int resArr = 0;
         try {
             resArr = levelingListDao.protDisable(mainId);
@@ -163,7 +168,7 @@ public class levelingListService {
         if(resArr==1){
             return "提交成功";
         }else{
-            levelingListDao.insertUserFollow(mainId);
+            levelingListDao.insertUserFollow(mainId,userName);
             return  "提交成功";
         }
     }

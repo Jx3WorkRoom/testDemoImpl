@@ -114,10 +114,16 @@ public class goldExchangeListService {
         }
     }
 
-    public Object queryGoldExchangeSource(int userId) {
+    public Object queryGoldExchangeSource(int userId,String userName) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        List<Map<String, Object>> hasAuth = new ArrayList<Map<String, Object>>();
         try {
-            resArr = goldExchangeListDao.queryappearanceSaleSource(userId);
+            hasAuth = goldExchangeListDao.hasAuth(userName);
+            if(hasAuth.size()>0) {
+                resArr = goldExchangeListDao.queryappearanceSaleSource(userId);
+            }else{
+                return "noAuth";
+            }
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -125,14 +131,14 @@ public class goldExchangeListService {
         return resArr;
     }
 
-    public void addUserFollow(String mainId) throws Exception {
+    public void addUserFollow(String mainId,String userName) throws Exception {
         int resultNum = goldExchangeListDao.addUserFollow(mainId);
         if(resultNum==0){
-            goldExchangeListDao.insertUserFollow(mainId);
+            goldExchangeListDao.insertUserFollow(mainId,userName);
         }
     }
 
-    public Object protDisable(String mainId) throws Exception {
+    public Object protDisable(String mainId,String userName) throws Exception {
         int resArr = 0;
         try {
             resArr = goldExchangeListDao.protDisable(mainId);
@@ -144,7 +150,7 @@ public class goldExchangeListService {
         if(resArr==1){
             return "提交成功";
         }else{
-            goldExchangeListDao.insertUserFollow(mainId);
+            goldExchangeListDao.insertUserFollow(mainId,userName);
             return  "提交成功";
         }
     }

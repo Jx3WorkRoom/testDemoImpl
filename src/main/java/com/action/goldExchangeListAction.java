@@ -89,13 +89,14 @@ public class goldExchangeListAction {
     @Produces("application/json")
     public Map<String,Object> getGoldExchangeSourceAction(
             @RequestParam(value="userId",required=true) int userId,
+            @RequestParam(value="userName",required=true) String userName,
             @RequestParam(value="mainId",required=true) String mainId
 
     ) throws Exception {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        Object dataList = goldExchangeListService.queryGoldExchangeSource(userId);
-        goldExchangeListService.addUserFollow(mainId);
+        Object dataList = goldExchangeListService.queryGoldExchangeSource(userId,userName);
+        goldExchangeListService.addUserFollow(mainId,userName);
         resmap.put("datas", dataList);
         resmap.put("success", true);
         long post=System.currentTimeMillis();
@@ -107,12 +108,12 @@ public class goldExchangeListAction {
     @RequestMapping(value="protDisable",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> protDisableAction(
-            @RequestParam(value="mainId",required=true) String mainId
-
+            @RequestParam(value="mainId",required=true) String mainId,
+            @RequestParam(value="userName",required=true) String userName
     ) throws Exception {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        Object dataList = goldExchangeListService.protDisable(mainId);
+        Object dataList = goldExchangeListService.protDisable(mainId,userName);
         resmap.put("info", dataList);
         resmap.put("success", true);
         long post=System.currentTimeMillis();

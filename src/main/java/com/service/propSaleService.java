@@ -143,7 +143,6 @@ public class propSaleService {
             }else{
                 return "noAuth";
             }
-
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
