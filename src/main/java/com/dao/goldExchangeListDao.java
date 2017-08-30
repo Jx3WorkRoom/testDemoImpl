@@ -27,10 +27,11 @@ public class goldExchangeListDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append("SELECT" +
-                " a.*,b.USER_FOLLOW,B.USER_ISVALID " +
+                " a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE " +
                 " FROM" +
                 " c_post_bar_19 a " +
                 " LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
+                " LEFT JOIN F_USER_COLL_INFO c ON b.USER_ID = c.user_id " +
                 " WHERE" +
                 " a.TRADE_TYPE = "+tradeType +
                 " AND a.BELONG_QF like '%"+selectTion1+"%"+selectTion2+"%"+selectTion3+"%'" +
@@ -51,7 +52,9 @@ public class goldExchangeListDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append(
-                " select a.*,b.USER_FOLLOW,B.USER_ISVALID FROM c_post_bar_19 a LEFT JOIN f_user_follow b on a.main_id = b.main_id" +
+                " select a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE FROM c_post_bar_19 a " +
+                        " LEFT JOIN f_user_follow b on a.main_id = b.main_id" +
+                        " LEFT JOIN F_USER_COLL_INFO c ON b.USER_ID = c.user_id" +
                         " where a.TRADE_TYPE = "+tradeType +
                         " AND a.BELONG_QF is not NULL" +
                         " AND a.GOLD_TOTAL is not NULL" +

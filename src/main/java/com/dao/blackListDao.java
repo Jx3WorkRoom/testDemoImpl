@@ -26,7 +26,10 @@ public class blackListDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         if("".equals(shape)){
-            sql.append(" select * from (SELECT" +
+            sql.append(" select c.*," +
+                    "  d.USER_FOLLOW," +
+                    " d.USER_ISVALID," +
+                    " e.COLL_TYPE from (SELECT" +
                     " a.*," +
                     " b.PAR_NAME" +
                     " FROM" +
@@ -40,10 +43,13 @@ public class blackListDao {
                     " a.MAIN_ID" +
                     " ORDER BY" +
                     " a.FAVOR_DATE DESC)  c LEFT JOIN f_user_follow d " +
-                    " ON c.main_id = d.main_id LIMIT "+startNum+","+endNum
+                    " ON c.main_id = d.main_id  LEFT JOIN F_USER_COLL_INFO e ON d.USER_ID = e.user_id LIMIT "+startNum+","+endNum
             );
         }else{
-            sql.append(" select * from (SELECT" +
+            sql.append(" select c.*," +
+                    "  d.USER_FOLLOW," +
+                    " d.USER_ISVALID," +
+                    " e.COLL_TYPE from (SELECT" +
                     " a.*," +
                     " b.PAR_NAME" +
                     " FROM" +
@@ -58,7 +64,7 @@ public class blackListDao {
                     " a.MAIN_ID" +
                     " ORDER BY" +
                     " a.FAVOR_DATE DESC)  c LEFT JOIN f_user_follow d ON " +
-                    " c.main_id = d.main_id  LIMIT "+startNum+","+endNum
+                    " c.main_id = d.main_id LEFT JOIN F_USER_COLL_INFO e ON d.USER_ID = e.user_id LIMIT "+startNum+","+endNum
             );
         }
         System.out.println(sql);

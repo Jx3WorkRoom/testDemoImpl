@@ -26,10 +26,11 @@ public class levelingListDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append("SELECT" +
-                " a.*,b.USER_FOLLOW,B.USER_ISVALID " +
+                " a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE " +
                 " FROM" +
                 " c_post_bar_17 a " +
                 " LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
+                " LEFT JOIN F_USER_COLL_INFO c ON b.USER_ID = c.user_id " +
                 " WHERE" +
                 " a.NEED_TYPE = "+needType);
         if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3)){
@@ -57,7 +58,9 @@ public class levelingListDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append(
-                " select a.*,b.USER_FOLLOW,B.USER_ISVALID  FROM c_post_bar_17 a LEFT JOIN f_user_follow b on a.main_id = b.main_id" +
+                " select a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE  FROM c_post_bar_17 a " +
+                        " LEFT JOIN f_user_follow b on a.main_id = b.main_id" +
+                        " LEFT JOIN F_USER_COLL_INFO c ON b.USER_ID = c.user_id" +
                         " WHERE a.NEED_TYPE = "+needType +
                         " AND a.BELONG_QF is not NULL" +
                         " AND a.POST_CONTENT IS NOT NULL" +
