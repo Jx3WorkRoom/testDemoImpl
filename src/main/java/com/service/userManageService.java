@@ -25,4 +25,31 @@ public class userManageService {
         }
         return resArr;
     }
+
+    public Object delMod(int modId) throws Exception {
+        int result = userManageDao.delMod(modId);
+        if(result>0){
+            return "删除成功!";
+        }else{
+            return "删除失败!";
+        }
+    }
+
+    public Object addMod(String belong_web, int modId, String mod_name, int modType, int visitRole, int registRole, String serverCost, String serverNum) throws Exception {
+        int result = userManageDao.addMod(belong_web,modId,mod_name,modType,visitRole,registRole,serverCost,serverNum);
+        if(result>0){
+            return "添加成功!";
+        }else{
+            return "添加失败!";
+        }
+    }
+
+    public Object editMod(String belong_web, int modId, String mod_name, int modType, int visitRole, int registRole, String serverCost, String serverNum) throws Exception {
+        int result = userManageDao.editMod(belong_web,modId,mod_name,modType,visitRole,registRole,serverCost,serverNum);
+        if(result>0){
+            return "修改成功!";
+        }else{
+            return "修改失败!";
+        }
+    }
 }

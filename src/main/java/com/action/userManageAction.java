@@ -49,4 +49,63 @@ public class userManageAction {
         System.out.println("查询功能模块接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
     }
+
+    @ApiOperation(value="删除信息权限模块", notes="",produces = "application/json")
+    @RequestMapping(value="delModel",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> delMod(
+            @RequestParam(value="modId",required=false,defaultValue ="") int modId
+    ) throws Exception {
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object info = userManageService.delMod(modId);
+        resmap.put("info",info);
+        long post=System.currentTimeMillis();
+        System.out.println("删除信息权限模块接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+    @ApiOperation(value="新增信息权限模块", notes="",produces = "application/json")
+    @RequestMapping(value="addMod",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> addMod(
+            @RequestParam(value="BELONG_WEB",required=false,defaultValue ="") String BELONG_WEB,
+            @RequestParam(value="modId",required=true) int modId,
+            @RequestParam(value="MOD_NAME",required=false,defaultValue ="") String MOD_NAME,
+            @RequestParam(value="modType",required=false,defaultValue ="0") int modType,
+            @RequestParam(value="visitRole",required=false,defaultValue ="0") int visitRole,
+            @RequestParam(value="registRole",required=false,defaultValue = "0") int registRole,
+            @RequestParam(value="serverCost",required=false,defaultValue ="") String serverCost,
+            @RequestParam(value="serverNum",required=false,defaultValue ="") String serverNum
+    ) throws Exception {
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object info = userManageService.addMod(BELONG_WEB,modId,MOD_NAME,modType,visitRole,registRole,serverCost,serverNum);
+        resmap.put("info",info);
+        long post=System.currentTimeMillis();
+        System.out.println("修改信息权限模块接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+    @ApiOperation(value="修改信息权限模块", notes="",produces = "application/json")
+    @RequestMapping(value="editMod",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> editMod(
+            @RequestParam(value="BELONG_WEB",required=false,defaultValue ="") String BELONG_WEB,
+            @RequestParam(value="modId",required=true) int modId,
+            @RequestParam(value="MOD_NAME",required=false,defaultValue ="") String MOD_NAME,
+            @RequestParam(value="modType",required=false,defaultValue ="0") int modType,
+            @RequestParam(value="visitRole",required=false,defaultValue ="0") int visitRole,
+            @RequestParam(value="registRole",required=false,defaultValue = "0") int registRole,
+            @RequestParam(value="serverCost",required=false,defaultValue ="") String serverCost,
+            @RequestParam(value="serverNum",required=false,defaultValue ="") String serverNum
+    ) throws Exception {
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object info = userManageService.editMod(BELONG_WEB,modId,MOD_NAME,modType,visitRole,registRole,serverCost,serverNum);
+        resmap.put("info",info);
+        long post=System.currentTimeMillis();
+        System.out.println("修改信息权限模块接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
 }
