@@ -7,12 +7,15 @@ import java.util.*;
 
 import com.dao.accountListDao;
 import org.springframework.stereotype.Service;
-
+import com.dao.segmentWordDao;
 @Service
 public class accountListService {
 
     @Autowired
     accountListDao accountListDao;
+
+    @Autowired
+    segmentWordDao segmentWordDao;
 
     public Object queryAccountListInfo(int tradeType, String areaSelection, String shape, String info, int pageNumSelected, int startNum, int endNum) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
@@ -43,7 +46,8 @@ public class accountListService {
                         selectTion3 = areaSelection.split(",")[2];
                     }
                 }
-                resArr = accountListDao.queryAccountListInfo1(tradeType,selectTion1,selectTion2,selectTion3,shape,info,startNum,endNum);
+                Map<String,Set<String>> map =segmentWordDao.test(info);
+                resArr = accountListDao.queryAccountListInfo3(tradeType,selectTion1,selectTion2,selectTion3,shape,map,startNum,endNum);
             }
         } catch (Exception e) {
             // TODO Auto-generated catch block
