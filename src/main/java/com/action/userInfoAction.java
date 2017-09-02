@@ -80,4 +80,21 @@ public class userInfoAction {
         System.out.println("查询用户信息接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
     }
+
+    @ApiOperation(value="找回密码", notes="",produces = "application/json")
+    @RequestMapping(value="recoverPassword",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> recoverPassword(
+            @RequestParam(value="loginName",required=false,defaultValue ="0") String loginName,
+            @RequestParam(value="newPassword",required=false,defaultValue ="0") String newPassword
+    ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object info = userInfoService.recoverPassword(loginName,newPassword);
+        resmap.put("info", info);
+        resmap.put("success", true);
+        long post=System.currentTimeMillis();
+        System.out.println("查询用户信息接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
 }

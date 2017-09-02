@@ -75,4 +75,21 @@ public class userInfoDao {
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
+
+    public int recoverPassword(String loginName, String newPassword) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" update f_user_info set LOGIN_WORD ='"+newPassword+"' where LOGIN_NAME = '"+loginName+"'");
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(), paramList);
+    }
+
+    public int recoverPassword2(String loginName, String newPassword) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" update userinfo set password = '"+newPassword+"' where username ='"+loginName+"'");
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(), paramList);
+
+    }
 }

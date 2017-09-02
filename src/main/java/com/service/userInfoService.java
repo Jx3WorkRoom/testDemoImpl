@@ -78,4 +78,21 @@ public class userInfoService {
             return "修改成功!";
         }
     }
+
+    public Object recoverPassword(String loginName, String newPassword) {
+        int res = 0 ;
+        try {
+            res = userInfoDao.recoverPassword(loginName,newPassword);
+            res = userInfoDao.recoverPassword2(loginName,newPassword);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(res==0){
+            return "找回密码失败!";
+        }else {
+            return "找回密码成功!";
+        }
+    }
 }
