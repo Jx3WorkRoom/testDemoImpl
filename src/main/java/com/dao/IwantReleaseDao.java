@@ -151,7 +151,12 @@ public class IwantReleaseDao {
     public List<Map<String,Object>> getTzc(String type, String parNum, String cate) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append("select * from B_POST_BAR_BIG where KEYWORD_BIG_TYPE=" + type + " and KEYWORD_PAR_NUM=" + parNum + " and KEYWORD_CATE="+cate);
+        if(parNum == null || parNum.isEmpty()){
+            sql.append("select RECORD_ID as id,KEYWORD_NAME_G as name from B_POST_BAR_BIG where KEYWORD_BIG_TYPE=" + type + " and KEYWORD_CATE="+cate);
+        }else{
+            sql.append("select RECORD_ID as id,KEYWORD_NAME_G as name from B_POST_BAR_BIG where KEYWORD_BIG_TYPE=" + type + " and KEYWORD_PAR_NUM=" + parNum + " and KEYWORD_CATE="+cate);
+        }
+
 
         System.out.println(sql);
         listSql = sql.toString();
