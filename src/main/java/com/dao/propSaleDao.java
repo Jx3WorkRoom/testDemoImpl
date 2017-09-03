@@ -5,10 +5,7 @@ import com.utils.MyDateTimeUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class propSaleDao {
@@ -205,6 +202,51 @@ public class propSaleDao {
         List<Object> paramList = new ArrayList<Object>();
         sql.append(" SELECT a.*, b.mod_name FROM f_sys_mod_5 a, f_sys_mod_1 b WHERE a.MOD_ID = b.MOD_ID AND a.USER_ID = ( \n" +
                 " SELECT id FROM userinfo WHERE username = '"+userName+"') AND b.mod_name LIKE '%道具%' AND a.SURPLUS_NUM>1");
+        System.out.println(sql);
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
+    public List<Map<String,Object>> queryappearanceSaleInfo3(int tradeType, String selectTion1, String selectTion2, String selectTion3, Map<String, Set<String>> map, int startNum, int endNum) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append("SELECT" +
+                " a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE " +
+                " FROM" +
+                " c_post_bar_15 a " +
+                " LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
+                " LEFT JOIN F_USER_COLL_INFO c ON b.USER_ID = c.user_id " +
+                " WHERE" +
+                " a.TRADE_TYPE = "+tradeType );
+        if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3)) {
+            sql.append(
+                    " AND a.BELONG_QF like '%" + selectTion1 + "%" + selectTion2 + "%" + selectTion3 + "%'");
+        }
+        if(map.size()>0) {
+            for (Map.Entry<String, Set<String>> entry : map.entrySet()) {
+                String key = entry.getKey();
+                if("waiguan".equals(key)){
+                    Object[] objArr = entry.getValue().toArray();
+                    String[] arr = new String[objArr.length];
+                    for(int i =0;i<objArr.length;i++){
+                        arr[i] = objArr[i].toString();
+                    }
+                    sql.append(" AND A.WAIGUAN_NAME like '%"+arr[0]+"%'");
+                    for(int i=1;i<arr.length;i++){
+                        sql.append(" || A.WAIGUAN_NAME like '%"+arr[i]+"%'");
+                    }
+                }
+            }
+        }
+        sql.append(
+                " AND a.BELONG_QF is not NULL" +
+                        " AND a.prop_NAME is not NULL" +
+                        " AND a.post_CONTENT IS NOT NULL" +
+                        " AND a.PRICE_NUM is NOT null"+
+                        " GROUP BY" +
+                        " a.MAIN_ID" +
+                        " ORDER BY" +
+                        " a.REPLY_TIME DESC" +
+                        " LIMIT "+startNum+"," + endNum);
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }

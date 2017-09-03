@@ -1,5 +1,6 @@
 package com.service;
 
+import com.dao.segmentWordDao;
 import com.utils.MyDateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,9 @@ import java.util.*;
 public class propSaleService {
     @Autowired
     propSaleDao propSaleDao;
+
+    @Autowired
+    segmentWordDao segmentWordDao;
 
     public Object queryPropSaleInfo(int tradeType, String areaSelection, String shape, int pageNumSelected, int startNum, int endNum) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
@@ -42,7 +46,8 @@ public class propSaleService {
                         selectTion3 = areaSelection.split(",")[2];
                     }
                 }
-                resArr = propSaleDao.queryappearanceSaleInfo1(tradeType,selectTion1,selectTion2,selectTion3,shape,startNum,endNum);
+                Map<String,Set<String>> map =segmentWordDao.test(shape);
+                resArr = propSaleDao.queryappearanceSaleInfo3(tradeType,selectTion1,selectTion2,selectTion3,map,startNum,endNum);
             }
         } catch (Exception e) {
             // TODO Auto-generated catch block
