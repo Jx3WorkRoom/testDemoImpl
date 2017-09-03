@@ -112,4 +112,56 @@ public class IwantReleaseService {
         }
         return "保存失败!";
     }
+
+    //账号收售详细发布
+    public String saveZhssxxfbInfo(String BELONG_QF, String TIXIN, String PRICE_NUM, String FACE_NUM, String BACK_NUM, String WAIST_NUM, String LEFT_NUM, String RIGHT_NUM, String qtxych, String
+                                   CRED_NUM, String TOP_NUM, String CONSUM_NUM, String INTEG_NUM, String GOLD_NUM, String PET_NUM, String CREATE_ACCO, String CARD_TIME, String CURR_NUM, String TWO_INPUT, String THREE_INPUT, String _95cw, String _90cw, String _80cw, String _70cw, String
+                                   mptx, String XUANJIN_95, String XIAOTIE_95, String XUANJIN_90, String XIAOTIE_90, String XUANJIN_80, String XIAOTIE_80, String XUANJIN_70, String XIAOTIE_70,
+                                   String PVP_HPS, String PVE_HPS, String PVP_T, String PVP_IN, String PVE_IN, String PVP_OUT, String PVE_OUT, String OTHER_EXPLAIN){
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            int insertResult = iwantReleaseDao.saveZhssxxfbInfo(BELONG_QF,TIXIN,PRICE_NUM,FACE_NUM,BACK_NUM,WAIST_NUM,LEFT_NUM,RIGHT_NUM,qtxych,
+                    CRED_NUM,TOP_NUM,CONSUM_NUM,INTEG_NUM,GOLD_NUM,PET_NUM,CREATE_ACCO,CARD_TIME,CURR_NUM,TWO_INPUT,THREE_INPUT,_95cw,_90cw,_80cw,_70cw,
+                    mptx,XUANJIN_95,XIAOTIE_95,XUANJIN_90,XIAOTIE_90,XUANJIN_80,XIAOTIE_80,XUANJIN_70,XIAOTIE_70,
+                    PVP_HPS,PVE_HPS,PVP_T,PVP_IN,PVE_IN,PVP_OUT,PVE_OUT,OTHER_EXPLAIN);
+            if(insertResult==1) {
+                return "保存成功!";
+            }else{
+                return "保存失败!";
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "保存失败!";
+    }
+
+    //获取特征词
+    public Object getTzc(String type, String parNum, String cate){
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = iwantReleaseDao.getTzc(type, parNum, cate);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
+
+    //获取图片地址
+    public String getPicturePath(String favorId, String seqNum) throws Exception {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        StringBuffer COLLECT_CONT = new StringBuffer();
+        resArr = iwantReleaseDao.getPicturePath(favorId,seqNum);
+        Map<String,Object> map = resArr.get(0);
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            if(entry.getValue()!=""&&entry.getValue()!="[]") {
+                COLLECT_CONT.append(entry.getValue());
+            }
+        }
+
+        return COLLECT_CONT.toString();
+    }
+
 }
