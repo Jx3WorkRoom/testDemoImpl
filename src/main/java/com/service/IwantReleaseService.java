@@ -18,8 +18,9 @@ public class IwantReleaseService {
     public String saveWyjbInfo(int cheatType, String belongQf, String tixin, String roleName, String cheatIntro, String cheatInfo, String pageUrl) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            int insertResult = iwantReleaseDao.saveWyjbInfo(cheatType,belongQf,tixin,roleName,cheatIntro,cheatInfo,pageUrl);
-            if(insertResult==1) {
+            int insertResult = iwantReleaseDao.saveWyjbInfo(cheatType,belongQf,tixin,roleName,cheatIntro,cheatInfo,pageUrl);    //D_post_bar_11
+            int insertResult2 = iwantReleaseDao.saveHbbgfo(cheatType,belongQf,tixin,roleName,cheatIntro,cheatInfo,pageUrl);     //C_POST_BAR_11
+            if(insertResult==1 && insertResult2==1) {
                 return "保存成功!";
             }else{
                 return "保存失败!";
@@ -34,8 +35,9 @@ public class IwantReleaseService {
     public String saveWgjyInfo(int tradeType, String belongQf, String viewName, int priceNum, String favorInfo) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            int insertResult = iwantReleaseDao.saveWgjyInfo(tradeType,belongQf,viewName,priceNum,favorInfo);
-            if(insertResult==1) {
+            int insertResult = iwantReleaseDao.saveWgjyInfo(tradeType,belongQf,viewName,priceNum,favorInfo);    //D_POST_BAR_16
+            int insertResult2 = iwantReleaseDao.saveWgjyxxInfo(tradeType,belongQf,viewName,priceNum,favorInfo);    //C_POST_BAR_13
+            if(insertResult==1 && insertResult2==1) {
                 return "保存成功!";
             }else{
                 return "保存失败!";
@@ -50,8 +52,9 @@ public class IwantReleaseService {
     public String saveDjjyInfo(int tradeType, String belongQf, String propName, int priceNum, String favorInfo) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            int insertResult = iwantReleaseDao.saveDjjyInfo(tradeType, belongQf, propName, priceNum, favorInfo);
-            if(insertResult==1) {
+            int insertResult = iwantReleaseDao.saveDjjyInfo(tradeType, belongQf, propName, priceNum, favorInfo);    //D_POST_BAR_18
+            int insertResult2 = iwantReleaseDao.saveDjjyxxInfo(tradeType, belongQf, propName, priceNum, favorInfo);    //C_POST_BAR_15
+            if(insertResult==1 && insertResult2==1) {
                 return "保存成功!";
             }else{
                 return "保存失败!";
@@ -66,8 +69,9 @@ public class IwantReleaseService {
     public String saveJbjyInfo(int tradeType, String belongQf, int goldTotal, int unitPrice, int ifSplit, String favorInfo){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            int insertResult = iwantReleaseDao.saveJbjyInfo(tradeType, belongQf, goldTotal, unitPrice, ifSplit, favorInfo);
-            if(insertResult==1) {
+            int insertResult = iwantReleaseDao.saveJbjyInfo(tradeType, belongQf, goldTotal, unitPrice, ifSplit, favorInfo);     //D_POST_BAR_19
+            int insertResult2 = iwantReleaseDao.saveYxjbjyInfo(tradeType, belongQf, goldTotal, unitPrice, ifSplit, favorInfo);     //C_POST_BAR_19
+            if(insertResult==1 && insertResult2==1) {
                 return "保存成功!";
             }else{
                 return "保存失败!";
@@ -83,8 +87,9 @@ public class IwantReleaseService {
     public String saveDlddInfo(int cheatType, String belongQf, String favorInfo){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            int insertResult = iwantReleaseDao.saveDlddInfo(cheatType, belongQf,  favorInfo);
-            if(insertResult==1) {
+            int insertResult = iwantReleaseDao.saveDlddInfo(cheatType, belongQf,  favorInfo);   //D_POST_BAR_20
+            int insertResult2 = iwantReleaseDao.saveYxddxxInfo(cheatType, belongQf,  favorInfo);   //C_POST_BAR_17
+            if(insertResult==1 && insertResult2==1) {
                 return "保存成功!";
             }else{
                 return "保存失败!";
@@ -100,7 +105,8 @@ public class IwantReleaseService {
     public String saveZhssInfo(String belongQf,String tixin,int priceNum,String accoInfo){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            int insertResult = iwantReleaseDao.saveZhssInfo(belongQf,tixin,priceNum,accoInfo);
+            int insertResult = iwantReleaseDao.saveZhssInfo(belongQf,tixin,priceNum,accoInfo);  //D_POST_BAR_13
+            int insertResult2 = iwantReleaseDao.saveZhjyxxInfo(belongQf,tixin,priceNum,accoInfo);  //C_POST_BAR_12
             if(insertResult==1) {
                 return "保存成功!";
             }else{
@@ -123,7 +129,12 @@ public class IwantReleaseService {
             int insertResult = iwantReleaseDao.saveZhssxxfbInfo(BELONG_QF,TIXIN,PRICE_NUM,FACE_NUM,BACK_NUM,WAIST_NUM,LEFT_NUM,RIGHT_NUM,qtxych,
                     CRED_NUM,TOP_NUM,CONSUM_NUM,INTEG_NUM,GOLD_NUM,PET_NUM,CREATE_ACCO,CARD_TIME,CURR_NUM,TWO_INPUT,THREE_INPUT,_95cw,_90cw,_80cw,_70cw,
                     mptx,XUANJIN_95,XIAOTIE_95,XUANJIN_90,XIAOTIE_90,XUANJIN_80,XIAOTIE_80,XUANJIN_70,XIAOTIE_70,
-                    PVP_HPS,PVE_HPS,PVP_T,PVP_IN,PVE_IN,PVP_OUT,PVE_OUT,OTHER_EXPLAIN);
+                    PVP_HPS,PVE_HPS,PVP_T,PVP_IN,PVE_IN,PVP_OUT,PVE_OUT,OTHER_EXPLAIN);     //D_POST_BAR_14
+            //int insertResult2 = iwantReleaseDao.saveZhjywyxxInfo(BELONG_QF,TIXIN,PRICE_NUM,FACE_NUM,BACK_NUM,WAIST_NUM,LEFT_NUM,RIGHT_NUM,qtxych,
+            //        CRED_NUM,TOP_NUM,CONSUM_NUM,INTEG_NUM,GOLD_NUM,PET_NUM,CREATE_ACCO,CARD_TIME,CURR_NUM,TWO_INPUT,THREE_INPUT,_95cw,_90cw,_80cw,_70cw,
+            //        mptx,XUANJIN_95,XIAOTIE_95,XUANJIN_90,XIAOTIE_90,XUANJIN_80,XIAOTIE_80,XUANJIN_70,XIAOTIE_70,
+            //        PVP_HPS,PVE_HPS,PVP_T,PVP_IN,PVE_IN,PVP_OUT,PVE_OUT,OTHER_EXPLAIN);     //C_POST_BAR_12_1
+
             if(insertResult==1) {
                 return "保存成功!";
             }else{
