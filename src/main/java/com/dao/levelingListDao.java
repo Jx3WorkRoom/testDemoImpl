@@ -88,14 +88,6 @@ public class levelingListDao {
         return this.commondao.query(sql.toString(), paramList);
     }
 
-    public List<Map<String,Object>> queryTixinListInfo() throws Exception {
-        StringBuilder sql = new StringBuilder();
-        List<Object> paramList = new ArrayList<Object>();
-        sql.append(" SELECT THEME_NAME from c_post_bar_17 group by THEME_NAME ");
-        System.out.println(sql);
-        return this.commondao.query(sql.toString(), paramList);
-    }
-
     public String selectUserId(String userName) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();

@@ -52,9 +52,7 @@ public class propSaleAction {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
         Object SelectionList = propSaleService.querySelectionListInfo();
-        Object tixinList = propSaleService.queryTixinListInfo();
         resmap.put("selecttions", SelectionList);
-        resmap.put("tixin", tixinList);
         resmap.put("success", true);
         long post=System.currentTimeMillis();
         System.out.println("查询道具交易页面搜索框填充信息接口执行时间（单位：毫秒）："+ (post-pre));

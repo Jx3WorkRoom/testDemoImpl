@@ -74,17 +74,6 @@ public class levelingListService {
         return resArr.size();
     }
 
-    public Object queryTixinListInfo() {
-        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
-        try {
-            resArr = levelingListDao.queryTixinListInfo();
-
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return resArr;
-    }
 
     public String userIsvalid(String userName, String mainId, int isValided, String replyTime) throws Exception {
         String userId = levelingListDao.selectUserId(userName);

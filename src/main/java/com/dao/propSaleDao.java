@@ -91,13 +91,6 @@ public class propSaleDao {
         return this.commondao.query(sql.toString(), paramList);
     }
 
-    public List<Map<String,Object>> queryTixinListInfo() throws Exception {
-        StringBuilder sql = new StringBuilder();
-        List<Object> paramList = new ArrayList<Object>();
-        sql.append(" SELECT prop_name from c_post_bar_15 group by prop_name ");
-        System.out.println(sql);
-        return this.commondao.query(sql.toString(), paramList);
-    }
 
     public String selectUserId(String userName) throws Exception {
         StringBuilder sql = new StringBuilder();
@@ -230,10 +223,11 @@ public class propSaleDao {
                     for(int i =0;i<objArr.length;i++){
                         arr[i] = objArr[i].toString();
                     }
-                    sql.append(" AND A.WAIGUAN_NAME like '%"+arr[0]+"%'");
+                    sql.append(" AND (A.WAIGUAN_NAME like '%"+arr[0]+"%'");
                     for(int i=1;i<arr.length;i++){
                         sql.append(" || A.WAIGUAN_NAME like '%"+arr[i]+"%'");
                     }
+                    sql.append(")");
                 }
             }
         }

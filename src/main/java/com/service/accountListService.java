@@ -1,5 +1,6 @@
 package com.service;
 
+import com.utils.Commons;
 import com.utils.MyDateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -47,6 +48,7 @@ public class accountListService {
                     }
                 }
                 Map<String,Set<String>> map =segmentWordDao.test(info);
+                Commons.segMentWordMap = map;
                 resArr = accountListDao.queryAccountListInfo3(tradeType,selectTion1,selectTion2,selectTion3,shape,map,startNum,endNum);
             }
         } catch (Exception e) {

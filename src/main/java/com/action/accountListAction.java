@@ -1,6 +1,7 @@
 package com.action;
 
 
+import com.utils.Commons;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +39,10 @@ public class accountListAction {
         long pre=System.currentTimeMillis();
         Object dataList = accountListService.queryAccountListInfo(tradeType,areaSelection,shape,info,pageNumSelected,startNum,endNum);
         Object pageList = accountListService.queryPageListNum();
+        Object segMentWordMap = Commons.segMentWordMap;
         resmap.put("datas", dataList);
         resmap.put("pageList", pageList);
+        resmap.put("segMentWordMap", segMentWordMap);
         resmap.put("success", true);
         long post=System.currentTimeMillis();
         System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
@@ -56,10 +59,8 @@ public class accountListAction {
         long pre=System.currentTimeMillis();
         Object SelectionList = accountListService.querySelectionListInfo();
         Object tixinList = accountListService.queryTixinListInfo();
-        Object infoList = accountListService.queryInfoListInfo();
         resmap.put("selecttions", SelectionList);
         resmap.put("tixin", tixinList);
-        resmap.put("info", infoList);
         resmap.put("success", true);
         long post=System.currentTimeMillis();
         System.out.println("查询账号交易页面搜索框填充信息接口执行时间（单位：毫秒）："+ (post-pre));

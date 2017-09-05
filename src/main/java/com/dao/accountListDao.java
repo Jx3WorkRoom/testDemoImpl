@@ -96,7 +96,7 @@ public class accountListDao {
     public List<Map<String,Object>> queryTixinListInfo() throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(" select * from b_post_bar_big WHERE KEYWORD_BIG_TYPE = '2-user_mptixing' ");
+        sql.append(" select distinct MENPAI_NAME  from b_post_bar_2 union select TIXIN_NAME_1 from b_post_bar_2 ");
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }
@@ -184,7 +184,7 @@ public class accountListDao {
     public List<Map<String,Object>> queryaccountDetailSource(String mainId, int startNum, int endNum) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append("select REPLY_TIME,PAGE_URL,BELONG_FLOOR from C_POST_BAR_12 where MAIN_ID ='"+mainId+"' LIMIT "+startNum+","+endNum);
+        sql.append("select REPLY_TIME,PAGE_URL,BELONG_FLOOR from C_POST_BAR_12 where MAIN_ID ='"+mainId+"' AND URL_VALID =1 LIMIT "+startNum+","+endNum);
         System.out.println(sql);
         listSql = sql.toString();
         return this.commondao.query(sql.toString(), paramList);
@@ -262,44 +262,50 @@ public class accountListDao {
                 String key = entry.getKey();
                 if("title".equals(key)){
                     String[] arr = (String[]) entry.getValue().toArray();
-                    sql.append(" AND A.TITLE_NAME like '%"+arr[0]+"%'");
+                    sql.append(" AND (A.TITLE_NAME like '%"+arr[0]+"%'");
                     for(int i=1;i<arr.length;i++){
                         sql.append(" || A.TITLE_NAME like '%"+arr[i]+"%'");
                     }
+                    sql.append(")");
                 }else if("waiguan".equals(key)){
                     Object[] objArr = entry.getValue().toArray();
                     String[] arr = new String[objArr.length];
                     for(int i =0;i<objArr.length;i++){
                         arr[i] = objArr[i].toString();
                     }
-                    sql.append(" AND A.WAIGUAN_NAME like '%"+arr[0]+"%'");
+                    sql.append(" AND (A.WAIGUAN_NAME like '%"+arr[0]+"%'");
                     for(int i=1;i<arr.length;i++){
                         sql.append(" || A.WAIGUAN_NAME like '%"+arr[i]+"%'");
                     }
+                    sql.append(")");
                 }else if("horse".equals(key)){
                     String[] arr = (String[]) entry.getValue().toArray();
-                    sql.append(" AND A.HORSE_NAME like '%"+arr[0]+"%'");
+                    sql.append(" AND (A.HORSE_NAME like '%"+arr[0]+"%'");
                     for(int i=1;i<arr.length;i++){
                         sql.append(" || A.HORSE_NAME like '%"+arr[i]+"%'");
                     }
+                    sql.append(")");
                 }else if("arm".equals(key)){
                     String[] arr = (String[]) entry.getValue().toArray();
-                    sql.append(" AND A.ARM_NAME like '%"+arr[0]+"%'");
+                    sql.append(" AND (A.ARM_NAME like '%"+arr[0]+"%'");
                     for(int i=1;i<arr.length;i++){
                         sql.append(" || A.ARM_NAME like '%"+arr[i]+"%'");
                     }
+                    sql.append(")");
                 }else if("stra".equals(key)){
                     String[] arr = (String[]) entry.getValue().toArray();
-                    sql.append(" AND A.STRA_NAME like '%"+arr[0]+"%'");
+                    sql.append(" AND (A.STRA_NAME like '%"+arr[0]+"%'");
                     for(int i=1;i<arr.length;i++){
                         sql.append(" || A.STRA_NAME like '%"+arr[i]+"%'");
                     }
+                    sql.append(")");
                 }else if("pend".equals(key)){
                     String[] arr = (String[]) entry.getValue().toArray();
-                    sql.append(" AND A.PEND_NAME like '%"+arr[0]+"%'");
+                    sql.append(" AND (A.PEND_NAME like '%"+arr[0]+"%'");
                     for(int i=1;i<arr.length;i++){
                         sql.append(" || A.PEND_NAME like '%"+arr[i]+"%'");
                     }
+                    sql.append(")");
                 }
             }
         }
