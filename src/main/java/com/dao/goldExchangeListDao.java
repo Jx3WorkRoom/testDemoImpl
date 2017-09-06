@@ -34,7 +34,7 @@ public class goldExchangeListDao {
                 " LEFT JOIN F_USER_COLL_INFO c ON b.USER_ID = c.user_id " +
                 " WHERE" +
                 " a.TRADE_TYPE = "+tradeType +
-                " AND a.BELONG_QF like '%"+selectTion1+"%"+selectTion2+"%"+selectTion3+"%'" +
+                " AND (a.BELONG_QF = '"+selectTion1+"'  || a.BELONG_QF = '"+selectTion1+selectTion2+"' || a.BELONG_QF = '"+selectTion1+selectTion2+selectTion3+"' || a.BELONG_QF is null || a.BELONG_QF ='' ) "+
                 " AND a.BELONG_QF is not NULL" +
                 " AND a.GOLD_TOTAL is not NULL" +
                 " AND a.UNIT_PRICE IS NOT NULL" +
