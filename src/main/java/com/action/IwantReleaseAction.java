@@ -27,6 +27,7 @@ public class IwantReleaseAction {
     @RequestMapping(value="saveWyjbInfo",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> getAccountListAction(
+            @RequestParam(value="userId",required=false,defaultValue = "") String userId,
             @RequestParam(value="cheatType",required=false,defaultValue = "") int tradeType,
             @RequestParam(value="belongQf",required=false,defaultValue ="") String belongQf,
             @RequestParam(value="tixin",required=false,defaultValue ="") String tixin,
@@ -37,7 +38,7 @@ public class IwantReleaseAction {
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        String returnVal = iwantReleaseService.saveWyjbInfo(tradeType,belongQf,tixin,roleName,cheatIntro,cheatInfo,pageUrl);
+        String returnVal = iwantReleaseService.saveWyjbInfo(userId,tradeType,belongQf,tixin,roleName,cheatIntro,cheatInfo,pageUrl);
 
         long post=System.currentTimeMillis();
         System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
@@ -48,6 +49,7 @@ public class IwantReleaseAction {
     @RequestMapping(value="saveWgjyInfo",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> saveWgjyInfoAction(
+            @RequestParam(value="userId",required=false,defaultValue = "") String userId,
             @RequestParam(value="cheatType",required=false,defaultValue = "") int tradeType,
             @RequestParam(value="belongQf",required=false,defaultValue ="") String belongQf,
             @RequestParam(value="viewName",required=false,defaultValue ="") String viewName,
@@ -56,7 +58,7 @@ public class IwantReleaseAction {
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        String returnVal = iwantReleaseService.saveWgjyInfo(tradeType,belongQf,viewName,priceNum,favorInfo);
+        String returnVal = iwantReleaseService.saveWgjyInfo(userId,tradeType,belongQf,viewName,priceNum,favorInfo);
 
         long post=System.currentTimeMillis();
         System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
@@ -67,6 +69,7 @@ public class IwantReleaseAction {
     @RequestMapping(value="saveDjjyInfo",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> saveDjjyInfoAction(
+            @RequestParam(value="userId",required=false,defaultValue = "") String userId,
             @RequestParam(value="tradeType",required=false,defaultValue = "") int tradeType,
             @RequestParam(value="belongQf",required=false,defaultValue ="") String belongQf,
             @RequestParam(value="propName",required=false,defaultValue ="") String propName,
@@ -75,7 +78,7 @@ public class IwantReleaseAction {
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        String returnVal = iwantReleaseService.saveDjjyInfo(tradeType,belongQf,propName,priceNum,favorInfo);
+        String returnVal = iwantReleaseService.saveDjjyInfo(userId,tradeType,belongQf,propName,priceNum,favorInfo);
 
         long post=System.currentTimeMillis();
         System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
@@ -86,6 +89,7 @@ public class IwantReleaseAction {
     @RequestMapping(value="saveJbjyInfo",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> saveDjjyInfoAction(
+            @RequestParam(value="userId",required=false,defaultValue = "") String userId,
             @RequestParam(value="tradeType",required=false,defaultValue = "") int tradeType,
             @RequestParam(value="belongQf",required=false,defaultValue ="") String belongQf,
             @RequestParam(value="goldTotal",required=false,defaultValue ="") int goldTotal,
@@ -95,7 +99,7 @@ public class IwantReleaseAction {
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        String returnVal = iwantReleaseService.saveJbjyInfo(tradeType,belongQf,goldTotal,unitPrice,ifSplit,favorInfo);
+        String returnVal = iwantReleaseService.saveJbjyInfo(userId,tradeType,belongQf,goldTotal,unitPrice,ifSplit,favorInfo);
 
         long post=System.currentTimeMillis();
         System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
@@ -107,13 +111,14 @@ public class IwantReleaseAction {
     @RequestMapping(value="saveDlddInfo",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> saveDlddInfoAction(
+            @RequestParam(value="userId",required=false,defaultValue = "") String userId,
             @RequestParam(value="tradeType",required=false,defaultValue = "") int tradeType,
             @RequestParam(value="belongQf",required=false,defaultValue ="") String belongQf,
             @RequestParam(value="favorInfo",required=false,defaultValue="") String favorInfo
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        String returnVal = iwantReleaseService.saveDlddInfo(tradeType,belongQf,favorInfo);
+        String returnVal = iwantReleaseService.saveDlddInfo(userId,tradeType,belongQf,favorInfo);
 
         long post=System.currentTimeMillis();
         System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
