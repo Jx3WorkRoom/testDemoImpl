@@ -95,4 +95,25 @@ public class userInfoService {
             return "找回密码成功!";
         }
     }
+
+    public Object userIsEmpty(String loginName, String tel) {
+        try {
+            if("0".equals(tel)){
+                String name  = userInfoDao.userIsEmpty(loginName);
+                if("".equals(name)){
+                    return "账号不存在";
+                }
+            }else{
+                String telphone = userInfoDao.userIsEmpty2(loginName);
+                if(!telphone.equals(tel)){
+                    return "手机号错误";
+                }
+            }
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "";
+    }
 }

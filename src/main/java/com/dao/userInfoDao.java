@@ -92,4 +92,20 @@ public class userInfoDao {
         return this.commondao.update(sql.toString(), paramList);
 
     }
+
+    public String userIsEmpty(String loginName) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" select username from userinfo where username = '"+loginName+"'");
+        System.out.println(sql);
+        return this.commondao.queryOne(sql.toString(), paramList);
+    }
+
+    public String userIsEmpty2(String loginName) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" select user_tel from f_user_info where username = '"+loginName+"'");
+        System.out.println(sql);
+        return this.commondao.queryOne(sql.toString(), paramList);
+    }
 }
