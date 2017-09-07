@@ -97,22 +97,21 @@ public class userInfoService {
     }
 
     public Object userIsEmpty(String loginName, String tel) {
-        try {
             if("0".equals(tel)){
-                String name  = userInfoDao.userIsEmpty(loginName);
-                if("".equals(name)){
-                    return "账号不存在";
-                }
-            }else{
+            try {
+                userInfoDao.userIsEmpty(loginName);
+            }catch (Exception e) {
+                return "账号不存在";
+            }
+        }else{
+            try {
                 String telphone = userInfoDao.userIsEmpty2(loginName);
                 if(!telphone.equals(tel)){
                     return "手机号错误";
                 }
+            }catch (Exception e){
+                return "手机号错误";
             }
-
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
         return "";
     }

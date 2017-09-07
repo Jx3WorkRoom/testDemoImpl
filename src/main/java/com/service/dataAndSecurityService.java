@@ -65,4 +65,16 @@ public class dataAndSecurityService {
             return "修改成功!";
         }
     }
+
+    public Object userIsEmpty(String loginName, String tel) {
+            try {
+                String telphone = dataAndSecurityDao.userIsEmpty2(loginName);
+                if(!telphone.equals(tel)){
+                    return "不存在该手机号";
+                }
+            }catch (Exception e){
+                return "不存在该手机号";
+            }
+        return "";
+    }
 }

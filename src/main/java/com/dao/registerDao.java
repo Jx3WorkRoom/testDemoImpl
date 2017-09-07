@@ -67,4 +67,20 @@ public class registerDao {
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList).size();
     }
+
+    public String checkIsEmpty1(String loginName) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" select login_name from f_user_info where login_name = '"+loginName+"'");
+        System.out.println(sql);
+        return this.commondao.queryOne(sql.toString(), paramList);
+    }
+
+    public String checkIsEmpty2(String userName) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" select user_name from f_user_info where user_name = '"+userName+"'");
+        System.out.println(sql);
+        return this.commondao.queryOne(sql.toString(), paramList);
+    }
 }

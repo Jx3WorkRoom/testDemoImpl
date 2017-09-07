@@ -127,18 +127,14 @@ public class accountListService {
             int COLLECT_TYPE = 1;
             int MOD_ID = 12;
             int COLL_TYPE = 1;
-            StringBuffer COLLECT_CONT = new StringBuffer();
+            String COLLECT_CONT = "";
             int COLLECT_STUSTA = isValided;
             String FAVOR_DATE = replyTime.replace("\\s*","");
             List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
             try {
                 resArr = accountListDao.queryCollectCont(mainId);
                 Map<String,Object> map = resArr.get(0);
-                for (Map.Entry<String, Object> entry : map.entrySet()) {
-                    if(entry.getValue()!=""&&entry.getValue()!="[]") {
-                        COLLECT_CONT.append(entry.getValue());
-                    }
-                }
+                COLLECT_CONT =map.get("REPLY_CONTENT").toString();
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

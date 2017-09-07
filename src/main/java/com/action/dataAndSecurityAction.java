@@ -54,4 +54,21 @@ public class dataAndSecurityAction {
         System.out.println("查询用户信息接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
     }
+
+    @ApiOperation(value="判断用户是否存在或用户名和手机号是否匹配", notes="",produces = "application/json")
+    @RequestMapping(value="patchUserAndTel",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> userIsEmpty(
+            @RequestParam(value="loginName",required=false,defaultValue ="0") String loginName,
+            @RequestParam(value="tel",required=false,defaultValue ="0") String tel
+    ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object info = dataAndSecurityService.userIsEmpty(loginName,tel);
+        resmap.put("info", info);
+        resmap.put("success", true);
+        long post=System.currentTimeMillis();
+        System.out.println("查询用户信息接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
 }

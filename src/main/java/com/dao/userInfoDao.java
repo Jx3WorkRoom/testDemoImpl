@@ -96,7 +96,7 @@ public class userInfoDao {
     public String userIsEmpty(String loginName) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(" select username from userinfo where username = '"+loginName+"'");
+        sql.append(" select login_name from f_user_info where login_name = '"+loginName+"'");
         System.out.println(sql);
         return this.commondao.queryOne(sql.toString(), paramList);
     }
@@ -104,7 +104,7 @@ public class userInfoDao {
     public String userIsEmpty2(String loginName) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(" select user_tel from f_user_info where username = '"+loginName+"'");
+        sql.append(" select user_tel from f_user_info where login_name = '"+loginName+"'");
         System.out.println(sql);
         return this.commondao.queryOne(sql.toString(), paramList);
     }

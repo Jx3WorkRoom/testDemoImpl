@@ -155,7 +155,7 @@ public class accountListDao {
     public List<Map<String,Object>> queryCollectCont(String mainId) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(" select BELONG_QF,TIXIN,TITLE_NAME,WAIGUAN_NAME,HORSE_NAME,ARM_NAME,STRA_NAME,PEND_NAME from C_POST_BAR_12 where main_id ='"+mainId + "' GROUP BY MAIN_ID");
+        sql.append(" select REPLY_CONTENT from C_POST_BAR_12 where main_id ='"+mainId + "' GROUP BY MAIN_ID");
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }
