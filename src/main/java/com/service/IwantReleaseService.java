@@ -18,8 +18,9 @@ public class IwantReleaseService {
     public String saveWyjbInfo(String userId, int cheatType, String belongQf, String tixin, String roleName, String cheatIntro, String cheatInfo, String pageUrl) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            int insertResult = iwantReleaseDao.saveWyjbInfo(userId,cheatType,belongQf,tixin,roleName,cheatIntro,cheatInfo,pageUrl);    //D_post_bar_11
-            int insertResult2 = iwantReleaseDao.saveHbbgfo(userId,cheatType,belongQf,tixin,roleName,cheatIntro,cheatInfo,pageUrl);     //C_POST_BAR_11
+            String recordId = UUID.randomUUID().toString().replace("-", "");
+            int insertResult = iwantReleaseDao.saveWyjbInfo(recordId, userId,cheatType,belongQf,tixin,roleName,cheatIntro,cheatInfo,pageUrl);    //D_post_bar_11
+            int insertResult2 = iwantReleaseDao.saveHbbgfo(recordId, userId,cheatType,belongQf,tixin,roleName,cheatIntro,cheatInfo,pageUrl);     //C_POST_BAR_11
             if(insertResult==1 && insertResult2==1) {
                 return "保存成功!";
             }else{
@@ -35,8 +36,9 @@ public class IwantReleaseService {
     public String saveWgjyInfo(String userId, int tradeType, String belongQf, String viewName, int priceNum, String favorInfo) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            int insertResult = iwantReleaseDao.saveWgjyInfo(userId,tradeType,belongQf,viewName,priceNum,favorInfo);    //D_POST_BAR_16
-            int insertResult2 = iwantReleaseDao.saveWgjyxxInfo(userId,tradeType,belongQf,viewName,priceNum,favorInfo);    //C_POST_BAR_13
+            String recordId = UUID.randomUUID().toString().replace("-", "");
+            int insertResult = iwantReleaseDao.saveWgjyInfo(recordId, userId,tradeType,belongQf,viewName,priceNum,favorInfo);    //D_POST_BAR_16
+            int insertResult2 = iwantReleaseDao.saveWgjyxxInfo(recordId, userId,tradeType,belongQf,viewName,priceNum,favorInfo);    //C_POST_BAR_13
             if(insertResult==1 && insertResult2==1) {
                 return "保存成功!";
             }else{
@@ -52,8 +54,9 @@ public class IwantReleaseService {
     public String saveDjjyInfo(String userId,int tradeType, String belongQf, String propName, int priceNum, String favorInfo) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            int insertResult = iwantReleaseDao.saveDjjyInfo(userId,tradeType, belongQf, propName, priceNum, favorInfo);    //D_POST_BAR_18
-            int insertResult2 = iwantReleaseDao.saveDjjyxxInfo(userId,tradeType, belongQf, propName, priceNum, favorInfo);    //C_POST_BAR_15
+            String recordId = UUID.randomUUID().toString().replace("-", "");
+            int insertResult = iwantReleaseDao.saveDjjyInfo(recordId, userId,tradeType, belongQf, propName, priceNum, favorInfo);    //D_POST_BAR_18
+            int insertResult2 = iwantReleaseDao.saveDjjyxxInfo(recordId, userId,tradeType, belongQf, propName, priceNum, favorInfo);    //C_POST_BAR_15
             if(insertResult==1 && insertResult2==1) {
                 return "保存成功!";
             }else{
@@ -69,8 +72,9 @@ public class IwantReleaseService {
     public String saveJbjyInfo(String userId, int tradeType, String belongQf, int goldTotal, int unitPrice, int ifSplit, String favorInfo){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            int insertResult = iwantReleaseDao.saveJbjyInfo(userId, tradeType, belongQf, goldTotal, unitPrice, ifSplit, favorInfo);     //D_POST_BAR_19
-            int insertResult2 = iwantReleaseDao.saveYxjbjyInfo(userId, tradeType, belongQf, goldTotal, unitPrice, ifSplit, favorInfo);     //C_POST_BAR_19
+            String recordId = UUID.randomUUID().toString().replace("-", "");
+            int insertResult = iwantReleaseDao.saveJbjyInfo(recordId, userId, tradeType, belongQf, goldTotal, unitPrice, ifSplit, favorInfo);     //D_POST_BAR_19
+            int insertResult2 = iwantReleaseDao.saveYxjbjyInfo(recordId, userId, tradeType, belongQf, goldTotal, unitPrice, ifSplit, favorInfo);     //C_POST_BAR_19
             if(insertResult==1 && insertResult2==1) {
                 return "保存成功!";
             }else{
@@ -87,8 +91,9 @@ public class IwantReleaseService {
     public String saveDlddInfo(String userId, int cheatType, String belongQf, String favorInfo){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            int insertResult = iwantReleaseDao.saveDlddInfo(userId, cheatType, belongQf,  favorInfo);   //D_POST_BAR_20
-            int insertResult2 = iwantReleaseDao.saveYxddxxInfo(userId, cheatType, belongQf,  favorInfo);   //C_POST_BAR_17
+            String recordId = UUID.randomUUID().toString().replace("-", "");
+            int insertResult = iwantReleaseDao.saveDlddInfo(recordId, userId, cheatType, belongQf,  favorInfo);   //D_POST_BAR_20
+            int insertResult2 = iwantReleaseDao.saveYxddxxInfo(recordId, userId, cheatType, belongQf,  favorInfo);   //C_POST_BAR_17
             if(insertResult==1 && insertResult2==1) {
                 return "保存成功!";
             }else{
@@ -105,8 +110,9 @@ public class IwantReleaseService {
     public String saveZhssInfo(String belongQf,String tixin,int priceNum,String accoInfo){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            int insertResult = iwantReleaseDao.saveZhssInfo(belongQf,tixin,priceNum,accoInfo);  //D_POST_BAR_13
-            int insertResult2 = iwantReleaseDao.saveZhjyxxInfo(belongQf,tixin,priceNum,accoInfo);  //C_POST_BAR_12
+            String recordId = UUID.randomUUID().toString().replace("-", "");
+            int insertResult = iwantReleaseDao.saveZhssInfo(recordId, belongQf,tixin,priceNum,accoInfo);  //D_POST_BAR_13
+            int insertResult2 = iwantReleaseDao.saveZhjyxxInfo(recordId, belongQf,tixin,priceNum,accoInfo);  //C_POST_BAR_12
             if(insertResult==1) {
                 return "保存成功!";
             }else{
