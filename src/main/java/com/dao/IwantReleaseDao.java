@@ -317,4 +317,13 @@ public class IwantReleaseDao {
         listSql = sql.toString();
         return this.commondao.query(sql.toString(), paramList);
     }
+
+    public int savePub(String recordId, String createTime, String updateTime, int isvalid, int favorId, String userId, String favorDate, int favorType, String collect_cont, int collect_stusta) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" insert into F_USER_PUB_INFO(RECORD_ID,CREATETIME,UPDATETIME,ISVALID,MAIN_ID,USER_ID,FAVOR_DATE,FAVOR_TYPE,COLLECT_CONT,COLLECT_STUSTA) " +
+                   " values('"+recordId+"','"+createTime+"','"+updateTime+"','"+isvalid+"','"+favorId+"','"+userId+"','"+favorDate+"','"+favorType+"','"+collect_cont+"','"+collect_stusta+"') ");
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(), paramList);
+    }
 }
