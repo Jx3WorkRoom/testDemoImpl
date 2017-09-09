@@ -44,4 +44,12 @@ public class dataAndSecurityDao {
         System.out.println(sql);
         return this.commondao.queryOne(sql.toString(), paramList);
     }
+
+    public void HasTel(String newtel) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" select user_tel from f_user_info where user_tel = '"+newtel+"' limit 0,1");
+        System.out.println(sql);
+        this.commondao.queryOne(sql.toString(), paramList);
+    }
 }

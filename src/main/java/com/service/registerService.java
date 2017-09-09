@@ -23,7 +23,7 @@ public class registerService {
         }
     }
 
-    public Object checkIsEmpty(String loginName, String userName) {
+    public Object checkIsEmpty(String loginName, String userName,String tel) {
         if(!"".equals(loginName)){
             try {
                 registerDao.checkIsEmpty1(loginName);
@@ -36,6 +36,14 @@ public class registerService {
             try {
                 registerDao.checkIsEmpty2(userName);
                 return "昵称已存在!";
+            }catch (Exception e) {
+                return "";
+            }
+        }
+        if(!"".equals(tel)){
+            try {
+                registerDao.checkIsEmpty3(tel);
+                return "此手机号已注册!";
             }catch (Exception e) {
                 return "";
             }

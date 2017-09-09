@@ -60,11 +60,12 @@ public class dataAndSecurityAction {
     @Produces("application/json")
     public Map<String,Object> userIsEmpty(
             @RequestParam(value="loginName",required=false,defaultValue ="0") String loginName,
-            @RequestParam(value="tel",required=false,defaultValue ="0") String tel
+            @RequestParam(value="tel",required=false,defaultValue ="0") String tel,
+            @RequestParam(value="newtel",required=false,defaultValue ="") String newtel
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        Object info = dataAndSecurityService.userIsEmpty(loginName,tel);
+        Object info = dataAndSecurityService.userIsEmpty(loginName,tel,newtel);
         resmap.put("info", info);
         resmap.put("success", true);
         long post=System.currentTimeMillis();

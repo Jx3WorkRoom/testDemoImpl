@@ -42,20 +42,21 @@ public class registerAction {
         return resmap;
     }
 
-    @ApiOperation(value="验证账号或昵称是否已存在", notes="",produces = "application/json")
+    @ApiOperation(value="验证账号或昵称或手机号是否已存在", notes="",produces = "application/json")
     @RequestMapping(value="checkIsEmpty",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> checkIsEmpty(
             @RequestParam(value="loginName",required=false,defaultValue = "") String loginName,
-            @RequestParam(value="userName",required=false,defaultValue = "") String userName
+            @RequestParam(value="userName",required=false,defaultValue = "") String userName,
+            @RequestParam(value="tel",required=false,defaultValue = "") String tel
     ) throws Exception {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        Object info = registerService.checkIsEmpty(loginName,userName);
+        Object info = registerService.checkIsEmpty(loginName,userName,tel);
         resmap.put("info", info);
         resmap.put("success", true);
         long post=System.currentTimeMillis();
-        System.out.println("验证账号或昵称是否已存在接口执行时间（单位：毫秒）："+ (post-pre));
+        System.out.println("验证账号或昵称或手机号是否已存在接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
     }
 }

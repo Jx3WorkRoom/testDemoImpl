@@ -71,7 +71,7 @@ public class registerDao {
     public String checkIsEmpty1(String loginName) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(" select login_name from f_user_info where login_name = '"+loginName+"'");
+        sql.append(" select login_name from f_user_info where login_name = '"+loginName+"' limit 0 ,1");
         System.out.println(sql);
         return this.commondao.queryOne(sql.toString(), paramList);
     }
@@ -79,7 +79,15 @@ public class registerDao {
     public String checkIsEmpty2(String userName) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(" select user_name from f_user_info where user_name = '"+userName+"'");
+        sql.append(" select user_name from f_user_info where user_name = '"+userName+"' limit 0 ,1");
+        System.out.println(sql);
+        return this.commondao.queryOne(sql.toString(), paramList);
+    }
+
+    public String checkIsEmpty3(String tel) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" select USER_TEL from f_user_info where USER_TEL = '"+tel+"' limit 0 ,1");
         System.out.println(sql);
         return this.commondao.queryOne(sql.toString(), paramList);
     }

@@ -66,11 +66,20 @@ public class dataAndSecurityService {
         }
     }
 
-    public Object userIsEmpty(String loginName, String tel) {
+    public Object userIsEmpty(String loginName, String tel,String newtel) {
             try {
-                String telphone = dataAndSecurityDao.userIsEmpty2(loginName);
-                if(!telphone.equals(tel)){
-                    return "不存在该手机号";
+                if("".equals(newtel)) {
+                    String telphone = dataAndSecurityDao.userIsEmpty2(loginName);
+                    if (!telphone.equals(tel)) {
+                        return "不存在该手机号";
+                    }
+                }else{
+                    try{
+                        dataAndSecurityDao.HasTel(newtel);
+                        return "该手机号已注册!";
+                    }catch (Exception e){
+                        return "";
+                    }
                 }
             }catch (Exception e){
                 return "不存在该手机号";
