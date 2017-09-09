@@ -39,7 +39,7 @@ public class IwantReleaseDao {
     public int saveHbbgfo(String recordId, int favorId, String userId, int cheatType, String belongQf, String tixin, String roleName, String cheatIntro, String cheatInfo, String pageUrl) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
         String MAIN_ID = "1";
         //sql.append(" insert into C_POST_BAR_11(record_id,createtime,updatetime,isvalid,favor_id,user_id,favor_date,cheat_type,belong_qf,tixin,role_name,cheat_intro,cheat_info,page_url) " +
@@ -56,7 +56,7 @@ public class IwantReleaseDao {
     public int saveZhjyxxInfo(String recordId, int favorId, String userId, String belongQf,String tixin,String priceNum,String replyContent) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("s*","");
+        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("s*","");
         String tradeType = "1";
         String favorDate = createTime;
         String REPLY_TIME = createTime;String BELONG_FLOOR = "1";String PAGE_NUM = "1";String PAGE_URL = "";String URL_VALID = "1";String MAIN_ID = "1";String SOURCE_TYPE = "1";String MENPAI_NAME = "";String XINFA_NAME = "";String TITLE_NAME = "";
@@ -80,7 +80,7 @@ public class IwantReleaseDao {
 //                                String PVP_HPS, String PVE_HPS, String PVP_T, String PVP_IN, String PVE_IN, String PVP_OUT, String PVE_OUT, String OTHER_EXPLAIN) throws Exception {
 //        StringBuilder sql = new StringBuilder();
 //        List<Object> paramList = new ArrayList<Object>();
-//        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+//        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
 //        String favorDate = createTime;
 //        String OTHER_TITLE = "1";
 //        String RECRUIT_NUM = "1";
@@ -111,7 +111,7 @@ public class IwantReleaseDao {
     public int saveWgjyxxInfo(String recordId, int favorId, String userId, int tradeType, String belongQf, String viewName, int priceNum, String favorInfo) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
         String THEME_ID = ""; String PAGE_URL = ""; String POST_BAR = ""; String POST_ID = ""; String REPLY_TIME = ""; String POST_BAR_CLASS = "1"; String SOURCE_TYPE = "2"; String WAIGUAN_NAME = ""; String BELONG_FLOOR = "1";
         String PAGE_NUM = "1";String THEME_NAME = "";String URL_VALID = "1";String MAIN_ID = "1";
@@ -131,7 +131,7 @@ public class IwantReleaseDao {
     public int saveDjjyxxInfo(String recordId, int favorId, String userId, int tradeType, String belongQf, String propName, int priceNum, String favorInfo) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
         String THEME_ID = ""; String PAGE_URL = "";String POST_BAR = "";String POST_ID = "";String POST_BAR_CLASS = "1";String OTHER_EXPLAIN = "";String THEME_NAME = "";String BELONG_FLOOR = "1";String PAGE_NUM = "1";
         String SOURCE_TYPE = "2";String URL_VALID = "1";String MAIN_ID = "1";
@@ -151,7 +151,7 @@ public class IwantReleaseDao {
     public int saveYxjbjyInfo(String recordId, int favorId, String userId, int tradeType, String belongQf, int goldTotal, int unitPrice, int ifSplit, String favorInfo) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
         String MAIN_ID = "";
         //sql.append(" insert into C_POST_BAR_19(record_id,createtime,updatetime,isvalid,favor_id,user_id,favor_date,trade_type,belong_qf,gold_total,unit_price,if_split,favor_info) " +
@@ -168,7 +168,7 @@ public class IwantReleaseDao {
     public int saveYxddxxInfo(String recordId, int favorId, String userId, int cheatType, String belongQf, String favorInfo) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
         String THEME_ID = "";String PAGE_URL = "";String POST_BAR = "";String POST_ID = "";int POST_BAR_CLASS = 0;String BELONG_FLOOR = "1";String PAGE_NUM = "1";String THEME_NAME = "";String MAIN_ID = "";
         //sql.append(" insert into C_POST_BAR_17(record_id,createtime,updatetime,isvalid,favor_id,user_id,cheat_type,belong_qf,favor_info,favorDate) " +
@@ -185,7 +185,7 @@ public class IwantReleaseDao {
     public int saveWyjbInfo(String recordId, int favorId, String userId, int cheatType, String belongQf, String tixin, String roleName, String cheatIntro, String cheatInfo, String pageUrl) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
 
         String favorDate = createTime;
         sql.append(" insert into D_POST_BAR_11(record_id,createtime,updatetime,isvalid,favor_id,user_id,favor_date,cheat_type,belong_qf,tixin,role_name,cheat_intro,cheat_info,page_url) " +
@@ -198,7 +198,7 @@ public class IwantReleaseDao {
     public int saveWgjyInfo(String recordId, int favorId, String userId, int tradeType, String belongQf, String viewName, int priceNum, String favorInfo) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
         sql.append(" insert into D_POST_BAR_16(record_id,createtime,updatetime,isvalid,favor_id,user_id,trade_type,belong_qf,view_name,price_num,favor_date,favor_info) " +
                 " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+tradeType+"','"+belongQf+"','"+viewName+"','"+priceNum+"','"+favorDate+"','"+favorInfo+"')");
@@ -210,7 +210,7 @@ public class IwantReleaseDao {
     public int saveDjjyInfo(String recordId, int favorId, String userId, int tradeType, String belongQf, String propName, int priceNum, String favorInfo) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
         sql.append(" insert into D_POST_BAR_18(record_id,createtime,updatetime,isvalid,favor_id,user_id,trade_type,belong_qf,prop_name,price_num,favor_info,favor_date) " +
                 " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+tradeType+"','"+belongQf+"','"+propName+"','"+priceNum+"','"+favorInfo+"','"+favorDate+"')");
@@ -222,7 +222,7 @@ public class IwantReleaseDao {
     public int saveJbjyInfo(String recordId, int favorId, String userId, int tradeType, String belongQf, int goldTotal, int unitPrice, int ifSplit, String favorInfo) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
         sql.append(" insert into D_POST_BAR_19(record_id,createtime,updatetime,isvalid,favor_id,user_id,favor_date,trade_type,belong_qf,gold_total,unit_price,if_split,favor_info) " +
                 " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+favorDate+"','"+tradeType+"','"+belongQf+"','"+goldTotal+"','"+unitPrice+"','"+ifSplit+"','"+favorInfo+"')");
@@ -234,7 +234,7 @@ public class IwantReleaseDao {
     public int saveDlddInfo(String recordId, int favorId, String userId, int needType, String belongQf, String favorInfo) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
         sql.append(" insert into D_POST_BAR_20(record_id,createtime,updatetime,isvalid,favor_id,user_id,need_type,belong_qf,favor_info,favor_Date) " +
                 " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+needType+"','"+belongQf+"','"+favorInfo+"','"+favorDate+"')");
@@ -246,7 +246,7 @@ public class IwantReleaseDao {
     public int saveZhssInfo(String recordId, int favorId, String userId, String belongQf,String tixin,int priceNum,String accoInfo) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String tradeType = "1";
         String favorDate = createTime;
         sql.append(" insert into D_POST_BAR_13(record_id,createtime,updatetime,isvalid,favor_id,user_id,trade_type,favor_date,belong_qf,tixin,price_num) " +
@@ -264,7 +264,7 @@ public class IwantReleaseDao {
                                 String PVP_HPS, String PVE_HPS, String PVP_T, String PVP_IN, String PVE_IN, String PVP_OUT, String PVE_OUT, String OTHER_EXPLAIN) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
         String OTHER_TITLE = "1";
         String RECRUIT_NUM = "1";

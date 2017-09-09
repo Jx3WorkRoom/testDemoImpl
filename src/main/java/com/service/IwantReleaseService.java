@@ -18,10 +18,10 @@ public class IwantReleaseService {
     public String saveWyjbInfo(String userId, int cheatType, String belongQf, String tixin, String roleName, String cheatIntro, String cheatInfo, String pageUrl) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            String recordId = UUID.randomUUID().toString().replace("-", "");
+            String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
             int favorId = iwantReleaseDao.getSequence3();
-            int insertResult = iwantReleaseDao.saveWyjbInfo(recordId,favorId,userId,cheatType,belongQf,tixin,roleName,cheatIntro,cheatInfo,pageUrl);    //D_post_bar_11
-            int insertResult2 = iwantReleaseDao.saveHbbgfo(recordId,favorId,userId,cheatType,belongQf,tixin,roleName,cheatIntro,cheatInfo,pageUrl);     //C_POST_BAR_11
+            int insertResult = iwantReleaseDao.saveWyjbInfo(recordId,favorId,userId,cheatType,"["+belongQf+"]","["+tixin+"]",roleName,cheatIntro,cheatInfo,pageUrl);    //D_post_bar_11
+            int insertResult2 = iwantReleaseDao.saveHbbgfo(recordId,favorId,userId,cheatType,"["+belongQf+"]","["+tixin+"]",roleName,cheatIntro,cheatInfo,pageUrl);     //C_POST_BAR_11
             String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
@@ -45,10 +45,10 @@ public class IwantReleaseService {
     public String saveWgjyInfo(String userId, int tradeType, String belongQf, String viewName, int priceNum, String favorInfo) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            String recordId = UUID.randomUUID().toString().replace("-", "");
+            String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
             int favorId = iwantReleaseDao.getSequence3();
-            int insertResult = iwantReleaseDao.saveWgjyInfo(recordId,favorId, userId,tradeType,belongQf,viewName,priceNum,favorInfo);    //D_POST_BAR_16
-            int insertResult2 = iwantReleaseDao.saveWgjyxxInfo(recordId,favorId, userId,tradeType,belongQf,viewName,priceNum,favorInfo);    //C_POST_BAR_13
+            int insertResult = iwantReleaseDao.saveWgjyInfo(recordId,favorId, userId,tradeType,"["+belongQf+"]",viewName,priceNum,favorInfo);    //D_POST_BAR_16
+            int insertResult2 = iwantReleaseDao.saveWgjyxxInfo(recordId,favorId, userId,tradeType,"["+belongQf+"]",viewName,priceNum,favorInfo);    //C_POST_BAR_13
             String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
@@ -72,7 +72,7 @@ public class IwantReleaseService {
     public String saveDjjyInfo(String userId,int tradeType, String belongQf, String propName, int priceNum, String favorInfo) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            String recordId = UUID.randomUUID().toString().replace("-", "");
+            String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
             int favorId = iwantReleaseDao.getSequence3();
             int insertResult = iwantReleaseDao.saveDjjyInfo(recordId,favorId, userId,tradeType, belongQf, propName, priceNum, favorInfo);    //D_POST_BAR_18
             int insertResult2 = iwantReleaseDao.saveDjjyxxInfo(recordId,favorId, userId,tradeType, belongQf, propName, priceNum, favorInfo);    //C_POST_BAR_15
@@ -99,7 +99,7 @@ public class IwantReleaseService {
     public String saveJbjyInfo(String userId, int tradeType, String belongQf, int goldTotal, int unitPrice, int ifSplit, String favorInfo){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            String recordId = UUID.randomUUID().toString().replace("-", "");
+            String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
             int favorId = iwantReleaseDao.getSequence3();
             int insertResult = iwantReleaseDao.saveJbjyInfo(recordId,favorId, userId, tradeType, belongQf, goldTotal, unitPrice, ifSplit, favorInfo);     //D_POST_BAR_19
             int insertResult2 = iwantReleaseDao.saveYxjbjyInfo(recordId,favorId, userId, tradeType, belongQf, goldTotal, unitPrice, ifSplit, favorInfo);     //C_POST_BAR_19
@@ -127,7 +127,7 @@ public class IwantReleaseService {
     public String saveDlddInfo(String userId, int cheatType, String belongQf, String favorInfo){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            String recordId = UUID.randomUUID().toString().replace("-", "");
+            String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
             int favorId = iwantReleaseDao.getSequence3();
             int insertResult = iwantReleaseDao.saveDlddInfo(recordId,favorId, userId, cheatType, belongQf,  favorInfo);   //D_POST_BAR_20
             int insertResult2 = iwantReleaseDao.saveYxddxxInfo(recordId,favorId, userId, cheatType, belongQf,  favorInfo);   //C_POST_BAR_17
@@ -155,7 +155,7 @@ public class IwantReleaseService {
     public String saveZhssInfo(String userId,String belongQf,String tixin,int priceNum,String accoInfo){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            String recordId = UUID.randomUUID().toString().replace("-", "");
+            String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
             int favorId = iwantReleaseDao.getSequence3();
             int insertResult = iwantReleaseDao.saveZhssInfo(recordId,favorId,userId,belongQf,tixin,priceNum,accoInfo);  //D_POST_BAR_13
             int insertResult2 = iwantReleaseDao.saveZhjyxxInfo(recordId,favorId,userId,belongQf,tixin,String.valueOf(priceNum),accoInfo);  //C_POST_BAR_12
@@ -187,7 +187,7 @@ public class IwantReleaseService {
 
         try {
             List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
-            String recordId = UUID.randomUUID().toString().replace("-", "");
+            String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
             int favorId = iwantReleaseDao.getSequence3();
             int insertResult = iwantReleaseDao.saveZhssxxfbInfo(recordId,favorId,userId,BELONG_QF,TIXIN,PRICE_NUM,FACE_NUM,BACK_NUM,WAIST_NUM,LEFT_NUM,RIGHT_NUM,qtxych,
                     CRED_NUM,TOP_NUM,CONSUM_NUM,INTEG_NUM,GOLD_NUM,PET_NUM,CREATE_ACCO,CARD_TIME,CURR_NUM,TWO_INPUT,THREE_INPUT,_95cw,_90cw,_80cw,_70cw,
