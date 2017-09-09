@@ -129,6 +129,7 @@ public class IwantReleaseAction {
     @RequestMapping(value="saveZhssInfo",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> saveZhssInfoAction(
+            @RequestParam(value="userId",required=false,defaultValue = "") String userId,
             @RequestParam(value="belongQf",required=false,defaultValue ="") String belongQf,
             @RequestParam(value="tixin",required=false,defaultValue ="") String tixin,
             @RequestParam(value="priceNum",required=false,defaultValue ="") int priceNum,
@@ -136,7 +137,7 @@ public class IwantReleaseAction {
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        String returnVal = iwantReleaseService.saveZhssInfo(belongQf,tixin,priceNum,accoInfo);
+        String returnVal = iwantReleaseService.saveZhssInfo(userId,belongQf,tixin,priceNum,accoInfo);
 
         long post=System.currentTimeMillis();
         System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
@@ -147,6 +148,7 @@ public class IwantReleaseAction {
     @RequestMapping(value="saveZhssxxfbInfo",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> saveZhssxxfbInfoAction(
+            @RequestParam(value="userId",required=false,defaultValue = "") String userId,
             @RequestParam(value="belongQf",required=false,defaultValue ="") String BELONG_QF,//涉事区服
             @RequestParam(value="tixin",required=false,defaultValue ="") String TIXIN,//门派体型
             @RequestParam(value="priceNum",required=false,defaultValue ="") String PRICE_NUM,//价格
@@ -191,7 +193,7 @@ public class IwantReleaseAction {
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        String returnVal = iwantReleaseService.saveZhssxxfbInfo(BELONG_QF,TIXIN,PRICE_NUM,FACE_NUM,BACK_NUM,WAIST_NUM,LEFT_NUM,RIGHT_NUM,qtxych,
+        String returnVal = iwantReleaseService.saveZhssxxfbInfo(userId,BELONG_QF,TIXIN,PRICE_NUM,FACE_NUM,BACK_NUM,WAIST_NUM,LEFT_NUM,RIGHT_NUM,qtxych,
                 CRED_NUM,TOP_NUM,CONSUM_NUM,INTEG_NUM,GOLD_NUM,PET_NUM,CREATE_ACCO,CARD_TIME,CURR_NUM,TWO_INPUT,THREE_INPUT,_95cw,_90cw,_80cw,_70cw,
                 mptx,XUANJIN_95,XIAOTIE_95,XUANJIN_90,XIAOTIE_90,XUANJIN_80,XIAOTIE_80,XUANJIN_70,XIAOTIE_70,
                 PVP_HPS,PVE_HPS,PVP_T,PVP_IN,PVE_IN,PVP_OUT,PVE_OUT,OTHER_EXPLAIN);

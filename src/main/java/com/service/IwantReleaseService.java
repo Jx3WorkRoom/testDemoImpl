@@ -18,8 +18,10 @@ public class IwantReleaseService {
     public String saveWyjbInfo(String userId, int cheatType, String belongQf, String tixin, String roleName, String cheatIntro, String cheatInfo, String pageUrl) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            int insertResult = iwantReleaseDao.saveWyjbInfo(userId,cheatType,belongQf,tixin,roleName,cheatIntro,cheatInfo,pageUrl);    //D_post_bar_11
-            int insertResult2 = iwantReleaseDao.saveHbbgfo(userId,cheatType,belongQf,tixin,roleName,cheatIntro,cheatInfo,pageUrl);     //C_POST_BAR_11
+            String recordId = UUID.randomUUID().toString().replace("-", "");
+            int favorId = iwantReleaseDao.getSequence3();
+            int insertResult = iwantReleaseDao.saveWyjbInfo(recordId,favorId,userId,cheatType,belongQf,tixin,roleName,cheatIntro,cheatInfo,pageUrl);    //D_post_bar_11
+            int insertResult2 = iwantReleaseDao.saveHbbgfo(recordId,favorId,userId,cheatType,belongQf,tixin,roleName,cheatIntro,cheatInfo,pageUrl);     //C_POST_BAR_11
             if(insertResult==1 && insertResult2==1) {
                 return "保存成功!";
             }else{
@@ -35,8 +37,10 @@ public class IwantReleaseService {
     public String saveWgjyInfo(String userId, int tradeType, String belongQf, String viewName, int priceNum, String favorInfo) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            int insertResult = iwantReleaseDao.saveWgjyInfo(userId,tradeType,belongQf,viewName,priceNum,favorInfo);    //D_POST_BAR_16
-            int insertResult2 = iwantReleaseDao.saveWgjyxxInfo(userId,tradeType,belongQf,viewName,priceNum,favorInfo);    //C_POST_BAR_13
+            String recordId = UUID.randomUUID().toString().replace("-", "");
+            int favorId = iwantReleaseDao.getSequence3();
+            int insertResult = iwantReleaseDao.saveWgjyInfo(recordId,favorId, userId,tradeType,belongQf,viewName,priceNum,favorInfo);    //D_POST_BAR_16
+            int insertResult2 = iwantReleaseDao.saveWgjyxxInfo(recordId,favorId, userId,tradeType,belongQf,viewName,priceNum,favorInfo);    //C_POST_BAR_13
             if(insertResult==1 && insertResult2==1) {
                 return "保存成功!";
             }else{
@@ -52,8 +56,10 @@ public class IwantReleaseService {
     public String saveDjjyInfo(String userId,int tradeType, String belongQf, String propName, int priceNum, String favorInfo) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            int insertResult = iwantReleaseDao.saveDjjyInfo(userId,tradeType, belongQf, propName, priceNum, favorInfo);    //D_POST_BAR_18
-            int insertResult2 = iwantReleaseDao.saveDjjyxxInfo(userId,tradeType, belongQf, propName, priceNum, favorInfo);    //C_POST_BAR_15
+            String recordId = UUID.randomUUID().toString().replace("-", "");
+            int favorId = iwantReleaseDao.getSequence3();
+            int insertResult = iwantReleaseDao.saveDjjyInfo(recordId,favorId, userId,tradeType, belongQf, propName, priceNum, favorInfo);    //D_POST_BAR_18
+            int insertResult2 = iwantReleaseDao.saveDjjyxxInfo(recordId,favorId, userId,tradeType, belongQf, propName, priceNum, favorInfo);    //C_POST_BAR_15
             if(insertResult==1 && insertResult2==1) {
                 return "保存成功!";
             }else{
@@ -69,8 +75,10 @@ public class IwantReleaseService {
     public String saveJbjyInfo(String userId, int tradeType, String belongQf, int goldTotal, int unitPrice, int ifSplit, String favorInfo){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            int insertResult = iwantReleaseDao.saveJbjyInfo(userId, tradeType, belongQf, goldTotal, unitPrice, ifSplit, favorInfo);     //D_POST_BAR_19
-            int insertResult2 = iwantReleaseDao.saveYxjbjyInfo(userId, tradeType, belongQf, goldTotal, unitPrice, ifSplit, favorInfo);     //C_POST_BAR_19
+            String recordId = UUID.randomUUID().toString().replace("-", "");
+            int favorId = iwantReleaseDao.getSequence3();
+            int insertResult = iwantReleaseDao.saveJbjyInfo(recordId,favorId, userId, tradeType, belongQf, goldTotal, unitPrice, ifSplit, favorInfo);     //D_POST_BAR_19
+            int insertResult2 = iwantReleaseDao.saveYxjbjyInfo(recordId,favorId, userId, tradeType, belongQf, goldTotal, unitPrice, ifSplit, favorInfo);     //C_POST_BAR_19
             if(insertResult==1 && insertResult2==1) {
                 return "保存成功!";
             }else{
@@ -87,8 +95,10 @@ public class IwantReleaseService {
     public String saveDlddInfo(String userId, int cheatType, String belongQf, String favorInfo){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            int insertResult = iwantReleaseDao.saveDlddInfo(userId, cheatType, belongQf,  favorInfo);   //D_POST_BAR_20
-            int insertResult2 = iwantReleaseDao.saveYxddxxInfo(userId, cheatType, belongQf,  favorInfo);   //C_POST_BAR_17
+            String recordId = UUID.randomUUID().toString().replace("-", "");
+            int favorId = iwantReleaseDao.getSequence3();
+            int insertResult = iwantReleaseDao.saveDlddInfo(recordId,favorId, userId, cheatType, belongQf,  favorInfo);   //D_POST_BAR_20
+            int insertResult2 = iwantReleaseDao.saveYxddxxInfo(recordId,favorId, userId, cheatType, belongQf,  favorInfo);   //C_POST_BAR_17
             if(insertResult==1 && insertResult2==1) {
                 return "保存成功!";
             }else{
@@ -102,11 +112,13 @@ public class IwantReleaseService {
     }
 
     //账号快售快速发布
-    public String saveZhssInfo(String belongQf,String tixin,int priceNum,String accoInfo){
+    public String saveZhssInfo(String userId,String belongQf,String tixin,int priceNum,String accoInfo){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            int insertResult = iwantReleaseDao.saveZhssInfo(belongQf,tixin,priceNum,accoInfo);  //D_POST_BAR_13
-            int insertResult2 = iwantReleaseDao.saveZhjyxxInfo(belongQf,tixin,priceNum,accoInfo);  //C_POST_BAR_12
+            String recordId = UUID.randomUUID().toString().replace("-", "");
+            int favorId = iwantReleaseDao.getSequence3();
+            int insertResult = iwantReleaseDao.saveZhssInfo(recordId,favorId,userId,belongQf,tixin,priceNum,accoInfo);  //D_POST_BAR_13
+            int insertResult2 = iwantReleaseDao.saveZhjyxxInfo(recordId,favorId,userId,belongQf,tixin,String.valueOf(priceNum),accoInfo);  //C_POST_BAR_12
             if(insertResult==1) {
                 return "保存成功!";
             }else{
@@ -120,21 +132,24 @@ public class IwantReleaseService {
     }
 
     //账号收售详细发布
-    public String saveZhssxxfbInfo(String BELONG_QF, String TIXIN, String PRICE_NUM, String FACE_NUM, String BACK_NUM, String WAIST_NUM, String LEFT_NUM, String RIGHT_NUM, String qtxych, String
+    public String saveZhssxxfbInfo(String userId, String BELONG_QF, String TIXIN, String PRICE_NUM, String FACE_NUM, String BACK_NUM, String WAIST_NUM, String LEFT_NUM, String RIGHT_NUM, String qtxych, String
                                    CRED_NUM, String TOP_NUM, String CONSUM_NUM, String INTEG_NUM, String GOLD_NUM, String PET_NUM, String CREATE_ACCO, String CARD_TIME, String CURR_NUM, String TWO_INPUT, String THREE_INPUT, String _95cw, String _90cw, String _80cw, String _70cw, String
                                    mptx, String XUANJIN_95, String XIAOTIE_95, String XUANJIN_90, String XIAOTIE_90, String XUANJIN_80, String XIAOTIE_80, String XUANJIN_70, String XIAOTIE_70,
                                    String PVP_HPS, String PVE_HPS, String PVP_T, String PVP_IN, String PVE_IN, String PVP_OUT, String PVE_OUT, String OTHER_EXPLAIN){
-        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+
         try {
-            int insertResult = iwantReleaseDao.saveZhssxxfbInfo(BELONG_QF,TIXIN,PRICE_NUM,FACE_NUM,BACK_NUM,WAIST_NUM,LEFT_NUM,RIGHT_NUM,qtxych,
+            List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+            String recordId = UUID.randomUUID().toString().replace("-", "");
+            int favorId = iwantReleaseDao.getSequence3();
+            int insertResult = iwantReleaseDao.saveZhssxxfbInfo(recordId,favorId,userId,BELONG_QF,TIXIN,PRICE_NUM,FACE_NUM,BACK_NUM,WAIST_NUM,LEFT_NUM,RIGHT_NUM,qtxych,
                     CRED_NUM,TOP_NUM,CONSUM_NUM,INTEG_NUM,GOLD_NUM,PET_NUM,CREATE_ACCO,CARD_TIME,CURR_NUM,TWO_INPUT,THREE_INPUT,_95cw,_90cw,_80cw,_70cw,
                     mptx,XUANJIN_95,XIAOTIE_95,XUANJIN_90,XIAOTIE_90,XUANJIN_80,XIAOTIE_80,XUANJIN_70,XIAOTIE_70,
                     PVP_HPS,PVE_HPS,PVP_T,PVP_IN,PVE_IN,PVP_OUT,PVE_OUT,OTHER_EXPLAIN);     //D_POST_BAR_14
-            //int insertResult2 = iwantReleaseDao.saveZhjywyxxInfo(BELONG_QF,TIXIN,PRICE_NUM,FACE_NUM,BACK_NUM,WAIST_NUM,LEFT_NUM,RIGHT_NUM,qtxych,
+            //int insertResult2 = iwantReleaseDao.saveZhjywyxxInfo(recordId,favorId, BELONG_QF,TIXIN,PRICE_NUM,FACE_NUM,BACK_NUM,WAIST_NUM,LEFT_NUM,RIGHT_NUM,qtxych,
             //        CRED_NUM,TOP_NUM,CONSUM_NUM,INTEG_NUM,GOLD_NUM,PET_NUM,CREATE_ACCO,CARD_TIME,CURR_NUM,TWO_INPUT,THREE_INPUT,_95cw,_90cw,_80cw,_70cw,
             //        mptx,XUANJIN_95,XIAOTIE_95,XUANJIN_90,XIAOTIE_90,XUANJIN_80,XIAOTIE_80,XUANJIN_70,XIAOTIE_70,
             //        PVP_HPS,PVE_HPS,PVP_T,PVP_IN,PVE_IN,PVP_OUT,PVE_OUT,OTHER_EXPLAIN);     //C_POST_BAR_12_1
-
+            int insertResult2 = iwantReleaseDao.saveZhjyxxInfo(recordId,favorId,userId,BELONG_QF,TIXIN,PRICE_NUM,FACE_NUM);  //C_POST_BAR_12
             if(insertResult==1) {
                 return "保存成功!";
             }else{
