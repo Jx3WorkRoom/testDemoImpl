@@ -33,7 +33,9 @@ public class UserAction {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
         Object dataList = userService.queryUser(username);
+        Object userInfo = userService.queryUserInfo(username);
         resmap.put("datas", dataList);
+        resmap.put("userInfo", userInfo);
         resmap.put("success", true);
         long post=System.currentTimeMillis();
         System.out.println("查询接口执行时间（单位：毫秒）："+ (post-pre));

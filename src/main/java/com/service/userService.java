@@ -46,4 +46,15 @@ public class userService {
         int testAddTableFlag = userDao.testAddUserTable(str);
         return testAddTableFlag;
     }
+
+    public Object queryUserInfo(String username) {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = userDao.queryUserInfo(username);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
 }

@@ -96,4 +96,12 @@ public class userDao {
         System.out.println(paramList);
         return testResult;
     }
+
+    public List<Map<String,Object>> queryUserInfo(String username) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append("select * from f_user_info where login_name = '"+username+"' limit 0 ,1");
+        System.out.println(sql);
+        return this.commondao.query(sql.toString(), paramList);
+    }
 }
