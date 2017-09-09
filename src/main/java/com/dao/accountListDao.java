@@ -240,7 +240,7 @@ public class accountListDao {
         return this.commondao.query(sql.toString(), paramList);
     }
 
-    public List<Map<String,Object>> queryAccountListInfo3(int tradeType, String selectTion1, String selectTion2, String selectTion3, String shape, Map<String, Set<String>> map, int startNum, int endNum) throws Exception {
+    public List<Map<String,Object>> queryAccountListInfo3(int tradeType, String selectTion1, String selectTion2, String selectTion3, String shape, Map<String, Set<String>> map, int startNum, int endNum,String info) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append("SELECT" +
@@ -252,9 +252,9 @@ public class accountListDao {
                 " a.TRADE_TYPE = "+tradeType);
         if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3))
             sql.append(
-                    " AND (a.BELONG_QF = '"+selectTion1+"' " +
-                    " || a.BELONG_QF = '"+selectTion1+selectTion2+"' " +
-                    " || a.BELONG_QF = '"+selectTion1+selectTion2+selectTion3+"' "+
+                    " AND (a.BELONG_QF = '["+selectTion1+"]' " +
+                    " || a.BELONG_QF = '["+selectTion1+selectTion2+"]' " +
+                    " || a.BELONG_QF = '["+selectTion1+selectTion2+selectTion3+"]' "+
                     " || a.BELONG_QF is null || a.BELONG_QF ='' )"
             );
         if(!"".equals(shape)) {
@@ -262,6 +262,7 @@ public class accountListDao {
                     " AND a.TIXIN like '%" + shape + "%'");
         }
         if(map.size()>0) {
+            sql.append(" AND( ");
             for (Map.Entry<String, Set<String>> entry : map.entrySet()) {
                 String key = entry.getKey();
                 if("title".equals(key)){
@@ -270,68 +271,75 @@ public class accountListDao {
                     for(int i =0;i<objArr.length;i++){
                         arr[i] = objArr[i].toString();
                     }
-                    sql.append(" AND (A.TITLE_NAME like '%"+arr[0]+"%'");
+                    sql.append(" A.TITLE_NAME like '%"+arr[0]+"%'");
                     for(int i=1;i<arr.length;i++){
                         sql.append(" || A.TITLE_NAME like '%"+arr[i]+"%'");
                     }
-                    sql.append(")");
+                    sql.append("||");
                 }else if("waiguan".equals(key)){
                     Object[] objArr = entry.getValue().toArray();
                     String[] arr = new String[objArr.length];
                     for(int i =0;i<objArr.length;i++){
                         arr[i] = objArr[i].toString();
                     }
-                    sql.append(" AND (A.WAIGUAN_NAME like '%"+arr[0]+"%'");
+                    sql.append(" A.WAIGUAN_NAME like '%"+arr[0]+"%'");
                     for(int i=1;i<arr.length;i++){
                         sql.append(" || A.WAIGUAN_NAME like '%"+arr[i]+"%'");
                     }
-                    sql.append(")");
+                    sql.append("||");
                 }else if("horse".equals(key)){
                     Object[] objArr = entry.getValue().toArray();
                     String[] arr = new String[objArr.length];
                     for(int i =0;i<objArr.length;i++){
                         arr[i] = objArr[i].toString();
                     }
-                    sql.append(" AND (A.HORSE_NAME like '%"+arr[0]+"%'");
+                    sql.append(" A.HORSE_NAME like '%"+arr[0]+"%'");
                     for(int i=1;i<arr.length;i++){
                         sql.append(" || A.HORSE_NAME like '%"+arr[i]+"%'");
                     }
-                    sql.append(")");
+                    sql.append("||");
                 }else if("arm".equals(key)){
                     Object[] objArr = entry.getValue().toArray();
                     String[] arr = new String[objArr.length];
                     for(int i =0;i<objArr.length;i++){
                         arr[i] = objArr[i].toString();
                     }
-                    sql.append(" AND (A.ARM_NAME like '%"+arr[0]+"%'");
+                    sql.append(" A.ARM_NAME like '%"+arr[0]+"%'");
                     for(int i=1;i<arr.length;i++){
                         sql.append(" || A.ARM_NAME like '%"+arr[i]+"%'");
                     }
-                    sql.append(")");
+                    sql.append("||");
                 }else if("stra".equals(key)){
                     Object[] objArr = entry.getValue().toArray();
                     String[] arr = new String[objArr.length];
                     for(int i =0;i<objArr.length;i++){
                         arr[i] = objArr[i].toString();
                     }
-                    sql.append(" AND (A.STRA_NAME like '%"+arr[0]+"%'");
+                    sql.append(" A.STRA_NAME like '%"+arr[0]+"%'");
                     for(int i=1;i<arr.length;i++){
                         sql.append(" || A.STRA_NAME like '%"+arr[i]+"%'");
                     }
-                    sql.append(")");
+                    sql.append("||");
                 }else if("pend".equals(key)){
                     Object[] objArr = entry.getValue().toArray();
                     String[] arr = new String[objArr.length];
                     for(int i =0;i<objArr.length;i++){
                         arr[i] = objArr[i].toString();
                     }
-                    sql.append(" AND (A.PEND_NAME like '%"+arr[0]+"%'");
+                    sql.append(" A.PEND_NAME like '%"+arr[0]+"%'");
                     for(int i=1;i<arr.length;i++){
                         sql.append(" || A.PEND_NAME like '%"+arr[i]+"%'");
                     }
-                    sql.append(")");
+                    sql.append("||");
+                }else{
+                    sql.append(" A.REPLY_CONTENT like '%"+info+"%'");
+                    sql.append("||");
                 }
             }
+            sql.delete(sql.length()-2,sql.length());
+            sql.append(")");
+        }else{
+            sql.append(" AND A.REPLY_CONTENT like '%"+info+"%'");
         }
         sql.append(
                 " AND a.BELONG_QF is not NULL" +

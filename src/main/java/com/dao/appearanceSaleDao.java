@@ -207,7 +207,7 @@ public class appearanceSaleDao {
         return this.commondao.query(sql.toString(), paramList);
     }
 
-    public List<Map<String,Object>> queryappearanceSaleInfo3(int tradeType, String selectTion1, String selectTion2, String selectTion3, Map<String, Set<String>> map, int startNum, int endNum) throws Exception {
+    public List<Map<String,Object>> queryappearanceSaleInfo3(int tradeType, String selectTion1, String selectTion2, String selectTion3, Map<String, Set<String>> map, int startNum, int endNum,String shape) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append("SELECT" +
@@ -220,9 +220,9 @@ public class appearanceSaleDao {
                 " a.TRADE_TYPE = "+tradeType);
         if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3)) {
             sql.append(
-                    " AND (a.BELONG_QF = '"+selectTion1+"' " +
-                            " || a.BELONG_QF = '"+selectTion1+selectTion2+"' " +
-                            " || a.BELONG_QF = '"+selectTion1+selectTion2+selectTion3+"' "+
+                    " AND (a.BELONG_QF = '["+selectTion1+"]' " +
+                            " || a.BELONG_QF = '["+selectTion1+selectTion2+"]' " +
+                            " || a.BELONG_QF = '["+selectTion1+selectTion2+selectTion3+"]' "+
                             " || a.BELONG_QF is null || a.BELONG_QF ='' )"
             );
         }
@@ -242,6 +242,8 @@ public class appearanceSaleDao {
                     sql.append(")");
                 }
             }
+        }else{
+            sql.append(" AND A.POST_CONTENT like '%"+shape+"%'");
         }
         sql.append(
                 " AND a.BELONG_QF is not NULL" +

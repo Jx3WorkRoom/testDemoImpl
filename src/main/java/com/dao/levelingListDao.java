@@ -35,9 +35,9 @@ public class levelingListDao {
                 " a.NEED_TYPE = "+needType);
         if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3)){
             sql.append(
-                    " AND (a.BELONG_QF = '"+selectTion1+"' " +
-                            " || a.BELONG_QF = '"+selectTion1+selectTion2+"' " +
-                            " || a.BELONG_QF = '"+selectTion1+selectTion2+selectTion3+"' "+
+                    " AND (a.BELONG_QF = '["+selectTion1+"]' " +
+                            " || a.BELONG_QF = '["+selectTion1+selectTion2+"]' " +
+                            " || a.BELONG_QF = '["+selectTion1+selectTion2+selectTion3+"]' "+
                             " || a.BELONG_QF is null || a.BELONG_QF ='' )"
             );
         }

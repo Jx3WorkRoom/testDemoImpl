@@ -46,7 +46,7 @@ public class appearanceSaleService {
                     }
                 }
                 Map<String,Set<String>> map =segmentWordDao.test(shape);
-                resArr = appearanceSaleDao.queryappearanceSaleInfo3(tradeType,selectTion1,selectTion2,selectTion3,map,startNum,endNum);
+                resArr = appearanceSaleDao.queryappearanceSaleInfo3(tradeType,selectTion1,selectTion2,selectTion3,map,startNum,endNum,shape);
             }
         } catch (Exception e) {
             // TODO Auto-generated catch block
