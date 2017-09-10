@@ -74,7 +74,7 @@ public class SegmentDemo {
                 "七周" };
         Set<String> hongfaSet = new HashSet<String>(Arrays.asList(hongfa));
 
-        String[] hezi = { "元宵	", "中秋", "中秋蓝", "中秋粉", "七夕	", "红", "黑", "蓝", "青" };
+        String[] hezi = { "元宵", "中秋", "中秋蓝", "中秋粉", "七夕", "红", "黑", "蓝", "青" };
         Set<String> heziSet = new HashSet<String>(Arrays.asList(hezi));
 
         String data = str;

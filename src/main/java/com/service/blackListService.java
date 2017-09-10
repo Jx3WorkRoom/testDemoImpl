@@ -93,10 +93,10 @@ public class blackListService {
         return resArr;
     }
 
-    public void addUserFollow(int favorId) throws Exception {
+    public void addUserFollow(int favorId,String username) throws Exception {
         int resultNum = blackListDao.addUserFollow(favorId);
         if(resultNum==0){
-            blackListDao.insertUserFollow(favorId);
+            blackListDao.insertUserFollow(favorId,username);
         }
     }
 }

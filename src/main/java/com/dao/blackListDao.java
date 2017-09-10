@@ -75,7 +75,8 @@ public class blackListDao {
     public List<Map<String,Object>> queryPageListNum() throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(listSql.substring(0,listSql.length()-10));
+        int num = listSql.indexOf("LIMIT");
+        sql.append(listSql.substring(0,num-1));
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }
@@ -158,11 +159,15 @@ public class blackListDao {
         return this.commondao.update(sql.toString(), paramList);
     }
 
-    public void insertUserFollow(int favorId) throws Exception {
+    public void insertUserFollow(int favorId,String username) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        String dateTime = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");
-        sql.append(" INSERT into f_user_follow(RECORD_ID,CREATETIME,UPDATETIME,ISVALID,MAIN_ID,USER_FOLLOW,USER_ISVALID) VALUES('',"+dateTime+","+dateTime+",'1',(select main_id from c_post_bar_11 where FAVOR_ID ="+favorId+" ),'1',0)");
+        String dateTime = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+        if(username==null) {
+            sql.append(" INSERT into f_user_follow(RECORD_ID,CREATETIME,UPDATETIME,ISVALID,MAIN_ID,USER_FOLLOW,USER_ISVALID) VALUES('','" + dateTime + "','" + dateTime + "','1','" + favorId + "','1',0)");
+        }else{
+            sql.append(" INSERT into f_user_follow(RECORD_ID,CREATETIME,UPDATETIME,ISVALID,USER_ID,MAIN_ID,USER_FOLLOW,USER_ISVALID) VALUES('','"+dateTime+"','"+dateTime+"','1',(select id from userinfo where username ='"+username+"'),'"+favorId+"','1',0)");
+        }
         System.out.println(sql);
         this.commondao.update(sql.toString(), paramList);
     }

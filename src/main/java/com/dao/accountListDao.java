@@ -217,8 +217,8 @@ public class accountListDao {
     public void insertUserFollow(int favorId,String userName) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        String dateTime = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");
-        sql.append(" INSERT into f_user_follow(RECORD_ID,CREATETIME,UPDATETIME,ISVALID,USER_ID,MAIN_ID,USER_FOLLOW,USER_ISVALID) VALUES('',"+dateTime+","+dateTime+",'1',(select id from userinfo where username ='"+userName+"'),(select main_id from c_post_bar_12 where FAVOR_ID ="+favorId+" ),'1',0)");
+        String dateTime = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
+        sql.append(" INSERT into f_user_follow(RECORD_ID,CREATETIME,UPDATETIME,ISVALID,USER_ID,MAIN_ID,USER_FOLLOW,USER_ISVALID) VALUES('','"+dateTime+"','"+dateTime+"','1',(select id from userinfo where username ='"+userName+"'),(select main_id from c_post_bar_12 where FAVOR_ID ="+favorId+" ),'1',0)");
         System.out.println(sql);
         this.commondao.update(sql.toString(), paramList);
     }

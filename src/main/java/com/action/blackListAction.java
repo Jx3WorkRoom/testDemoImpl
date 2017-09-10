@@ -72,12 +72,13 @@ public class blackListAction {
     @RequestMapping(value="blackDetail",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> getblackDetailAction(
-            @RequestParam(value="favorId",required=true) int favorId
+            @RequestParam(value="favorId",required=true) int favorId,
+            @RequestParam(value="username",required=true) String username
     ) throws Exception {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
         Object SelectionList = blackListService.queryblackListByFavorIdInfo(favorId);
-        blackListService.addUserFollow(favorId);
+        blackListService.addUserFollow(favorId,username);
         resmap.put("datas", SelectionList);
         resmap.put("success", true);
         long post=System.currentTimeMillis();
