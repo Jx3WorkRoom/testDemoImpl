@@ -74,8 +74,8 @@ public class IwantReleaseService {
         try {
             String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
             int favorId = iwantReleaseDao.getSequence3();
-            int insertResult = iwantReleaseDao.saveDjjyInfo(recordId,favorId, userId,tradeType, belongQf, propName, priceNum, favorInfo);    //D_POST_BAR_18
-            int insertResult2 = iwantReleaseDao.saveDjjyxxInfo(recordId,favorId, userId,tradeType, belongQf, propName, priceNum, favorInfo);    //C_POST_BAR_15
+            int insertResult = iwantReleaseDao.saveDjjyInfo(recordId,favorId, userId,tradeType, "["+belongQf+"]", propName, priceNum, favorInfo);    //D_POST_BAR_18
+            int insertResult2 = iwantReleaseDao.saveDjjyxxInfo(recordId,favorId, userId,tradeType, "["+belongQf+"]", propName, priceNum, favorInfo);    //C_POST_BAR_15
             String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
@@ -101,8 +101,8 @@ public class IwantReleaseService {
         try {
             String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
             int favorId = iwantReleaseDao.getSequence3();
-            int insertResult = iwantReleaseDao.saveJbjyInfo(recordId,favorId, userId, tradeType, belongQf, goldTotal, unitPrice, ifSplit, favorInfo);     //D_POST_BAR_19
-            int insertResult2 = iwantReleaseDao.saveYxjbjyInfo(recordId,favorId, userId, tradeType, belongQf, goldTotal, unitPrice, ifSplit, favorInfo);     //C_POST_BAR_19
+            int insertResult = iwantReleaseDao.saveJbjyInfo(recordId,favorId, userId, tradeType, "["+belongQf+"]", goldTotal, unitPrice, ifSplit, favorInfo);     //D_POST_BAR_19
+            int insertResult2 = iwantReleaseDao.saveYxjbjyInfo(recordId,favorId, userId, tradeType, "["+belongQf+"]", goldTotal, unitPrice, ifSplit, favorInfo);     //C_POST_BAR_19
             String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
@@ -129,8 +129,8 @@ public class IwantReleaseService {
         try {
             String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
             int favorId = iwantReleaseDao.getSequence3();
-            int insertResult = iwantReleaseDao.saveDlddInfo(recordId,favorId, userId, cheatType, belongQf,  favorInfo);   //D_POST_BAR_20
-            int insertResult2 = iwantReleaseDao.saveYxddxxInfo(recordId,favorId, userId, cheatType, belongQf,  favorInfo);   //C_POST_BAR_17
+            int insertResult = iwantReleaseDao.saveDlddInfo(recordId,favorId, userId, cheatType, "["+belongQf+"]",  favorInfo);   //D_POST_BAR_20
+            int insertResult2 = iwantReleaseDao.saveYxddxxInfo(recordId,favorId, userId, cheatType, "["+belongQf+"]",  favorInfo);   //C_POST_BAR_17
             String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
