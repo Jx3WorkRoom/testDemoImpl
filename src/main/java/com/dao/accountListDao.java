@@ -122,7 +122,7 @@ public class accountListDao {
                 " a.*, b.*, c.*" +
                 " FROM" +
                 " c_post_bar_12 a" +
-                " LEFT JOIN c_post_bar_14 b ON a.FAVOR_ID = b.FAVOR_ID" +
+                " LEFT JOIN A_POST_BAR_JX3_3 b ON a.THEME_ID = b.THEME_ID and  a.BELONG_FLOOR = b.BELONG_FLOOR " +
                 " LEFT JOIN f_user_follow c ON a.main_id = c.main_id" +
                 " WHERE" +
                 " a.FAVOR_ID =" +favorId);
