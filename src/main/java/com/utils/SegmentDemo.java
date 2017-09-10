@@ -78,205 +78,208 @@ public class SegmentDemo {
         Set<String> heziSet = new HashSet<String>(Arrays.asList(hezi));
 
         String data = str;
-        Result segResult = (Result) DicAnalysis.parse(data.replaceAll("[\\pP\\p{Punct}]", ""));
-        System.out.println(segResult.toString());
+        if(data!="") {
+            Result segResult = (Result) DicAnalysis.parse(data.replaceAll("[\\pP\\p{Punct}]", ""));
+            System.out.println(segResult.toString());
 
-        Set<String> qufu = new HashSet<String>();
-        Set<String> tixin = new HashSet<String>();
-        Set<String> price = new HashSet<String>();
-        Set<String> menpai = new HashSet<String>();
-        Set<String> xinfa = new HashSet<String>();
-        Set<String> title = new HashSet<String>();
-        Set<String> waiguan = new HashSet<String>();
-        Set<String> horse = new HashSet<String>();
-        Set<String> arm = new HashSet<String>();
-        Set<String> stra = new HashSet<String>();
-        Set<String> pend = new HashSet<String>();
-        Set<String> qiza = new HashSet<String>();
-        Set<String> zhanghao = new HashSet<String>();
-        Set<String> daoju = new HashSet<String>();
-        Set<String> dailian = new HashSet<String>();
-        Set<String> jinbi = new HashSet<String>();
-        // 存在门派体型词
-        int mptxCount = 0;
-        // int price_num = 0;
-        int i = 0;
-        for (Term term : segResult) {
+            Set<String> qufu = new HashSet<String>();
+            Set<String> tixin = new HashSet<String>();
+            Set<String> price = new HashSet<String>();
+            Set<String> menpai = new HashSet<String>();
+            Set<String> xinfa = new HashSet<String>();
+            Set<String> title = new HashSet<String>();
+            Set<String> waiguan = new HashSet<String>();
+            Set<String> horse = new HashSet<String>();
+            Set<String> arm = new HashSet<String>();
+            Set<String> stra = new HashSet<String>();
+            Set<String> pend = new HashSet<String>();
+            Set<String> qiza = new HashSet<String>();
+            Set<String> zhanghao = new HashSet<String>();
+            Set<String> daoju = new HashSet<String>();
+            Set<String> dailian = new HashSet<String>();
+            Set<String> jinbi = new HashSet<String>();
+            // 存在门派体型词
+            int mptxCount = 0;
+            // int price_num = 0;
+            int i = 0;
+            for (Term term : segResult) {
 
-            if (term.getNatureStr().equalsIgnoreCase("user_menpi")) {
-                menpai.add(informNameSet.get(informNameSet.get(term.getName())));
-            }
-            if (term.getNatureStr().equalsIgnoreCase("user_mptixing")) {
-                mptxCount++;
-                tixin.add(informNameSet.get(term.getName()));
-            }
-            if (term.getNatureStr().equalsIgnoreCase("user_xinfa")) {
-                xinfa.add(informNameSet.get(term.getName()));
-            }
-            if (term.getNatureStr().equalsIgnoreCase("user_chenghao")) {
-                title.add(informNameSet.get(term.getName()));
-            }
-            if (term.getNatureStr().equalsIgnoreCase("user_waiguan")) {
-                waiguan.add(informNameSet.get(term.getName()));
-                if (term.getName().endsWith("金")) {
-                    for (int j = 1; j < 100; j++) {
-                        int index = i - j;
-                        if (index > 0) {
-                            String nature = segResult.get((i - j)).getNatureStr();
-                            String name = segResult.get((i - j)).getName();
-                            if (!nature.startsWith("user_")) {
-                                if (jinfaSet.contains(name)) {
-                                    waiguan.add(informNameSet.get(name + "金"));
-                                }
-                            } else {
-                                break;
-                            }
-                        }
-
-                    }
+                if (term.getNatureStr().equalsIgnoreCase("user_menpi")) {
+                    menpai.add(informNameSet.get(informNameSet.get(term.getName())));
                 }
-
-                if (term.getName().endsWith("红")) {
-                    for (int j = 1; j < 100; j++) {
-                        int index = i - j;
-                        if (index > 0) {
-                            String nature = segResult.get((i - j)).getNatureStr();
-                            String name = segResult.get((i - j)).getName();
-                            if (!nature.startsWith("user_")) {
-                                if (hongfaSet.contains(name)) {
-                                    waiguan.add(informNameSet.get(name + "红"));
+                if (term.getNatureStr().equalsIgnoreCase("user_mptixing")) {
+                    mptxCount++;
+                    tixin.add(informNameSet.get(term.getName()));
+                }
+                if (term.getNatureStr().equalsIgnoreCase("user_xinfa")) {
+                    xinfa.add(informNameSet.get(term.getName()));
+                }
+                if (term.getNatureStr().equalsIgnoreCase("user_chenghao")) {
+                    title.add(informNameSet.get(term.getName()));
+                }
+                if (term.getNatureStr().equalsIgnoreCase("user_waiguan")) {
+                    waiguan.add(informNameSet.get(term.getName()));
+                    if (term.getName().endsWith("金")) {
+                        for (int j = 1; j < 100; j++) {
+                            int index = i - j;
+                            if (index > 0) {
+                                String nature = segResult.get((i - j)).getNatureStr();
+                                String name = segResult.get((i - j)).getName();
+                                if (!nature.startsWith("user_")) {
+                                    if (jinfaSet.contains(name)) {
+                                        waiguan.add(informNameSet.get(name + "金"));
+                                    }
+                                } else {
+                                    break;
                                 }
-                            } else {
-                                break;
                             }
+
                         }
                     }
-                }
 
-                if (term.getName().contains("盒")) {
-                    for (int j = 1; j < 100; j++) {
-                        int index = i - j;
-                        if (index > 0) {
-                            String nature = segResult.get((i - j)).getNatureStr();
-                            String name = segResult.get((i - j)).getName();
-                            if (!nature.startsWith("user_")) {
-                                if (heziSet.contains(name)) {
-                                    waiguan.add(informNameSet.get(name + "盒子"));
+                    if (term.getName().endsWith("红")) {
+                        for (int j = 1; j < 100; j++) {
+                            int index = i - j;
+                            if (index > 0) {
+                                String nature = segResult.get((i - j)).getNatureStr();
+                                String name = segResult.get((i - j)).getName();
+                                if (!nature.startsWith("user_")) {
+                                    if (hongfaSet.contains(name)) {
+                                        waiguan.add(informNameSet.get(name + "红"));
+                                    }
+                                } else {
+                                    break;
                                 }
-                            } else {
-                                break;
                             }
                         }
                     }
+
+                    if (term.getName().contains("盒")) {
+                        for (int j = 1; j < 100; j++) {
+                            int index = i - j;
+                            if (index > 0) {
+                                String nature = segResult.get((i - j)).getNatureStr();
+                                String name = segResult.get((i - j)).getName();
+                                if (!nature.startsWith("user_")) {
+                                    if (heziSet.contains(name)) {
+                                        waiguan.add(informNameSet.get(name + "盒子"));
+                                    }
+                                } else {
+                                    break;
+                                }
+                            }
+                        }
+                    }
                 }
-            }
-            if (term.getNatureStr().equalsIgnoreCase("user_maqiqu")) {
-                horse.add(informNameSet.get(term.getName()));
-            }
-            if (term.getNatureStr().equalsIgnoreCase("user_wuqi")) {
-                arm.add(informNameSet.get(term.getName()));
-            }
-            if (term.getNatureStr().equalsIgnoreCase("user_qiyu")) {
-                stra.add(informNameSet.get(term.getName()));
-            }
-            if (term.getNatureStr().equalsIgnoreCase("user_guajian")) {
-                pend.add(informNameSet.get(term.getName()));
-            }
-            if (term.getNatureStr().equalsIgnoreCase("user_qufu")) {
-                qufu.add(informNameSet.get(term.getName()));
-            }
+                if (term.getNatureStr().equalsIgnoreCase("user_maqiqu")) {
+                    horse.add(informNameSet.get(term.getName()));
+                }
+                if (term.getNatureStr().equalsIgnoreCase("user_wuqi")) {
+                    arm.add(informNameSet.get(term.getName()));
+                }
+                if (term.getNatureStr().equalsIgnoreCase("user_qiyu")) {
+                    stra.add(informNameSet.get(term.getName()));
+                }
+                if (term.getNatureStr().equalsIgnoreCase("user_guajian")) {
+                    pend.add(informNameSet.get(term.getName()));
+                }
+                if (term.getNatureStr().equalsIgnoreCase("user_qufu")) {
+                    qufu.add(informNameSet.get(term.getName()));
+                }
 
-            if (term.getNatureStr().equalsIgnoreCase("user_price")) {
-                price.add(term.getName());
-            }
+                if (term.getNatureStr().equalsIgnoreCase("user_price")) {
+                    price.add(term.getName());
+                }
 
-            if (term.getNatureStr().equalsIgnoreCase("user_qiza")) {
-                qiza.add(term.getName());
-            }
+                if (term.getNatureStr().equalsIgnoreCase("user_qiza")) {
+                    qiza.add(term.getName());
+                }
 
-            if (term.getNatureStr().equalsIgnoreCase("user_xingxi")) {
-                zhanghao.add(informNameSet.get(term.getName()));
-            }
+                if (term.getNatureStr().equalsIgnoreCase("user_xingxi")) {
+                    zhanghao.add(informNameSet.get(term.getName()));
+                }
 
-            if (term.getNatureStr().equalsIgnoreCase("user_daoju")) {
-                daoju.add(informNameSet.get(term.getName()));
-            }
+                if (term.getNatureStr().equalsIgnoreCase("user_daoju")) {
+                    daoju.add(informNameSet.get(term.getName()));
+                }
 
-            if (term.getNatureStr().equalsIgnoreCase("user_dailian")) {
-                dailian.add(informNameSet.get(term.getName()));
-            }
+                if (term.getNatureStr().equalsIgnoreCase("user_dailian")) {
+                    dailian.add(informNameSet.get(term.getName()));
+                }
 
-            if (term.getNatureStr().equalsIgnoreCase("user_jinbi")) {
-                jinbi.add(informNameSet.get(term.getName()));
-            }
+                if (term.getNatureStr().equalsIgnoreCase("user_jinbi")) {
+                    jinbi.add(informNameSet.get(term.getName()));
+                }
 
-            i++;
+                i++;
+            }
+            Map<String, Set<String>> resMap = new HashMap<String, Set<String>>();
+            System.out.println(qufu.toString());
+            if (qufu.size() > 0) {
+                resMap.put("qufu", qufu);
+            }
+            System.out.println(tixin.toString());
+            if (qufu.size() > 0) {
+                resMap.put("tixin", tixin);
+            }
+            System.out.println(price.toString());
+            if (qufu.size() > 0) {
+                resMap.put("price", price);
+            }
+            System.out.println(menpai.toString());
+            if (qufu.size() > 0) {
+                resMap.put("menpai", menpai);
+            }
+            System.out.println(xinfa.toString());
+            if (qufu.size() > 0) {
+                resMap.put("xinfa", xinfa);
+            }
+            System.out.println(title.toString());
+            if (qufu.size() > 0) {
+                resMap.put("title", title);
+            }
+            System.out.println(waiguan.toString());
+            if (qufu.size() > 0) {
+                resMap.put("waiguan", waiguan);
+            }
+            System.out.println(horse.toString());
+            if (qufu.size() > 0) {
+                resMap.put("horse", horse);
+            }
+            System.out.println(arm.toString());
+            if (qufu.size() > 0) {
+                resMap.put("arm", arm);
+            }
+            System.out.println(stra.toString());
+            if (qufu.size() > 0) {
+                resMap.put("stra", stra);
+            }
+            System.out.println(pend.toString());
+            if (qufu.size() > 0) {
+                resMap.put("pend", pend);
+            }
+            System.out.println(qiza.toString());
+            if (qufu.size() > 0) {
+                resMap.put("qiza", qiza);
+            }
+            System.out.println(zhanghao.toString());
+            if (qufu.size() > 0) {
+                resMap.put("zhanghao", zhanghao);
+            }
+            System.out.println(daoju.toString());
+            if (qufu.size() > 0) {
+                resMap.put("daoju", daoju);
+            }
+            System.out.println(dailian.toString());
+            if (qufu.size() > 0) {
+                resMap.put("dailian", dailian);
+            }
+            System.out.println(jinbi.toString());
+            if (qufu.size() > 0) {
+                resMap.put("jinbi", jinbi);
+            }
+            return resMap;
         }
-        Map<String,Set<String>> resMap = new HashMap<String,Set<String>>();
-        System.out.println(qufu.toString());
-        if(qufu.size()>0) {
-            resMap.put("qufu", qufu);
-        }
-        System.out.println(tixin.toString());
-        if(qufu.size()>0) {
-            resMap.put("tixin", tixin);
-        }
-        System.out.println(price.toString());
-        if(qufu.size()>0) {
-            resMap.put("price", price);
-        }
-        System.out.println(menpai.toString());
-        if(qufu.size()>0) {
-            resMap.put("menpai", menpai);
-        }
-        System.out.println(xinfa.toString());
-        if(qufu.size()>0) {
-            resMap.put("xinfa", xinfa);
-        }
-        System.out.println(title.toString());
-        if(qufu.size()>0) {
-            resMap.put("title", title);
-        }
-        System.out.println(waiguan.toString());
-        if(qufu.size()>0) {
-            resMap.put("waiguan", waiguan);
-        }
-        System.out.println(horse.toString());
-        if(qufu.size()>0) {
-            resMap.put("horse", horse);
-        }
-        System.out.println(arm.toString());
-        if(qufu.size()>0) {
-            resMap.put("arm", arm);
-        }
-        System.out.println(stra.toString());
-        if(qufu.size()>0) {
-            resMap.put("stra", stra);
-        }
-        System.out.println(pend.toString());
-        if(qufu.size()>0) {
-            resMap.put("pend", pend);
-        }
-        System.out.println(qiza.toString());
-        if(qufu.size()>0) {
-            resMap.put("qiza", qiza);
-        }
-        System.out.println(zhanghao.toString());
-        if(qufu.size()>0) {
-            resMap.put("zhanghao", zhanghao);
-        }
-        System.out.println(daoju.toString());
-        if(qufu.size()>0) {
-            resMap.put("daoju", daoju);
-        }
-        System.out.println(dailian.toString());
-        if(qufu.size()>0) {
-            resMap.put("dailian", dailian);
-        }
-        System.out.println(jinbi.toString());
-        if(qufu.size()>0) {
-            resMap.put("jinbi", jinbi);
-        }
-        return resMap;
+        return null;
     }
 }
