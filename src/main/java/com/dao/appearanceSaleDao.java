@@ -219,12 +219,36 @@ public class appearanceSaleDao {
                 " WHERE" +
                 " a.TRADE_TYPE = "+tradeType);
         if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3)) {
-            sql.append(
-                    " AND (a.BELONG_QF = '["+selectTion1+"]' " +
-                            " || a.BELONG_QF = '["+selectTion1+selectTion2+"]' " +
-                            " || a.BELONG_QF = '["+selectTion1+selectTion2+selectTion3+"]' "+
-                            " || a.BELONG_QF is null || a.BELONG_QF ='' )"
-            );
+            if(!"".equals(selectTion3)){
+                sql.append(" AND (REPLACE (" +
+                        " REPLACE (a.BELONG_QF, '[', '')," +
+                        " ']'," +
+                        " ''" +
+                        " ) = '" + selectTion1 + "' " +
+                        " || REPLACE (" +
+                        "REPLACE (a.BELONG_QF, '[', '')," +
+                        "']'," +
+                        "''" +
+                        ") = '" + selectTion1 + selectTion2 + "' " +
+                        " || REPLACE (" +
+                        "REPLACE (a.BELONG_QF, '[', '')," +
+                        "']'," +
+                        "''" +
+                        ") = '" + selectTion1 + selectTion2 + selectTion3 + "' " +
+                        " || a.BELONG_QF is null || a.BELONG_QF ='' )");
+            }else if(!"".equals(selectTion2)){
+                sql.append(" AND (REPLACE (" +
+                        " REPLACE (a.BELONG_QF, '[', '')," +
+                        " ']'," +
+                        " ''" +
+                        " ) = '" + selectTion1 + "' " +
+                        " || a.BELONG_QF "+
+                        " like '%" + selectTion1 + selectTion2 + "%' " +
+                        " || a.BELONG_QF is null || a.BELONG_QF ='' )");
+            }else{
+                sql.append(" AND (a.BELONG_QF like '%" + selectTion1 + "%' " +
+                        " || a.BELONG_QF is null || a.BELONG_QF ='' )");
+            }
         }
         if(map.size()>0) {
             for (Map.Entry<String, Set<String>> entry : map.entrySet()) {

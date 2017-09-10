@@ -250,13 +250,38 @@ public class accountListDao {
                 " LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
                 " WHERE" +
                 " a.TRADE_TYPE = "+tradeType);
-        if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3))
-            sql.append(
-                    " AND (a.BELONG_QF = '["+selectTion1+"]' " +
-                    " || a.BELONG_QF = '["+selectTion1+selectTion2+"]' " +
-                    " || a.BELONG_QF = '["+selectTion1+selectTion2+selectTion3+"]' "+
-                    " || a.BELONG_QF is null || a.BELONG_QF ='' )"
-            );
+        if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3)) {
+            if(!"".equals(selectTion3)){
+                sql.append(" AND (REPLACE (" +
+                        " REPLACE (a.BELONG_QF, '[', '')," +
+                        " ']'," +
+                        " ''" +
+                        " ) = '" + selectTion1 + "' " +
+                        " || REPLACE (" +
+                        "REPLACE (a.BELONG_QF, '[', '')," +
+                        "']'," +
+                        "''" +
+                        ") = '" + selectTion1 + selectTion2 + "' " +
+                        " || REPLACE (" +
+                        "REPLACE (a.BELONG_QF, '[', '')," +
+                        "']'," +
+                        "''" +
+                        ") = '" + selectTion1 + selectTion2 + selectTion3 + "' " +
+                        " || a.BELONG_QF is null || a.BELONG_QF ='' )");
+            }else if(!"".equals(selectTion2)){
+                sql.append(" AND (REPLACE (" +
+                        " REPLACE (a.BELONG_QF, '[', '')," +
+                        " ']'," +
+                        " ''" +
+                        " ) = '" + selectTion1 + "' " +
+                        " || a.BELONG_QF "+
+                        " like '%" + selectTion1 + selectTion2 + "%' " +
+                        " || a.BELONG_QF is null || a.BELONG_QF ='' )");
+            }else{
+                sql.append(" AND (a.BELONG_QF like '%" + selectTion1 + "%' " +
+                        " || a.BELONG_QF is null || a.BELONG_QF ='' )");
+            }
+        }
         if(!"".equals(shape)) {
             sql.append(
                     " AND a.TIXIN like '%" + shape + "%'");
