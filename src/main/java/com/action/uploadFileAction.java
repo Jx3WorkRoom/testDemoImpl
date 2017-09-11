@@ -59,24 +59,58 @@ public class uploadFileAction {
     }
 
 //    调用：http://localhost:8881/testDemoRest/uploadFile/getImage?favorId=2315161&seqNum=1
+//    @ApiOperation(value = "图片访问", notes = "返回图片流", produces = "application/json")
+//    @RequestMapping(value = "getImage", method = RequestMethod.GET)
+//    @Produces("application/zip")
+//    public InputStream getImageAction(HttpServletResponse response,
+//             @RequestParam(value = "favorId", required = false, defaultValue = "") String favorId,
+//             @RequestParam(value = "seqNum", required = false, defaultValue = "") String seqNum) {
+//
+//        String folder = "d://";
+//        String fileName = "a.png";
+//        String id = favorId;
+//        String picum = seqNum;
+//
+//      try{
+//            response.setContentType("image/jpeg"); // 设置返回内容格式
+//
+//            fileName = iwantReleaseService.getPicturePath(favorId,seqNum);
+//            fileName = folder+fileName;
+//
+//            File file = new File(fileName);       //括号里参数为文件图片路径
+//            if(file.exists()){   //如果文件存在
+//                InputStream in = new FileInputStream(fileName);   //用该文件创建一个输入流
+//                OutputStream os = response.getOutputStream();  //创建输出流
+//                byte[] b = new byte[1024];
+//                while( in.read(b)!= -1){
+//                    os.write(b);
+//                }
+//                in.close();
+//                os.flush();
+//                os.close();
+//
+//                return in;
+//            }
+//
+//        }catch (Exception e) {
+//                 e.printStackTrace();
+//        }
+//        return null;
+//    }
+
     @ApiOperation(value = "图片访问", notes = "返回图片流", produces = "application/json")
     @RequestMapping(value = "getImage", method = RequestMethod.GET)
     @Produces("application/zip")
     public InputStream getImageAction(HttpServletResponse response,
-                                      @RequestParam(value = "favorId", required = false, defaultValue = "") String favorId,
-                                      @RequestParam(value = "seqNum", required = false, defaultValue = "") String seqNum) {
+          @RequestParam(value = "WENJIAN_PATH", required = false, defaultValue = "") String WENJIAN_PATH)
+    {
 
         String folder = "d://";
-        String fileName = "a.png";
-        String id = favorId;
-        String picum = seqNum;
+        String fileName = WENJIAN_PATH;
 
-      try{
+        try{
             response.setContentType("image/jpeg"); // 设置返回内容格式
-
-            fileName = iwantReleaseService.getPicturePath(favorId,seqNum);
             fileName = folder+fileName;
-
             File file = new File(fileName);       //括号里参数为文件图片路径
             if(file.exists()){   //如果文件存在
                 InputStream in = new FileInputStream(fileName);   //用该文件创建一个输入流
@@ -88,16 +122,11 @@ public class uploadFileAction {
                 in.close();
                 os.flush();
                 os.close();
-
                 return in;
             }
-
         }catch (Exception e) {
-                 e.printStackTrace();
+            e.printStackTrace();
         }
-
         return null;
-
-
     }
 }
