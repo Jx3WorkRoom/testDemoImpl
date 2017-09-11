@@ -21,6 +21,8 @@ import java.util.Map;
 @RequestMapping("iwantRelease")
 public class IwantReleaseAction {
     @Autowired
+    accountListService accountListService;
+    @Autowired
     IwantReleaseService iwantReleaseService;
 
     @ApiOperation(value="我要举报", notes="保存",produces = "application/json")
@@ -226,6 +228,26 @@ public class IwantReleaseAction {
         Object dataList = iwantReleaseService.getTzc(type, parNum, cate);
         resmap.put("datas", dataList);
 
+        return resmap;
+    }
+
+
+
+    @ApiOperation(value="获取道具名下拉框填充信息", notes="",produces = "application/json")
+    @RequestMapping(value="selectionList",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> getAccountListSelectionAction(
+            @RequestParam(value="type",required=false,defaultValue ="10") String type
+    ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object SelectionList = accountListService.querySelectionListInfo();
+        Object tixinList = iwantReleaseService.queryTixinListInfo(type);
+        resmap.put("selecttions", SelectionList);
+        resmap.put("resultList", tixinList);
+        resmap.put("success", true);
+        long post=System.currentTimeMillis();
+        System.out.println("查询账号交易页面搜索框填充信息接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
     }
 

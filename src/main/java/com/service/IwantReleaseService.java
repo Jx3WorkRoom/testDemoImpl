@@ -246,4 +246,24 @@ public class IwantReleaseService {
         return COLLECT_CONT.toString();
     }
 
+
+
+    //获取道具名下拉框填充信息
+    public Object queryTixinListInfo(String type) {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        String keyword = "";
+        try {
+            if(type.equals("1")){
+                keyword="user_waiguan";
+            }else{
+                keyword="user_daoju";
+            }
+            resArr = iwantReleaseDao.queryTixinListInfo(keyword);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
 }
