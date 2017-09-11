@@ -72,7 +72,7 @@ public class accountListAction {
     @Produces("application/json")
     public Map<String,Object> getAccountDetailAction(
             @RequestParam(value="favorId",required=true) int favorId,
-            @RequestParam(value="userName",required=true) String userName
+            @RequestParam(value="userName",required=false,defaultValue = "") String userName
     ) throws Exception {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();

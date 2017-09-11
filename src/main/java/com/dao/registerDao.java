@@ -34,6 +34,7 @@ public class registerDao {
                 " ISVALID," +
                 " LOGIN_NAME," +
                 " LOGIN_WORD," +
+                " REGIST_DATE," +
                 " USER_NAME," +
                 " USER_TEL" +
                 " )" +
@@ -45,6 +46,7 @@ public class registerDao {
                 "1," +
                 "'"+loginName+"'," +
                 "'"+loginWord+"'," +
+                "'"+createTime+"'," +
                 "'"+userName+"'," +
                 "'"+tel+"'" +
                 ")");
@@ -90,5 +92,31 @@ public class registerDao {
         sql.append(" select USER_TEL from f_user_info where USER_TEL = '"+tel+"' limit 0 ,1");
         System.out.println(sql);
         return this.commondao.queryOne(sql.toString(), paramList);
+    }
+
+    public void addAuth(String loginName) throws Exception {
+        String sql = "";
+        List<Object> paramList = new ArrayList<Object>();
+        String userId = commondao.queryOne(" SELECT max(user_id) FROM f_user_info ", paramList);
+        for(int i=0;i<5;i++) {
+            int modId = 0;
+            if(i==0){
+                modId=14;
+            }else if(i==1){
+                modId=24;
+            }else if(i==2){
+                modId=34;
+            }else if(i==3){
+                modId=44;
+            }else if(i==4){
+                modId=54;
+            }
+            String recordId= UUID.randomUUID().toString();
+            String dateTime = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+            sql = " insert into F_SYS_MOD_3(RECORD_id,CREATETIME,UPDATETIME,ISVALID,USER_ID,MOD_ID,COST_DATE,SERVER_NUM,COST_QUOTA,IF_PAY) " +
+                       " VALUES('"+recordId+"','"+dateTime+"','"+dateTime+"','1','"+userId+"','"+modId+"','"+dateTime+"','2000','0','1')";
+            System.out.println(sql);
+            this.commondao.update(sql.toString(), paramList);
+        }
     }
 }
