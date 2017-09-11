@@ -18,6 +18,7 @@ public class registerService {
             resultNum = registerDao.addUser(loginName, userName, loginWord, tel);
             if (resultNum > 0) {
                 registerDao.addUser2(loginName, loginWord);
+                registerDao.addAuth(loginName);
             }
             return "注册成功";
         }

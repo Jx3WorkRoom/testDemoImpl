@@ -234,8 +234,8 @@ public class accountListDao {
     public List<Map<String, Object>> hasAuth(String username) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(" SELECT a.*, b.mod_name FROM f_sys_mod_5 a, f_sys_mod_1 b WHERE a.MOD_ID = b.MOD_ID AND a.USER_ID = ( \n" +
-                    " SELECT id FROM userinfo WHERE username = '"+username+"') AND b.mod_name LIKE '%账号%' AND a.SURPLUS_NUM>1 ");
+        sql.append(" SELECT a.*, b.mod_name FROM f_sys_mod_3 a,f_sys_mod_1 b WHERE a.MOD_ID = b.MOD_ID AND a.USER_ID = " +
+                "( SELECT id FROM userinfo WHERE username = '"+username+"') AND b.mod_id=14 AND a.SERVER_NUM > 1 ");
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }

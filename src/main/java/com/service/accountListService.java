@@ -190,7 +190,9 @@ public class accountListService {
     public void addUserFollow(int favorId,String userName) throws Exception {
         int resultNum = accountListDao.addUserFollow(favorId);
         if(resultNum==0){
-            accountListDao.insertUserFollow(favorId,userName);
+            if(!"".equals(userName)) {
+                accountListDao.insertUserFollow(favorId, userName);
+            }
         }
     }
 

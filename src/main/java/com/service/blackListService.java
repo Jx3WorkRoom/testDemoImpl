@@ -96,7 +96,9 @@ public class blackListService {
     public void addUserFollow(int favorId,String username) throws Exception {
         int resultNum = blackListDao.addUserFollow(favorId);
         if(resultNum==0){
-            blackListDao.insertUserFollow(favorId,username);
+            if(!"".equals(username)) {
+                blackListDao.insertUserFollow(favorId, username);
+            }
         }
     }
 }

@@ -73,7 +73,7 @@ public class blackListAction {
     @Produces("application/json")
     public Map<String,Object> getblackDetailAction(
             @RequestParam(value="favorId",required=true) int favorId,
-            @RequestParam(value="username",required=true) String username
+            @RequestParam(value="username",required=false,defaultValue = "") String username
     ) throws Exception {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();

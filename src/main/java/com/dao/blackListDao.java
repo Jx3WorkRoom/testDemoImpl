@@ -146,7 +146,7 @@ public class blackListDao {
                 " AND" +
                 " b.PAR_SERIES = 1016" +
                 " and" +
-                " a.CHEAT_TYPE = b.PAR_NUM) c LEFT JOIN c_post_bar_14 d ON c.favor_id = c.favor_id");
+                " a.CHEAT_TYPE = b.PAR_NUM) c LEFT JOIN D_post_bar_15 d ON c.favor_id = c.favor_id");
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }
