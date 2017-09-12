@@ -279,6 +279,7 @@ public class appearanceSaleDao {
                         " ORDER BY" +
                         " a.REPLY_TIME DESC" +
                         " LIMIT "+startNum+"," + endNum);
+        listSql = sql.toString();
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }
