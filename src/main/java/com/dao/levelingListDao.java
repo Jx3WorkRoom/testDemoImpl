@@ -196,11 +196,11 @@ public class levelingListDao {
     public void insertUserFollow(String mainId,String userName) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        String dateTime = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");
+        String dateTime = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         if(userName==null) {
-            sql.append(" INSERT into f_user_follow(RECORD_ID,CREATETIME,UPDATETIME,ISVALID,MAIN_ID,USER_FOLLOW,USER_ISVALID) VALUES(''," + dateTime + "," + dateTime + ",'1','" + mainId + "','1',0)");
+            sql.append(" INSERT into f_user_follow(RECORD_ID,CREATETIME,UPDATETIME,ISVALID,MAIN_ID,USER_FOLLOW,USER_ISVALID) VALUES('','" + dateTime + "','" + dateTime + "','1','" + mainId + "','1',0)");
         }else{
-            sql.append(" INSERT into f_user_follow(RECORD_ID,CREATETIME,UPDATETIME,ISVALID,USER_ID,MAIN_ID,USER_FOLLOW,USER_ISVALID) VALUES('',"+dateTime+","+dateTime+",'1',(select id from userinfo where username ='"+userName+"'),'"+mainId+"','1',0)");
+            sql.append(" INSERT into f_user_follow(RECORD_ID,CREATETIME,UPDATETIME,ISVALID,USER_ID,MAIN_ID,USER_FOLLOW,USER_ISVALID) VALUES('','"+dateTime+"','"+dateTime+"','1',(select id from userinfo where username ='"+userName+"'),'"+mainId+"','1',0)");
         }
         System.out.println(sql);
         this.commondao.update(sql.toString(), paramList);
@@ -219,8 +219,8 @@ public class levelingListDao {
     public List<Map<String,Object>> hasAuth(String userName) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(" SELECT a.*, b.mod_name FROM f_sys_mod_5 a, f_sys_mod_1 b WHERE a.MOD_ID = b.MOD_ID AND a.USER_ID = ( \n" +
-                " SELECT id FROM userinfo WHERE username = '"+userName+"') AND b.mod_name LIKE '%代练%' AND a.SURPLUS_NUM>1");
+        sql.append(" SELECT a.*, b.mod_name FROM f_sys_mod_3 a,f_sys_mod_1 b WHERE a.MOD_ID = b.MOD_ID AND a.USER_ID = " +
+                "( SELECT id FROM userinfo WHERE username = '"+userName+"') AND b.mod_id=54 AND a.SERVER_NUM > 1 ");
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }
