@@ -49,18 +49,17 @@ public class IwantReleaseDao {
         //        " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+favorDate+"','"+cheatType+"','"+belongQf+"','"+tixin+"','"+roleName+"','"+cheatIntro+"','"+cheatInfo+"','"+pageUrl+"')");
         sql.append("INSERT INTO `grab`.`c_post_bar_11` (`RECORD_ID`, `CREATETIME`, `UPDATETIME`, `ISVALID`,`FAVOR_ID`, `USER_ID`, `FAVOR_DATE`, `CHEAT_TYPE`, `BELONG_QF`, " +
                 "`TIXIN`, `ROLE_NAME`, `CHEAT_INTRO`, `CHEAT_INFO`, `PAGE_URL`, `MAIN_ID`) " +
-                "VALUES ('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+favorDate+"',"+null+",'"+belongQf+"','"+tixin+"'," +
+                "VALUES ('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+favorDate+"','"+cheatType+"','"+belongQf+"','"+tixin+"'," +
                 "'"+roleName+"','"+cheatIntro+"','"+cheatInfo+"','"+pageUrl+"','"+MAIN_ID+"')");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
 
     //账号交易信息表(C_POST_BAR_12)
-    public int saveZhjyxxInfo(String recordId, int favorId, String userId, String belongQf,String tixin,String priceNum,String replyContent) throws Exception {
+    public int saveZhjyxxInfo(String recordId, int favorId,int tradeType, String userId, String belongQf,String tixin,String priceNum,String replyContent) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("s*","");
-        String tradeType = "1";
         String favorDate = createTime;
         String REPLY_TIME = createTime;String BELONG_FLOOR = "1";String PAGE_NUM = "1";String PAGE_URL = "";String URL_VALID = "1";String SOURCE_TYPE = "1";String MENPAI_NAME = "";String XINFA_NAME = "";String TITLE_NAME = "";
         String WAIGUAN_NAME = "";String HORSE_NAME = "";String ARM_NAME = "";String STRA_NAME = "";String PEND_NAME = "";String THEME_ID = "";String THEME_NAME = "";String POST_BAR = "";String POST_ID = "";String POST_BAR_CLASS = "0";String BAR_SOUR_TYPE = "0";
@@ -269,14 +268,13 @@ public class IwantReleaseDao {
     }
 
     //账号快售快速发布(D_POST_BAR_13--C_POST_BAR_12)
-    public int saveZhssInfo(String recordId, int favorId, String userId, String belongQf,String tixin,int priceNum,String accoInfo) throws Exception {
+    public int saveZhssInfo(String recordId, int favorId,int tradeType, String userId, String belongQf,String tixin,int priceNum,String accoInfo) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
-        String tradeType = "1";
         String favorDate = createTime;
-        sql.append(" insert into D_POST_BAR_13(record_id,createtime,updatetime,isvalid,favor_id,user_id,trade_type,favor_date,belong_qf,tixin,price_num) " +
-                " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+tradeType+"','"+favorDate+"','"+belongQf+"','"+tixin+"','"+priceNum+"')");
+        sql.append(" insert into D_POST_BAR_13(record_id,createtime,updatetime,isvalid,favor_id,user_id,trade_type,favor_date,belong_qf,tixin,price_num,acco_info) " +
+                " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+tradeType+"','"+favorDate+"','"+belongQf+"','"+tixin+"','"+priceNum+"','"+accoInfo+"')");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
@@ -361,6 +359,72 @@ public class IwantReleaseDao {
         List<Object> paramList = new ArrayList<Object>();
         sql.append(" select distinct KEYWORD_NAME from b_post_bar_big where keyword_big_name = '"+keyword+"' and keyword_cate=1 ");
         System.out.println(sql);
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
+    //获取我要举报
+    public List<Map<String,Object>> getReport(String mainId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append("select * from D_post_bar_11 where record_id = " + mainId);
+
+        System.out.println(sql);
+        listSql = sql.toString();
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
+    //获取外观交易
+    public List<Map<String,Object>> getAppearanceTransaction(String mainId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append("select * from D_post_bar_16 where record_id = " + mainId);
+
+        System.out.println(sql);
+        listSql = sql.toString();
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
+    //获取道具交易
+    public List<Map<String,Object>> getPropTransaction(String mainId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append("select * from D_post_bar_18 where record_id = " + mainId);
+
+        System.out.println(sql);
+        listSql = sql.toString();
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
+    //获取金币交易
+    public List<Map<String,Object>> getAccountTransaction(String mainId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append("select * from D_post_bar_19 where record_id = " + mainId);
+
+        System.out.println(sql);
+        listSql = sql.toString();
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
+    //获取代练交易
+    public List<Map<String,Object>> getAccountExchange(String mainId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append("select * from D_post_bar_20 where record_id = " + mainId);
+
+        System.out.println(sql);
+        listSql = sql.toString();
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
+    //获取账号收售快速发布
+    public List<Map<String,Object>> getQuickRelease(String mainId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append("select * from D_post_bar_13 where record_id = " + mainId);
+
+        System.out.println(sql);
+        listSql = sql.toString();
         return this.commondao.query(sql.toString(), paramList);
     }
 }
