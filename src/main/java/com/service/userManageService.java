@@ -52,4 +52,16 @@ public class userManageService {
             return "修改失败!";
         }
     }
+
+    public Object modDetail(int modId) {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = userManageDao.modDetail(modId);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
 }

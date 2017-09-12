@@ -108,4 +108,20 @@ public class userManageAction {
         System.out.println("修改信息权限模块接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
     }
+
+
+    @ApiOperation(value="查询模块详情", notes="",produces = "application/json")
+    @RequestMapping(value="modDetail",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> modDetail(
+            @RequestParam(value="modId",required=true) int modId
+    ) throws Exception {
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object userInfo = userManageService.modDetail(modId);
+        resmap.put("datas",userInfo);
+        long post=System.currentTimeMillis();
+        System.out.println("查询功能模块接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
 }

@@ -21,7 +21,7 @@ public class userManageDao {
     public List<Map<String,Object>> userManageInfo() throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(" SELECT a.*,b.START_DATE,b.SERVER_COST,b.SERVER_NUM FROM f_sys_mod_1 a LEFT JOIN f_sys_mod_2 b ON a.mod_id = b.MOD_ID ORDER BY a.MOD_ID ");
+        sql.append(" SELECT a.*,b.START_DATE,b.SERVER_COST,b.SERVER_NUM FROM f_sys_mod_1 a LEFT JOIN f_sys_mod_2 b ON a.mod_id = b.MOD_ID WHERE a.ISVALID=1 ORDER BY a.MOD_ID ");
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }
@@ -29,7 +29,7 @@ public class userManageDao {
     public int delMod(int modId) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(" delete from f_sys_mod_1 where mod_id = '"+modId+"'");
+        sql.append(" update f_sys_mod_1 set ISVALID = 0 where mod_id = '"+modId+"'");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
@@ -50,15 +50,23 @@ public class userManageDao {
     }
 
     public int editMod(String belong_web, int modId, String mod_name, int modType, int visitRole, int registRole, String serverCost, String serverNum) throws Exception {
-        StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        if(!"".equals(serverCost)||!"".equals(serverNum)) {
-            sql.append(" update f_sys_mod_2 set serverCost='"+serverCost+"',serverNum='"+serverNum+"' where MOD_ID= '"+modId+"'");
-            this.commondao.update(sql.toString(),paramList);
-            System.out.println(sql);
-        }
         String sql2 = " update  f_sys_mod_1 set BELONG_WEB='"+belong_web+"',MOD_NAME='"+mod_name+"',MOD_TYPE='"+modType+"', VISIT_ROLE='"+visitRole+"',REGIST_ROLE='"+registRole+"' where MOD_ID= '"+modId+"'";
         System.out.println(sql2);
         return this.commondao.update(sql2, paramList);
+    }
+
+    public List<Map<String,Object>> modDetail(int modId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" SELECT" +
+                " *" +
+                " FROM" +
+                " F_SYS_MOD_2 a" +
+                " LEFT JOIN f_sys_mod_1 b ON a.MOD_ID = b.MOD_ID " +
+                " WHERE" +
+                " a.MOD_ID = '"+modId+"'");
+        System.out.println(sql);
+        return this.commondao.query(sql.toString(), paramList);
     }
 }
