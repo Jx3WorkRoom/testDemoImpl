@@ -1,6 +1,7 @@
 package com.dao;
 
 import com.utils.CommonDao;
+import com.utils.MD5Util;
 import com.utils.MyDateTimeUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -41,7 +42,9 @@ public class IwantReleaseDao {
         List<Object> paramList = new ArrayList<Object>();
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
-        String MAIN_ID = "1";
+        StringBuffer sb = new StringBuffer();
+        sb.append(cheatIntro);
+        String MAIN_ID = MD5Util.getMd5(sb.toString());
         //sql.append(" insert into C_POST_BAR_11(record_id,createtime,updatetime,isvalid,favor_id,user_id,favor_date,cheat_type,belong_qf,tixin,role_name,cheat_intro,cheat_info,page_url) " +
         //        " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+favorDate+"','"+cheatType+"','"+belongQf+"','"+tixin+"','"+roleName+"','"+cheatIntro+"','"+cheatInfo+"','"+pageUrl+"')");
         sql.append("INSERT INTO `grab`.`c_post_bar_11` (`RECORD_ID`, `CREATETIME`, `UPDATETIME`, `ISVALID`,`FAVOR_ID`, `USER_ID`, `FAVOR_DATE`, `CHEAT_TYPE`, `BELONG_QF`, " +
@@ -59,8 +62,12 @@ public class IwantReleaseDao {
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("s*","");
         String tradeType = "1";
         String favorDate = createTime;
-        String REPLY_TIME = createTime;String BELONG_FLOOR = "1";String PAGE_NUM = "1";String PAGE_URL = "";String URL_VALID = "1";String MAIN_ID = "1";String SOURCE_TYPE = "1";String MENPAI_NAME = "";String XINFA_NAME = "";String TITLE_NAME = "";
+        String REPLY_TIME = createTime;String BELONG_FLOOR = "1";String PAGE_NUM = "1";String PAGE_URL = "";String URL_VALID = "1";String SOURCE_TYPE = "1";String MENPAI_NAME = "";String XINFA_NAME = "";String TITLE_NAME = "";
         String WAIGUAN_NAME = "";String HORSE_NAME = "";String ARM_NAME = "";String STRA_NAME = "";String PEND_NAME = "";String THEME_ID = "";String THEME_NAME = "";String POST_BAR = "";String POST_ID = "";String POST_BAR_CLASS = "0";String BAR_SOUR_TYPE = "0";
+        StringBuffer sb = new StringBuffer();
+        sb.append(belongQf);
+        sb.append(tixin);
+        String MAIN_ID = MD5Util.getMd5(sb.toString());
         //sql.append(" insert into C_POST_BAR_12(record_id,createtime,updatetime,isvalid,favor_id,user_id,trade_type,favor_date,belong_qf,tixin,price_num) " +
         //        " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+tradeType+"','"+favorDate+"','"+belongQf+"','"+tixin+"','"+priceNum+"')");
         sql.append(" INSERT INTO `grab`.`c_post_bar_12` (`RECORD_ID`, `CREATETIME`, `UPDATETIME`, `ISVALID`, `FAVOR_ID`, `TRADE_TYPE`, `BELONG_QF`, `TIXIN`, `PRICE_NUM`, " +
@@ -114,15 +121,19 @@ public class IwantReleaseDao {
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
         String THEME_ID = ""; String PAGE_URL = ""; String POST_BAR = ""; String POST_ID = ""; String REPLY_TIME = ""; String POST_BAR_CLASS = "1"; String SOURCE_TYPE = "2"; String WAIGUAN_NAME = ""; String BELONG_FLOOR = "1";
-        String PAGE_NUM = "1";String THEME_NAME = "";String URL_VALID = "1";String MAIN_ID = "1";
+        String PAGE_NUM = "1";String THEME_NAME = "";String URL_VALID = "1";
+        StringBuffer sb = new StringBuffer();
+        sb.append(belongQf);
+        sb.append(favorInfo);
+        String MAIN_ID = MD5Util.getMd5(sb.toString());
         //sql.append(" insert into C_POST_BAR_13(record_id,createtime,updatetime,isvalid,favor_id,user_id,trade_type,belong_qf,view_name,price_num,favor_date,favor_info) " +
         //        " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+tradeType+"','"+belongQf+"','"+viewName+"','"+priceNum+"','"+favorDate+"','"+favorInfo+"')");
         sql.append(" INSERT INTO `grab`.`c_post_bar_13` (`RECORD_ID`, `CREATETIME`, `UPDATETIME`, `ISVALID`,FAVOR_ID, `THEME_ID`, `PAGE_URL`, `POST_BAR`, `POST_ID`, " +
                 "`POST_BAR_CLASS`, `POST_CONTENT`, `REPLY_TIME`, `SOURCE_TYPE`, `TRADE_TYPE`, `USER_ID`, `BELONG_QF`, `WAIGUAN_NAME`, `VIEW_NAME`, `PRICE_NUM`, `BELONG_FLOOR`, " +
                 "`PAGE_NUM`, `THEME_NAME`, `URL_VALID`, `MAIN_ID`) " +
                 "VALUES ('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"', '"+THEME_ID+"', '"+PAGE_URL+"', '"+POST_BAR+"', '"+POST_ID+"', " +
-                "'"+POST_BAR_CLASS+"', '"+favorInfo+"', '"+favorDate+"', '"+SOURCE_TYPE+"', '"+userId+"', '"+userId+"', '"+belongQf+"', '"+WAIGUAN_NAME+"', '"+viewName+"', '"+priceNum+"', '"+BELONG_FLOOR+"', " +
-                "'"+PAGE_NUM+"', '"+THEME_NAME+"', '"+URL_VALID+"', '"+MAIN_ID+"')");
+                "null, '"+favorInfo+"', '"+favorDate+"', '"+SOURCE_TYPE+"', '"+userId+"', '"+userId+"', '"+belongQf+"', '"+WAIGUAN_NAME+"', '"+viewName+"', '"+priceNum+"', null, " +
+                "null, '"+THEME_NAME+"', '"+URL_VALID+"', '"+MAIN_ID+"')");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
@@ -134,14 +145,17 @@ public class IwantReleaseDao {
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
         String THEME_ID = ""; String PAGE_URL = "";String POST_BAR = "";String POST_ID = "";String POST_BAR_CLASS = "1";String OTHER_EXPLAIN = "";String THEME_NAME = "";String BELONG_FLOOR = "1";String PAGE_NUM = "1";
-        String SOURCE_TYPE = "2";String URL_VALID = "1";String MAIN_ID = "1";
+        String SOURCE_TYPE = "2";String URL_VALID = "1";
+        StringBuffer sb = new StringBuffer();
+        sb.append(favorInfo);
+        String MAIN_ID = MD5Util.getMd5(sb.toString());
         //sql.append(" insert into C_POST_BAR_15(record_id,createtime,updatetime,isvalid,favor_id,user_id,trade_type,belong_qf,prop_name,price_num,favor_info,favor_date) " +
         //        " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+tradeType+"','"+belongQf+"','"+propName+"','"+priceNum+"','"+favorInfo+"','"+favorDate+"')");
         sql.append(" INSERT INTO `grab`.`c_post_bar_15` (`RECORD_ID`, `CREATETIME`, `UPDATETIME`, `ISVALID`, FAVOR_ID, `THEME_ID`, `PAGE_URL`, `POST_BAR`, `POST_ID`, " +
                 "`POST_BAR_CLASS`, `POST_CONTENT`, `REPLY_TIME`, `BELONG_QF`, `PROP_NAME`, `PRICE_NUM`, `OTHER_EXPLAIN`, `THEME_NAME`, `BELONG_FLOOR`, `PAGE_NUM`, `USER_ID`, " +
                 "`TRADE_TYPE`, `SOURCE_TYPE`, `URL_VALID`, `MAIN_ID`) " +
                 "VALUES ('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"', '"+THEME_ID+"', '"+PAGE_URL+"', '"+POST_BAR+"', '"+POST_ID+"', " +
-                "'"+POST_BAR_CLASS+"', '"+favorInfo+"', '"+favorDate+"', '"+belongQf+"', '"+propName+"', '"+priceNum+"', '"+OTHER_EXPLAIN+"', '"+THEME_NAME+"', '"+BELONG_FLOOR+"', '"+PAGE_NUM+"', '"+userId+"', " +
+                "null, '"+favorInfo+"', '"+favorDate+"', '"+belongQf+"', '"+propName+"', '"+priceNum+"', '"+OTHER_EXPLAIN+"', '"+THEME_NAME+"', null, null, '"+userId+"', " +
                 "'"+tradeType+"', '"+SOURCE_TYPE+"', '"+URL_VALID+"', '"+MAIN_ID+"')");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
@@ -153,13 +167,20 @@ public class IwantReleaseDao {
         List<Object> paramList = new ArrayList<Object>();
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
-        String MAIN_ID = "";
+        StringBuffer sb = new StringBuffer();
+        sb.append(belongQf);sb.append(",");
+        sb.append(goldTotal);sb.append("砖,");
+        sb.append(unitPrice);sb.append(",");
+        sb.append(ifSplit);sb.append(",");
+        sb.append(favorDate);sb.append(",");
+        sb.append(favorInfo);
+        String MAIN_ID = MD5Util.getMd5(sb.toString());
         //sql.append(" insert into C_POST_BAR_19(record_id,createtime,updatetime,isvalid,favor_id,user_id,favor_date,trade_type,belong_qf,gold_total,unit_price,if_split,favor_info) " +
         //        " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+favorDate+"','"+tradeType+"','"+belongQf+"','"+goldTotal+"','"+unitPrice+"','"+ifSplit+"','"+favorInfo+"')");
         sql.append(" INSERT INTO `grab`.`c_post_bar_19` (`RECORD_ID`, `CREATETIME`, `UPDATETIME`, `ISVALID`, FAVOR_ID, `USER_ID`, `FAVOR_DATE`, `TRADE_TYPE`, `BELONG_QF`, " +
-                "`GOLD_TOTAL`, `UNIT_PRICE`, `IF_SPLIT`, `MAIN_ID`) " +
+                "`GOLD_TOTAL`, `UNIT_PRICE`, `IF_SPLIT`, `MAIN_ID`, `POST_CONTENT`) " +
                 "VALUES ('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+favorDate+"','"+tradeType+"','"+belongQf+"', " +
-                "'"+goldTotal+"', '"+unitPrice+"', '"+ifSplit+"', '"+MAIN_ID+"')");
+                "'"+goldTotal+"', '"+unitPrice+"', '"+ifSplit+"', '"+MAIN_ID+"', '"+sb.toString()+"')");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
@@ -170,13 +191,18 @@ public class IwantReleaseDao {
         List<Object> paramList = new ArrayList<Object>();
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
-        String THEME_ID = "";String PAGE_URL = "";String POST_BAR = "";String POST_ID = "";int POST_BAR_CLASS = 0;String BELONG_FLOOR = "1";String PAGE_NUM = "1";String THEME_NAME = "";String MAIN_ID = "";
+        String THEME_ID = "";String PAGE_URL = "";String POST_BAR = "";String POST_ID = "";int POST_BAR_CLASS = 0;String BELONG_FLOOR = "1";String PAGE_NUM = "1";String THEME_NAME = "";
+        StringBuffer sb = new StringBuffer();
+        sb.append(belongQf);
+        sb.append(favorInfo);
+        sb.append(userId);
+        String MAIN_ID = MD5Util.getMd5(sb.toString());
         //sql.append(" insert into C_POST_BAR_17(record_id,createtime,updatetime,isvalid,favor_id,user_id,cheat_type,belong_qf,favor_info,favorDate) " +
         //        " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+cheatType+"','"+belongQf+"','"+favorInfo+"','"+favorDate+"')");
-        sql.append(" INSERT INTO `grab`.`c_post_bar_17` (`RECORD_ID`, `CREATETIME`, `UPDATETIME`, `ISVALID`, 'FAVOR_ID', `USER_ID`, `NEED_TYPE`, `POST_CONTENT`, " +
+        sql.append(" INSERT INTO `grab`.`c_post_bar_17` (`RECORD_ID`, `CREATETIME`, `UPDATETIME`, `ISVALID`, `FAVOR_ID`, `USER_ID`, `NEED_TYPE`, `POST_CONTENT`, " +
                 "`REPLY_TIME`, `BELONG_QF`, `THEME_ID`, `PAGE_URL`, `POST_BAR`, `POST_ID`, `POST_BAR_CLASS`, `BELONG_FLOOR`, `PAGE_NUM`, `THEME_NAME`, `MAIN_ID`) " +
                 "VALUES ('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"', '"+cheatType+"', '"+favorInfo+"', " +
-                "'"+favorDate+"', '"+belongQf+"', '"+THEME_ID+"', '"+PAGE_URL+"', '"+POST_BAR+"', '"+POST_ID+"', '"+POST_BAR_CLASS+"', '"+BELONG_FLOOR+"', '"+PAGE_NUM+"', '"+THEME_NAME+"', '"+MAIN_ID+"')");
+                "'"+favorDate+"', '"+belongQf+"', '"+THEME_ID+"', '"+PAGE_URL+"', '"+POST_BAR+"', '"+POST_ID+"', null, null, null, '"+THEME_NAME+"', '"+MAIN_ID+"')");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
@@ -325,5 +351,16 @@ public class IwantReleaseDao {
                    " values('"+recordId+"','"+createTime+"','"+updateTime+"','"+isvalid+"','"+favorId+"','"+userId+"','"+favorDate+"','"+favorType+"','"+collect_cont+"','"+collect_stusta+"') ");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
+    }
+
+
+
+    //获取道具名下拉框填充信息
+    public List<Map<String,Object>> queryTixinListInfo(String keyword) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" select distinct KEYWORD_NAME from b_post_bar_big where keyword_big_name = '"+keyword+"' and keyword_cate=1 ");
+        System.out.println(sql);
+        return this.commondao.query(sql.toString(), paramList);
     }
 }
