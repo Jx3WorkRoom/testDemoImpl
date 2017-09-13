@@ -47,6 +47,7 @@ public class userManageDao {
         String sql2 = " insert into f_sys_mod_1(RECORD_ID,ISVALID,CREATETIME,UPDATETIME,BELONG_WEB,MOD_ID,MOD_NAME,MOD_TYPE,VISIT_ROLE,REGIST_ROLE) values('"+recordId+"','1','"+createTime+"','"+createTime+"','"+belong_web+"','"+modId+"','"+mod_name+"','"+modType+"','"+visitRole+"','"+registRole+"')";
         System.out.println(sql2);
         return this.commondao.update(sql2, paramList);
+
     }
 
     public int editMod(String belong_web, int modId, String mod_name, int modType, int visitRole, int registRole, String serverCost, String serverNum) throws Exception {
