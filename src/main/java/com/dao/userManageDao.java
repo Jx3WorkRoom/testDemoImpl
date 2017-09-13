@@ -60,13 +60,40 @@ public class userManageDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append(" SELECT" +
-                " *" +
+                " a.*,b.MOD_NAME,b.BELONG_WEB " +
                 " FROM" +
                 " F_SYS_MOD_2 a" +
                 " LEFT JOIN f_sys_mod_1 b ON a.MOD_ID = b.MOD_ID " +
                 " WHERE" +
-                " a.MOD_ID = '"+modId+"'");
+                " a.MOD_ID = '"+modId+"' and a.ISVALID=1");
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
+    }
+
+    public int delMolDetail(String recordId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" update f_sys_mod_2 set ISVALID = 0 where record_id = '"+recordId+"'");
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(), paramList);
+    }
+
+    public int addModDetail( String modId, String costNum, String canNum) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        String createTime = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*", "");
+        String recordId = UUID.randomUUID().toString();
+        sql.append(" insert into  f_sys_mod_2(RECORD_ID,ISVALID,CREATETIME,UPDATETIME,MOD_ID,START_DATE,SERVER_COST,SERVER_NUM) " +
+                " values('"+recordId+"','1','"+createTime+"','"+createTime+"','"+modId+"','"+createTime+"','"+costNum+"','"+canNum+"')");
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(),paramList);
+    }
+
+    public int editModDetail(String recordId, String modId, String costNum, String canNum) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" update f_sys_mod_2 set mod_id ='"+modId+"' ,  SERVER_COST = '"+costNum+"' ,  SERVER_NUM = '"+canNum+"' where record_id = '"+recordId+"'");
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(), paramList);
     }
 }
