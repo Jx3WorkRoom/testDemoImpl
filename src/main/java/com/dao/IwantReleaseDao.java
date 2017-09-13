@@ -54,6 +54,16 @@ public class IwantReleaseDao {
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
+    public int upeditHbbgfo(int favorId, String userId, int cheatType, String belongQf, String tixin, String roleName, String cheatIntro, String cheatInfo, String pageUrl) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        String updatetime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
+
+        sql.append(" update c_post_bar_11 set updatetime='"+updatetime+"',cheat_type='"+cheatType+"',belong_qf='"+belongQf+"',tixin='"+tixin+"',role_name='"+roleName+"',cheat_intro='"+cheatIntro+"',cheat_info='"+cheatInfo+"',page_url='"+pageUrl+"' " +
+                "where favor_id='"+favorId+"'");
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(), paramList);
+    }
 
     //账号交易信息表(C_POST_BAR_12)
     public int saveZhjyxxInfo(String recordId, int favorId,int tradeType, String userId, String belongQf,String tixin,String priceNum,String replyContent) throws Exception {
@@ -122,7 +132,9 @@ public class IwantReleaseDao {
         String THEME_ID = ""; String PAGE_URL = ""; String POST_BAR = ""; String POST_ID = ""; String REPLY_TIME = ""; String POST_BAR_CLASS = "1"; String SOURCE_TYPE = "2"; String WAIGUAN_NAME = ""; String BELONG_FLOOR = "1";
         String PAGE_NUM = "1";String THEME_NAME = "";String URL_VALID = "1";
         StringBuffer sb = new StringBuffer();
-        sb.append(belongQf);
+        sb.append(belongQf);sb.append(",");
+        sb.append(viewName);sb.append(",");
+        sb.append(priceNum);sb.append(",");
         sb.append(favorInfo);
         String MAIN_ID = MD5Util.getMd5(sb.toString());
         //sql.append(" insert into C_POST_BAR_13(record_id,createtime,updatetime,isvalid,favor_id,user_id,trade_type,belong_qf,view_name,price_num,favor_date,favor_info) " +
@@ -131,8 +143,29 @@ public class IwantReleaseDao {
                 "`POST_BAR_CLASS`, `POST_CONTENT`, `REPLY_TIME`, `SOURCE_TYPE`, `TRADE_TYPE`, `USER_ID`, `BELONG_QF`, `WAIGUAN_NAME`, `VIEW_NAME`, `PRICE_NUM`, `BELONG_FLOOR`, " +
                 "`PAGE_NUM`, `THEME_NAME`, `URL_VALID`, `MAIN_ID`) " +
                 "VALUES ('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"', '"+THEME_ID+"', '"+PAGE_URL+"', '"+POST_BAR+"', '"+POST_ID+"', " +
-                "null, '"+favorInfo+"', '"+favorDate+"', '"+SOURCE_TYPE+"', '"+userId+"', '"+userId+"', '"+belongQf+"', '"+WAIGUAN_NAME+"', '"+viewName+"', '"+priceNum+"', null, " +
+                "null, '"+sb.toString()+"', '"+favorDate+"', '"+SOURCE_TYPE+"', '"+userId+"', '"+userId+"', '["+belongQf+"]', '"+WAIGUAN_NAME+"', '"+viewName+"', '"+priceNum+"', null, " +
                 "null, '"+THEME_NAME+"', '"+URL_VALID+"', '"+MAIN_ID+"')");
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(), paramList);
+    }
+    //-编辑
+    public int upeditWgjyxxInfo(String recordId, int favorId, String userId, int tradeType, String belongQf, String viewName, int priceNum, String favorInfo) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        String updatetime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
+        String favorDate = updatetime;
+        String THEME_ID = ""; String PAGE_URL = ""; String POST_BAR = ""; String POST_ID = ""; String REPLY_TIME = ""; String POST_BAR_CLASS = "1"; String SOURCE_TYPE = "2"; String WAIGUAN_NAME = ""; String BELONG_FLOOR = "1";
+        String PAGE_NUM = "1";String THEME_NAME = "";String URL_VALID = "1";
+        StringBuffer sb = new StringBuffer();
+        sb.append(belongQf);sb.append(",");
+        sb.append(viewName);sb.append(",");
+        sb.append(priceNum);sb.append(",");
+        sb.append(favorInfo);
+        String MAIN_ID = MD5Util.getMd5(sb.toString());
+        //sql.append(" insert into C_POST_BAR_13(record_id,createtime,updatetime,isvalid,favor_id,user_id,trade_type,belong_qf,view_name,price_num,favor_date,favor_info) " +
+        //        " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+tradeType+"','"+belongQf+"','"+viewName+"','"+priceNum+"','"+favorDate+"','"+favorInfo+"')");
+        sql.append(" update c_post_bar_13 set updatetime='"+updatetime+"',trade_type='"+tradeType+"',belong_qf='"+belongQf+"',view_name='"+viewName+"',price_num='"+priceNum+"' " +
+                "where favor_id='"+favorId+"'");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
@@ -146,6 +179,9 @@ public class IwantReleaseDao {
         String THEME_ID = ""; String PAGE_URL = "";String POST_BAR = "";String POST_ID = "";String POST_BAR_CLASS = "1";String OTHER_EXPLAIN = "";String THEME_NAME = "";String BELONG_FLOOR = "1";String PAGE_NUM = "1";
         String SOURCE_TYPE = "2";String URL_VALID = "1";
         StringBuffer sb = new StringBuffer();
+        sb.append(belongQf);sb.append(",");
+        sb.append(propName);sb.append(",");
+        sb.append(priceNum);sb.append(",");
         sb.append(favorInfo);
         String MAIN_ID = MD5Util.getMd5(sb.toString());
         //sql.append(" insert into C_POST_BAR_15(record_id,createtime,updatetime,isvalid,favor_id,user_id,trade_type,belong_qf,prop_name,price_num,favor_info,favor_date) " +
@@ -154,23 +190,43 @@ public class IwantReleaseDao {
                 "`POST_BAR_CLASS`, `POST_CONTENT`, `REPLY_TIME`, `BELONG_QF`, `PROP_NAME`, `PRICE_NUM`, `OTHER_EXPLAIN`, `THEME_NAME`, `BELONG_FLOOR`, `PAGE_NUM`, `USER_ID`, " +
                 "`TRADE_TYPE`, `SOURCE_TYPE`, `URL_VALID`, `MAIN_ID`) " +
                 "VALUES ('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"', '"+THEME_ID+"', '"+PAGE_URL+"', '"+POST_BAR+"', '"+POST_ID+"', " +
-                "null, '"+favorInfo+"', '"+favorDate+"', '"+belongQf+"', '"+propName+"', '"+priceNum+"', '"+OTHER_EXPLAIN+"', '"+THEME_NAME+"', null, null, '"+userId+"', " +
+                "null, '"+favorInfo+"', '"+favorDate+"', '["+belongQf+"]', '"+propName+"', '"+priceNum+"', '"+OTHER_EXPLAIN+"', '"+THEME_NAME+"', null, null, '"+userId+"', " +
                 "'"+tradeType+"', '"+SOURCE_TYPE+"', '"+URL_VALID+"', '"+MAIN_ID+"')");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
-
+    public int upeditDjjyxxInfo(String recordId, int favorId, String userId, int tradeType, String belongQf, String propName, int priceNum, String favorInfo) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        String updatetime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
+        String favorDate = updatetime;
+        String THEME_ID = ""; String PAGE_URL = "";String POST_BAR = "";String POST_ID = "";String POST_BAR_CLASS = "1";String OTHER_EXPLAIN = "";String THEME_NAME = "";String BELONG_FLOOR = "1";String PAGE_NUM = "1";
+        String SOURCE_TYPE = "2";String URL_VALID = "1";
+        StringBuffer sb = new StringBuffer();
+        sb.append(favorInfo);
+        String MAIN_ID = MD5Util.getMd5(sb.toString());
+        sql.append(" update c_post_bar_15 set updatetime='"+updatetime+"',TRADE_TYPE='"+tradeType+"',belong_qf='"+belongQf+"',PROP_NAME='"+propName+"',PRICE_NUM='"+priceNum+"',POST_CONTENT='"+favorInfo+"' " +
+                "where favor_id='"+favorId+"'");
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(), paramList);
+    }
     //游戏金币交易信息表(C_POST_BAR_19)
     public int saveYxjbjyInfo(String recordId, int favorId, String userId, int tradeType, String belongQf, int goldTotal, int unitPrice, int ifSplit, String favorInfo) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
+        String ifSplitStr = "";
+        if(ifSplit==1){     //1-可拆分；0-不可拆分
+            ifSplitStr = "可拆分";
+        }else{
+            ifSplitStr = "不可拆分";
+        }
         StringBuffer sb = new StringBuffer();
         sb.append(belongQf);sb.append(",");
-        sb.append(goldTotal);sb.append("砖,");
+        sb.append(goldTotal);sb.append("砖,");sb.append(goldTotal);sb.append("G/R,");
         sb.append(unitPrice);sb.append(",");
-        sb.append(ifSplit);sb.append(",");
+        sb.append(ifSplitStr);sb.append(",");
         sb.append(favorDate);sb.append(",");
         sb.append(favorInfo);
         String MAIN_ID = MD5Util.getMd5(sb.toString());
@@ -178,7 +234,7 @@ public class IwantReleaseDao {
         //        " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+favorDate+"','"+tradeType+"','"+belongQf+"','"+goldTotal+"','"+unitPrice+"','"+ifSplit+"','"+favorInfo+"')");
         sql.append(" INSERT INTO `grab`.`c_post_bar_19` (`RECORD_ID`, `CREATETIME`, `UPDATETIME`, `ISVALID`, FAVOR_ID, `USER_ID`, `FAVOR_DATE`, `TRADE_TYPE`, `BELONG_QF`, " +
                 "`GOLD_TOTAL`, `UNIT_PRICE`, `IF_SPLIT`, `MAIN_ID`, `POST_CONTENT`) " +
-                "VALUES ('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+favorDate+"','"+tradeType+"','"+belongQf+"', " +
+                "VALUES ('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+favorDate+"','"+tradeType+"','["+belongQf+"]', " +
                 "'"+goldTotal+"', '"+unitPrice+"', '"+ifSplit+"', '"+MAIN_ID+"', '"+sb.toString()+"')");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
@@ -218,6 +274,17 @@ public class IwantReleaseDao {
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
+    //-编辑
+    public int upeditWyjbInfo(int favorId, String userId, int cheatType, String belongQf, String tixin, String roleName, String cheatIntro, String cheatInfo, String pageUrl) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        String updatetime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
+
+        sql.append(" update D_POST_BAR_11 set updatetime='"+updatetime+"',cheat_type='"+cheatType+"',belong_qf='"+belongQf+"',tixin='"+tixin+"',role_name='"+roleName+"',cheat_intro='"+cheatIntro+"',cheat_info='"+cheatInfo+"',page_url='"+pageUrl+"' " +
+                "where favor_id='"+favorId+"'");
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(), paramList);
+    }
 
     //外观交易(D_POST_BAR_16--C_POST_BAR_13)
     public int saveWgjyInfo(String recordId, int favorId, String userId, int tradeType, String belongQf, String viewName, int priceNum, String favorInfo) throws Exception {
@@ -230,6 +297,16 @@ public class IwantReleaseDao {
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
+    //-编辑
+    public int upeditWgjyInfo(String recordId, int favorId, String userId, int tradeType, String belongQf, String viewName, int priceNum, String favorInfo) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        String updatetime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
+        sql.append(" update D_POST_BAR_16 set updatetime='"+updatetime+"',trade_type='"+tradeType+"',belong_qf='"+belongQf+"',view_name='"+viewName+"',price_num='"+priceNum+"',favor_info='"+favorInfo+"' " +
+                "where favor_id='"+favorId+"'");
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(), paramList);
+    }
 
     //道具交易(D_POST_BAR_18-C_POST_BAR_15)
     public int saveDjjyInfo(String recordId, int favorId, String userId, int tradeType, String belongQf, String propName, int priceNum, String favorInfo) throws Exception {
@@ -239,6 +316,16 @@ public class IwantReleaseDao {
         String favorDate = createTime;
         sql.append(" insert into D_POST_BAR_18(record_id,createtime,updatetime,isvalid,favor_id,user_id,trade_type,belong_qf,prop_name,price_num,favor_info,favor_date) " +
                 " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+tradeType+"','"+belongQf+"','"+propName+"','"+priceNum+"','"+favorInfo+"','"+favorDate+"')");
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(), paramList);
+    }
+    public int upeditDjjyInfo(String recordId, int favorId, String userId, int tradeType, String belongQf, String propName, int priceNum, String favorInfo) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        String updatetime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
+        String favorDate = updatetime;
+        sql.append(" update D_POST_BAR_18 set updatetime='"+updatetime+"',trade_type='"+tradeType+"',belong_qf='"+belongQf+"',prop_name='"+propName+"',price_num='"+priceNum+"',favor_info='"+favorInfo+"' " +
+                "where favor_id='"+favorId+"'");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
@@ -351,7 +438,7 @@ public class IwantReleaseDao {
         return this.commondao.update(sql.toString(), paramList);
     }
 
-
+//--------------------------------------------------------------------------------------
 
     //获取道具名下拉框填充信息
     public List<Map<String,Object>> queryTixinListInfo(String keyword) throws Exception {
@@ -366,7 +453,7 @@ public class IwantReleaseDao {
     public List<Map<String,Object>> getReport(String mainId) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append("select * from D_post_bar_11 where record_id = " + mainId);
+        sql.append("select * from D_post_bar_11 where favor_id = " + mainId);
 
         System.out.println(sql);
         listSql = sql.toString();
@@ -377,7 +464,7 @@ public class IwantReleaseDao {
     public List<Map<String,Object>> getAppearanceTransaction(String mainId) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append("select * from D_post_bar_16 where record_id = " + mainId);
+        sql.append("select * from D_post_bar_16 where favor_id = " + mainId);
 
         System.out.println(sql);
         listSql = sql.toString();
@@ -388,7 +475,7 @@ public class IwantReleaseDao {
     public List<Map<String,Object>> getPropTransaction(String mainId) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append("select * from D_post_bar_18 where record_id = " + mainId);
+        sql.append("select * from D_post_bar_18 where favor_id = " + mainId);
 
         System.out.println(sql);
         listSql = sql.toString();
@@ -399,7 +486,7 @@ public class IwantReleaseDao {
     public List<Map<String,Object>> getAccountTransaction(String mainId) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append("select * from D_post_bar_19 where record_id = " + mainId);
+        sql.append("select * from D_post_bar_19 where favor_id = " + mainId);
 
         System.out.println(sql);
         listSql = sql.toString();
@@ -410,7 +497,7 @@ public class IwantReleaseDao {
     public List<Map<String,Object>> getAccountExchange(String mainId) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append("select * from D_post_bar_20 where record_id = " + mainId);
+        sql.append("select * from D_post_bar_20 where favor_id = " + mainId);
 
         System.out.println(sql);
         listSql = sql.toString();
@@ -421,7 +508,7 @@ public class IwantReleaseDao {
     public List<Map<String,Object>> getQuickRelease(String mainId) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append("select * from D_post_bar_13 where record_id = " + mainId);
+        sql.append("select * from D_post_bar_13 where favor_id = " + mainId);
 
         System.out.println(sql);
         listSql = sql.toString();

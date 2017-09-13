@@ -41,6 +41,31 @@ public class IwantReleaseService {
         }
         return "保存失败!";
     }
+    //我要举报-编辑
+    public String upeditWyjbInfo(int favorId, String userId, int cheatType, String belongQf, String tixin, String roleName, String cheatIntro, String cheatInfo, String pageUrl) {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            int insertResult = iwantReleaseDao.upeditWyjbInfo(favorId,userId,cheatType,"["+belongQf+"]","["+tixin+"]",roleName,cheatIntro,cheatInfo,pageUrl);    //D_post_bar_11
+            int insertResult2 = iwantReleaseDao.upeditHbbgfo(favorId,userId,cheatType,"["+belongQf+"]","["+tixin+"]",roleName,cheatIntro,cheatInfo,pageUrl);     //C_POST_BAR_11
+            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+//            String updateTime = createTime;
+//            String favorDate = createTime;
+//            String COLLECT_CONT = "【欺诈类型】"+cheatType+'\n'+"【涉事区服】"+belongQf+'\n'+"【被黑经历】"+cheatIntro+'\n'+"【黑鬼资料综述】"+cheatInfo;
+//            int ISVALID = 1;
+//            int favorType =7;
+//            int COLLECT_STUSTA =1;
+//            int insertResult3 = iwantReleaseDao.savePub(recordId,createTime,updateTime,ISVALID,favorId,userId,favorDate,favorType,COLLECT_CONT,COLLECT_STUSTA);
+            if(insertResult==1 && insertResult2==1) {
+                return "保存成功!";
+            }else{
+                return "保存失败!";
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "保存失败!";
+    }
     //外观交易
     public String saveWgjyInfo(String userId, int tradeType, String belongQf, String viewName, int priceNum, String favorInfo) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
@@ -48,7 +73,7 @@ public class IwantReleaseService {
             String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
             int favorId = iwantReleaseDao.getSequence3();
             int insertResult = iwantReleaseDao.saveWgjyInfo(recordId,favorId, userId,tradeType,"["+belongQf+"]",viewName,priceNum,favorInfo);    //D_POST_BAR_16
-            int insertResult2 = iwantReleaseDao.saveWgjyxxInfo(recordId,favorId, userId,tradeType,"["+belongQf+"]",viewName,priceNum,favorInfo);    //C_POST_BAR_13
+            int insertResult2 = iwantReleaseDao.saveWgjyxxInfo(recordId,favorId, userId,tradeType,belongQf,viewName,priceNum,favorInfo);    //C_POST_BAR_13
             String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
@@ -68,6 +93,32 @@ public class IwantReleaseService {
         }
         return "保存失败!";
     }
+    public String upeditWgjyInfo(int favorId, String userId, int tradeType, String belongQf, String viewName, int priceNum, String favorInfo) {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
+            int insertResult = iwantReleaseDao.upeditWgjyInfo(recordId,favorId, userId,tradeType,"["+belongQf+"]",viewName,priceNum,favorInfo);    //D_POST_BAR_16
+            int insertResult2 = iwantReleaseDao.upeditWgjyxxInfo(recordId,favorId, userId,tradeType,belongQf,viewName,priceNum,favorInfo);    //C_POST_BAR_13
+//            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+//            String updateTime = createTime;
+//            String favorDate = createTime;
+//            String COLLECT_CONT = "【所属区服】"+belongQf+'\n'+"【外观名】"+viewName+'\n'+"【价格】"+priceNum;
+//            int ISVALID = 1;
+//            int favorType =3;
+//            int COLLECT_STUSTA =1;
+//            int insertResult3 = iwantReleaseDao.savePub(recordId,createTime,updateTime,ISVALID,favorId,userId,favorDate,favorType,COLLECT_CONT,COLLECT_STUSTA);
+            int insertResult3 = 1;
+            if(insertResult==1 && insertResult2==1&&insertResult3==1) {
+                return "保存成功!";
+            }else{
+                return "保存失败!";
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "保存失败!";
+    }
     //道具交易
     public String saveDjjyInfo(String userId,int tradeType, String belongQf, String propName, int priceNum, String favorInfo) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
@@ -75,7 +126,33 @@ public class IwantReleaseService {
             String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
             int favorId = iwantReleaseDao.getSequence3();
             int insertResult = iwantReleaseDao.saveDjjyInfo(recordId,favorId, userId,tradeType, "["+belongQf+"]", propName, priceNum, favorInfo);    //D_POST_BAR_18
-            int insertResult2 = iwantReleaseDao.saveDjjyxxInfo(recordId,favorId, userId,tradeType, "["+belongQf+"]", propName, priceNum, favorInfo);    //C_POST_BAR_15
+            int insertResult2 = iwantReleaseDao.saveDjjyxxInfo(recordId,favorId, userId,tradeType, belongQf, propName, priceNum, favorInfo);    //C_POST_BAR_15
+            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+            String updateTime = createTime;
+            String favorDate = createTime;
+            String COLLECT_CONT = "【所属区服】"+belongQf+'\n'+"【道具名】"+propName+'\n'+"【价格】"+priceNum;
+            int ISVALID = 1;
+            int favorType =4;
+            int COLLECT_STUSTA =1;
+            int insertResult3 = iwantReleaseDao.savePub(recordId,createTime,updateTime,ISVALID,favorId,userId,favorDate,favorType,COLLECT_CONT,COLLECT_STUSTA);
+            if(insertResult==1 && insertResult2==1&&insertResult3==1) {
+                return "保存成功!";
+            }else{
+                return "保存失败!";
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "保存失败!";
+    }
+
+    public String upeditDjjyInfo(int favorId, String userId,int tradeType, String belongQf, String propName, int priceNum, String favorInfo) {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
+            int insertResult = iwantReleaseDao.upeditDjjyInfo(recordId,favorId, userId,tradeType, "["+belongQf+"]", propName, priceNum, favorInfo);    //D_POST_BAR_18
+            int insertResult2 = iwantReleaseDao.upeditDjjyxxInfo(recordId,favorId, userId,tradeType, "["+belongQf+"]", propName, priceNum, favorInfo);    //C_POST_BAR_15
             String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
@@ -102,7 +179,7 @@ public class IwantReleaseService {
             String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
             int favorId = iwantReleaseDao.getSequence3();
             int insertResult = iwantReleaseDao.saveJbjyInfo(recordId,favorId, userId, tradeType, "["+belongQf+"]", goldTotal, unitPrice, ifSplit, favorInfo);     //D_POST_BAR_19
-            int insertResult2 = iwantReleaseDao.saveYxjbjyInfo(recordId,favorId, userId, tradeType, "["+belongQf+"]", goldTotal, unitPrice, ifSplit, favorInfo);     //C_POST_BAR_19
+            int insertResult2 = iwantReleaseDao.saveYxjbjyInfo(recordId,favorId, userId, tradeType, belongQf, goldTotal, unitPrice, ifSplit, favorInfo);     //C_POST_BAR_19
             String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
@@ -298,7 +375,7 @@ public class IwantReleaseService {
     public Object getPropTransaction(String mainId){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-//            resArr = iwantReleaseDao.getPropTransaction(mainId);
+            resArr = iwantReleaseDao.getPropTransaction(mainId);
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -311,7 +388,7 @@ public class IwantReleaseService {
     public Object getAccountTransaction(String mainId){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-//            resArr = iwantReleaseDao.getAccountTransaction(mainId);
+            resArr = iwantReleaseDao.getAccountTransaction(mainId);
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -324,7 +401,7 @@ public class IwantReleaseService {
     public Object getAccountExchange(String mainId){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-//            resArr = iwantReleaseDao.getAccountExchange(mainId);
+            resArr = iwantReleaseDao.getAccountExchange(mainId);
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -337,7 +414,7 @@ public class IwantReleaseService {
     public Object getQuickRelease(String mainId){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-//            resArr = iwantReleaseDao.getQuickRelease(mainId);
+            resArr = iwantReleaseDao.getQuickRelease(mainId);
 
         } catch (Exception e) {
             // TODO Auto-generated catch block

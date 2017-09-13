@@ -29,6 +29,8 @@ public class IwantReleaseAction {
     @RequestMapping(value="saveWyjbInfo",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> getAccountListAction(
+            @RequestParam(value="operate",required=false,defaultValue = "") String operate,
+            @RequestParam(value="favorId",required=false,defaultValue = "") int favorId,
             @RequestParam(value="userId",required=false,defaultValue = "") String userId,
             @RequestParam(value="cheatType",required=false,defaultValue = "") int tradeType,
             @RequestParam(value="belongQf",required=false,defaultValue ="") String belongQf,
@@ -40,8 +42,12 @@ public class IwantReleaseAction {
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        String returnVal = iwantReleaseService.saveWyjbInfo(userId,tradeType,belongQf,tixin,roleName,cheatIntro,cheatInfo,pageUrl);
-
+        String returnVal = "";
+        if(operate.equals("save")){
+            returnVal = iwantReleaseService.saveWyjbInfo(userId, tradeType, belongQf, tixin, roleName, cheatIntro, cheatInfo, pageUrl);
+        }else {
+            returnVal = iwantReleaseService.upeditWyjbInfo(favorId, userId, tradeType, belongQf, tixin, roleName, cheatIntro, cheatInfo, pageUrl);
+        }
         long post=System.currentTimeMillis();
         System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
@@ -51,6 +57,8 @@ public class IwantReleaseAction {
     @RequestMapping(value="saveWgjyInfo",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> saveWgjyInfoAction(
+            @RequestParam(value="operate",required=false,defaultValue = "") String operate,
+            @RequestParam(value="favorId",required=false,defaultValue = "") int favorId,
             @RequestParam(value="userId",required=false,defaultValue = "") String userId,
             @RequestParam(value="cheatType",required=false,defaultValue = "") int tradeType,
             @RequestParam(value="belongQf",required=false,defaultValue ="") String belongQf,
@@ -60,8 +68,13 @@ public class IwantReleaseAction {
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        String returnVal = iwantReleaseService.saveWgjyInfo(userId,tradeType,belongQf,viewName,priceNum,favorInfo);
 
+        String returnVal = "";
+        if(operate.equals("save")){
+            returnVal = iwantReleaseService.saveWgjyInfo(userId,tradeType,belongQf,viewName,priceNum,favorInfo);
+        }else {
+            returnVal = iwantReleaseService.upeditWgjyInfo(favorId, userId,tradeType,belongQf,viewName,priceNum,favorInfo);
+        }
         long post=System.currentTimeMillis();
         System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
@@ -71,6 +84,8 @@ public class IwantReleaseAction {
     @RequestMapping(value="saveDjjyInfo",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> saveDjjyInfoAction(
+            @RequestParam(value="operate",required=false,defaultValue = "") String operate,
+            @RequestParam(value="favorId",required=false,defaultValue = "") int favorId,
             @RequestParam(value="userId",required=false,defaultValue = "") String userId,
             @RequestParam(value="tradeType",required=false,defaultValue = "") int tradeType,
             @RequestParam(value="belongQf",required=false,defaultValue ="") String belongQf,
@@ -80,7 +95,12 @@ public class IwantReleaseAction {
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        String returnVal = iwantReleaseService.saveDjjyInfo(userId,tradeType,belongQf,propName,priceNum,favorInfo);
+        String returnVal = "";
+        if(operate.equals("save")){
+            returnVal = iwantReleaseService.saveDjjyInfo(userId,tradeType,belongQf,propName,priceNum,favorInfo);
+        }else {
+            returnVal = iwantReleaseService.upeditDjjyInfo(favorId, userId,tradeType,belongQf,propName,priceNum,favorInfo);
+        }
 
         long post=System.currentTimeMillis();
         System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
@@ -235,38 +255,44 @@ public class IwantReleaseAction {
 
 
 
-    @ApiOperation(value="获取道具名下拉框填充信息", notes="",produces = "application/json")
-    @RequestMapping(value="selectionList",method = RequestMethod.GET)
-    @Produces("application/json")
-    public Map<String,Object> getAccountListSelectionAction(
-            @RequestParam(value="type",required=false,defaultValue ="10") String type
-    ){
-        Map<String,Object> resmap=new HashMap<String,Object>();
-        long pre=System.currentTimeMillis();
-        Object SelectionList = accountListService.querySelectionListInfo();
-        Object tixinList = iwantReleaseService.queryTixinListInfo(type);
-        resmap.put("selecttions", SelectionList);
-        resmap.put("resultList", tixinList);
-        resmap.put("success", true);
-        long post=System.currentTimeMillis();
-        System.out.println("查询账号交易页面搜索框填充信息接口执行时间（单位：毫秒）："+ (post-pre));
-        return resmap;
-    }
+//    @ApiOperation(value="获取道具名下拉框填充信息", notes="",produces = "application/json")
+//    @RequestMapping(value="selectionList",method = RequestMethod.GET)
+//    @Produces("application/json")
+//    public Map<String,Object> getAccountListSelectionAction(
+//            @RequestParam(value="type",required=false,defaultValue ="10") String type
+//    ){
+//        Map<String,Object> resmap=new HashMap<String,Object>();
+//        long pre=System.currentTimeMillis();
+//        Object SelectionList = accountListService.querySelectionListInfo();
+//        Object tixinList = iwantReleaseService.queryTixinListInfo(type);
+//        resmap.put("selecttions", SelectionList);
+//        resmap.put("resultList", tixinList);
+//        resmap.put("success", true);
+//        long post=System.currentTimeMillis();
+//        System.out.println("查询账号交易页面搜索框填充信息接口执行时间（单位：毫秒）："+ (post-pre));
+//        return resmap;
+//    }
 
 
 
 
 
     @ApiOperation(value="我要举报", notes="编辑",produces = "application/json")
-    @RequestMapping(value="report",method = RequestMethod.GET)
+    @RequestMapping(value="reportListSelection",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> editReportAction(
             @RequestParam(value="mainId",required=false,defaultValue = "") String mainId
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
+
+        Object SelectionList = accountListService.querySelectionListInfo();
+        Object tixinList = accountListService.queryTixinListInfo();
         Object dataList = iwantReleaseService.getReport(mainId);
-        resmap.put("datas", dataList);
+        resmap.put("selecttions", SelectionList);
+        resmap.put("tixinList", tixinList);
+        resmap.put("info", dataList);
+        resmap.put("success", true);
 
         long post=System.currentTimeMillis();
         System.out.println("我要举报编辑接口执行时间（单位：毫秒）："+ (post-pre));
@@ -274,15 +300,22 @@ public class IwantReleaseAction {
     }
 
     @ApiOperation(value="外观交易", notes="编辑",produces = "application/json")
-    @RequestMapping(value="appearanceTransaction",method = RequestMethod.GET)
+    @RequestMapping(value="appearanceTransactionListSelection",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> editAppearanceTransactionAction(
+            @RequestParam(value="type",required=false,defaultValue ="10") String type,
             @RequestParam(value="mainId",required=false,defaultValue = "") String mainId
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
+
+        Object SelectionList = accountListService.querySelectionListInfo();
+        Object tixinList = iwantReleaseService.queryTixinListInfo(type);
         Object dataList = iwantReleaseService.getAppearanceTransaction(mainId);
-        resmap.put("datas", dataList);
+        resmap.put("selecttions", SelectionList);
+        resmap.put("resultList", tixinList);
+        resmap.put("info", dataList);
+        resmap.put("success", true);
 
         long post=System.currentTimeMillis();
         System.out.println("我要举报编辑接口执行时间（单位：毫秒）："+ (post-pre));
@@ -290,15 +323,22 @@ public class IwantReleaseAction {
     }
 
     @ApiOperation(value="道具交易", notes="编辑",produces = "application/json")
-    @RequestMapping(value="propTransaction",method = RequestMethod.GET)
+    @RequestMapping(value="propTransactionListSelection",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> editPropTransactionAction(
+            @RequestParam(value="type",required=false,defaultValue ="10") String type,
             @RequestParam(value="mainId",required=false,defaultValue = "") String mainId
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
+
+        Object SelectionList = accountListService.querySelectionListInfo();
+        Object tixinList = iwantReleaseService.queryTixinListInfo(type);
         Object dataList = iwantReleaseService.getPropTransaction(mainId);
-        resmap.put("datas", dataList);
+        resmap.put("selecttions", SelectionList);
+        resmap.put("resultList", tixinList);
+        resmap.put("info", dataList);
+        resmap.put("success", true);
 
         long post=System.currentTimeMillis();
         System.out.println("我要举报编辑接口执行时间（单位：毫秒）："+ (post-pre));
@@ -306,7 +346,7 @@ public class IwantReleaseAction {
     }
 
     @ApiOperation(value="金币交易", notes="编辑",produces = "application/json")
-    @RequestMapping(value="accountTransaction",method = RequestMethod.GET)
+    @RequestMapping(value="accountTransactionListSelection",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> editAccountTransactionAction(
             @RequestParam(value="mainId",required=false,defaultValue = "") String mainId
@@ -322,7 +362,7 @@ public class IwantReleaseAction {
     }
 
     @ApiOperation(value="代练交易", notes="编辑",produces = "application/json")
-    @RequestMapping(value="accountExchange",method = RequestMethod.GET)
+    @RequestMapping(value="accountExchangeListSelection",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> editAccountExchangeAction(
             @RequestParam(value="mainId",required=false,defaultValue = "") String mainId
@@ -338,7 +378,7 @@ public class IwantReleaseAction {
     }
 
     @ApiOperation(value="账号收售快速发布", notes="编辑",produces = "application/json")
-    @RequestMapping(value="quickRelease",method = RequestMethod.GET)
+    @RequestMapping(value="quickReleaseListSelection",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> editQuickReleaseAction(
             @RequestParam(value="mainId",required=false,defaultValue = "") String mainId
