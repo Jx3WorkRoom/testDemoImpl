@@ -64,4 +64,36 @@ public class userManageService {
         }
         return resArr;
     }
+
+    public Object delMolDetail(String recordId) throws Exception {
+        int result = userManageDao.delMolDetail(recordId);
+        if(result>0){
+            return "删除成功!";
+        }else{
+            return "删除失败!";
+        }
+    }
+
+    public Object newModDetail(String recordId, String belondWeb, String modId, String modName, String costNum, String canNum, int type) {
+        try{
+            if(type==1){
+                int result = userManageDao.addModDetail(modId,costNum,canNum);
+                if(result>0){
+                    return "添加成功!";
+                }else{
+                    return "添加失败!";
+                }
+            }else{
+                int result = userManageDao.editModDetail(recordId,modId,costNum,canNum);
+                if(result>0){
+                    return "修改成功!";
+                }else{
+                    return "修改失败!";
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return "";
+        }
+    }
 }

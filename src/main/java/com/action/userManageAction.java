@@ -124,4 +124,42 @@ public class userManageAction {
         System.out.println("查询功能模块接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
     }
+
+
+
+    @ApiOperation(value="删除模块详情", notes="",produces = "application/json")
+    @RequestMapping(value="delMolDetail",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> delMolDetail(
+            @RequestParam(value="recordId",required=true) String recordId
+    ) throws Exception {
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object info = userManageService.delMolDetail(recordId);
+        resmap.put("info",info);
+        long post=System.currentTimeMillis();
+        System.out.println("删除模块详情接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+    @ApiOperation(value="新增或者修改模块详情", notes="",produces = "application/json")
+    @RequestMapping(value="newModDetail",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> newModDetail(
+            @RequestParam(value="recordId",required=false,defaultValue = "") String recordId,
+            @RequestParam(value="belondWeb",required=false,defaultValue = "") String belondWeb,
+            @RequestParam(value="modId",required=false,defaultValue = "") String modId,
+            @RequestParam(value="modName",required=false,defaultValue = "") String modName,
+            @RequestParam(value="costNum",required=false,defaultValue = "") String costNum,
+            @RequestParam(value="canNum",required=false,defaultValue = "") String canNum,
+            @RequestParam(value="type",required=true) int type
+    ) throws Exception {
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object info = userManageService.newModDetail(recordId,belondWeb,modId,modName,costNum,canNum,type);
+        resmap.put("info",info);
+        long post=System.currentTimeMillis();
+        System.out.println("删除模块详情接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
 }

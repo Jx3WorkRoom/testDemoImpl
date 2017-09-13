@@ -52,7 +52,7 @@ public class IwantReleaseService {
             String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
-            String COLLECT_CONT = "【所属区分】"+belongQf+'\n'+"【外观名】"+viewName+'\n'+"【价格】"+priceNum;
+            String COLLECT_CONT = "【所属区服】"+belongQf+'\n'+"【外观名】"+viewName+'\n'+"【价格】"+priceNum;
             int ISVALID = 1;
             int favorType =3;
             int COLLECT_STUSTA =1;
@@ -79,7 +79,7 @@ public class IwantReleaseService {
             String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
-            String COLLECT_CONT = "【所属区分】"+belongQf+'\n'+"【道具名】"+propName+'\n'+"【价格】"+priceNum;
+            String COLLECT_CONT = "【所属区服】"+belongQf+'\n'+"【道具名】"+propName+'\n'+"【价格】"+priceNum;
             int ISVALID = 1;
             int favorType =4;
             int COLLECT_STUSTA =1;
@@ -106,7 +106,7 @@ public class IwantReleaseService {
             String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
-            String COLLECT_CONT = "【所属区分】"+belongQf+'\n'+"【金币总量】"+goldTotal+'\n'+"【单价】"+unitPrice;
+            String COLLECT_CONT = "【所属区服】"+belongQf+'\n'+"【金币总量】"+goldTotal+'\n'+"【单价】"+unitPrice;
             int ISVALID = 1;
             int favorType =5;
             int COLLECT_STUSTA =1;
@@ -134,7 +134,7 @@ public class IwantReleaseService {
             String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
-            String COLLECT_CONT = "【所属区分】"+belongQf+'\n'+"【代练说明】"+favorInfo;
+            String COLLECT_CONT = "【所属区服】"+belongQf+'\n'+"【代练说明】"+favorInfo;
             int ISVALID = 1;
             int favorType =6;
             int COLLECT_STUSTA =1;
@@ -152,13 +152,13 @@ public class IwantReleaseService {
     }
 
     //账号快售快速发布
-    public String saveZhssInfo(String userId,String belongQf,String tixin,int priceNum,String accoInfo){
+    public String saveZhssInfo(String userId,int tradeType, String belongQf,String tixin,int priceNum,String accoInfo){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
             String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
             int favorId = iwantReleaseDao.getSequence3();
-            int insertResult = iwantReleaseDao.saveZhssInfo(recordId,favorId,userId,belongQf,tixin,priceNum,accoInfo);  //D_POST_BAR_13
-            int insertResult2 = iwantReleaseDao.saveZhjyxxInfo(recordId,favorId,userId,belongQf,tixin,String.valueOf(priceNum),accoInfo);  //C_POST_BAR_12
+            int insertResult = iwantReleaseDao.saveZhssInfo(recordId,favorId,tradeType,userId,"["+belongQf+"]","["+tixin+"]",priceNum,accoInfo);  //D_POST_BAR_13
+            int insertResult2 = iwantReleaseDao.saveZhjyxxInfo(recordId,favorId,tradeType,userId,"["+belongQf+"]","["+tixin+"]",String.valueOf(priceNum),accoInfo);  //C_POST_BAR_12
             String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
@@ -180,7 +180,7 @@ public class IwantReleaseService {
     }
 
     //账号收售详细发布
-    public String saveZhssxxfbInfo(String userId, String BELONG_QF, String TIXIN, String PRICE_NUM, String FACE_NUM, String BACK_NUM, String WAIST_NUM, String LEFT_NUM, String RIGHT_NUM, String qtxych, String
+    public String saveZhssxxfbInfo(String userId, int tradeType, String BELONG_QF, String TIXIN, String PRICE_NUM, String FACE_NUM, String BACK_NUM, String WAIST_NUM, String LEFT_NUM, String RIGHT_NUM, String qtxych, String
                                    CRED_NUM, String TOP_NUM, String CONSUM_NUM, String INTEG_NUM, String GOLD_NUM, String PET_NUM, String CREATE_ACCO, String CARD_TIME, String CURR_NUM, String TWO_INPUT, String THREE_INPUT, String _95cw, String _90cw, String _80cw, String _70cw, String
                                    mptx, String XUANJIN_95, String XIAOTIE_95, String XUANJIN_90, String XIAOTIE_90, String XUANJIN_80, String XIAOTIE_80, String XUANJIN_70, String XIAOTIE_70,
                                    String PVP_HPS, String PVE_HPS, String PVP_T, String PVP_IN, String PVE_IN, String PVP_OUT, String PVE_OUT, String OTHER_EXPLAIN){
@@ -197,7 +197,7 @@ public class IwantReleaseService {
             //        CRED_NUM,TOP_NUM,CONSUM_NUM,INTEG_NUM,GOLD_NUM,PET_NUM,CREATE_ACCO,CARD_TIME,CURR_NUM,TWO_INPUT,THREE_INPUT,_95cw,_90cw,_80cw,_70cw,
             //        mptx,XUANJIN_95,XIAOTIE_95,XUANJIN_90,XIAOTIE_90,XUANJIN_80,XIAOTIE_80,XUANJIN_70,XIAOTIE_70,
             //        PVP_HPS,PVE_HPS,PVP_T,PVP_IN,PVE_IN,PVP_OUT,PVE_OUT,OTHER_EXPLAIN);     //C_POST_BAR_12_1
-            int insertResult2 = iwantReleaseDao.saveZhjyxxInfo(recordId,favorId,userId,BELONG_QF,TIXIN,PRICE_NUM,FACE_NUM);  //C_POST_BAR_12
+            int insertResult2 = iwantReleaseDao.saveZhjyxxInfo(recordId,favorId,tradeType,userId,BELONG_QF,TIXIN,PRICE_NUM,FACE_NUM);  //C_POST_BAR_12
             String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
@@ -266,4 +266,84 @@ public class IwantReleaseService {
         }
         return resArr;
     }
+
+
+    //获取我要举报
+    public Object getReport(String mainId){
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = iwantReleaseDao.getReport(mainId);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
+
+    //获取外观交易
+    public Object getAppearanceTransaction(String mainId){
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = iwantReleaseDao.getAppearanceTransaction(mainId);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
+
+    //获取道具交易
+    public Object getPropTransaction(String mainId){
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+//            resArr = iwantReleaseDao.getPropTransaction(mainId);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
+
+    //获取金币交易
+    public Object getAccountTransaction(String mainId){
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+//            resArr = iwantReleaseDao.getAccountTransaction(mainId);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
+
+    //获取代练交易
+    public Object getAccountExchange(String mainId){
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+//            resArr = iwantReleaseDao.getAccountExchange(mainId);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
+
+    //获取账号收售快速发布
+    public Object getQuickRelease(String mainId){
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+//            resArr = iwantReleaseDao.getQuickRelease(mainId);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
+
 }

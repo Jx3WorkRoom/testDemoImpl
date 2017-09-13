@@ -132,6 +132,7 @@ public class IwantReleaseAction {
     @Produces("application/json")
     public Map<String,Object> saveZhssInfoAction(
             @RequestParam(value="userId",required=false,defaultValue = "") String userId,
+            @RequestParam(value="tradeType",required=false,defaultValue = "") int tradeType,
             @RequestParam(value="belongQf",required=false,defaultValue ="") String belongQf,
             @RequestParam(value="tixin",required=false,defaultValue ="") String tixin,
             @RequestParam(value="priceNum",required=false,defaultValue ="") int priceNum,
@@ -139,7 +140,7 @@ public class IwantReleaseAction {
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        String returnVal = iwantReleaseService.saveZhssInfo(userId,belongQf,tixin,priceNum,accoInfo);
+        String returnVal = iwantReleaseService.saveZhssInfo(userId,tradeType,belongQf,tixin,priceNum,accoInfo);
 
         long post=System.currentTimeMillis();
         System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
@@ -195,7 +196,8 @@ public class IwantReleaseAction {
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        String returnVal = iwantReleaseService.saveZhssxxfbInfo(userId,BELONG_QF,TIXIN,PRICE_NUM,FACE_NUM,BACK_NUM,WAIST_NUM,LEFT_NUM,RIGHT_NUM,qtxych,
+        int tradeType = 1;
+        String returnVal = iwantReleaseService.saveZhssxxfbInfo(userId,tradeType,BELONG_QF,TIXIN,PRICE_NUM,FACE_NUM,BACK_NUM,WAIST_NUM,LEFT_NUM,RIGHT_NUM,qtxych,
                 CRED_NUM,TOP_NUM,CONSUM_NUM,INTEG_NUM,GOLD_NUM,PET_NUM,CREATE_ACCO,CARD_TIME,CURR_NUM,TWO_INPUT,THREE_INPUT,_95cw,_90cw,_80cw,_70cw,
                 mptx,XUANJIN_95,XIAOTIE_95,XUANJIN_90,XIAOTIE_90,XUANJIN_80,XIAOTIE_80,XUANJIN_70,XIAOTIE_70,
                 PVP_HPS,PVE_HPS,PVP_T,PVP_IN,PVE_IN,PVP_OUT,PVE_OUT,OTHER_EXPLAIN);
@@ -248,6 +250,106 @@ public class IwantReleaseAction {
         resmap.put("success", true);
         long post=System.currentTimeMillis();
         System.out.println("查询账号交易页面搜索框填充信息接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+
+
+
+
+    @ApiOperation(value="我要举报", notes="编辑",produces = "application/json")
+    @RequestMapping(value="report",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> editReportAction(
+            @RequestParam(value="mainId",required=false,defaultValue = "") String mainId
+    ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object dataList = iwantReleaseService.getReport(mainId);
+        resmap.put("datas", dataList);
+
+        long post=System.currentTimeMillis();
+        System.out.println("我要举报编辑接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+    @ApiOperation(value="外观交易", notes="编辑",produces = "application/json")
+    @RequestMapping(value="appearanceTransaction",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> editAppearanceTransactionAction(
+            @RequestParam(value="mainId",required=false,defaultValue = "") String mainId
+    ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object dataList = iwantReleaseService.getAppearanceTransaction(mainId);
+        resmap.put("datas", dataList);
+
+        long post=System.currentTimeMillis();
+        System.out.println("我要举报编辑接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+    @ApiOperation(value="道具交易", notes="编辑",produces = "application/json")
+    @RequestMapping(value="propTransaction",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> editPropTransactionAction(
+            @RequestParam(value="mainId",required=false,defaultValue = "") String mainId
+    ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object dataList = iwantReleaseService.getPropTransaction(mainId);
+        resmap.put("datas", dataList);
+
+        long post=System.currentTimeMillis();
+        System.out.println("我要举报编辑接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+    @ApiOperation(value="金币交易", notes="编辑",produces = "application/json")
+    @RequestMapping(value="accountTransaction",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> editAccountTransactionAction(
+            @RequestParam(value="mainId",required=false,defaultValue = "") String mainId
+    ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object dataList = iwantReleaseService.getAccountTransaction(mainId);
+        resmap.put("datas", dataList);
+
+        long post=System.currentTimeMillis();
+        System.out.println("我要举报编辑接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+    @ApiOperation(value="代练交易", notes="编辑",produces = "application/json")
+    @RequestMapping(value="accountExchange",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> editAccountExchangeAction(
+            @RequestParam(value="mainId",required=false,defaultValue = "") String mainId
+    ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object dataList = iwantReleaseService.getAccountExchange(mainId);
+        resmap.put("datas", dataList);
+
+        long post=System.currentTimeMillis();
+        System.out.println("我要举报编辑接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+    @ApiOperation(value="账号收售快速发布", notes="编辑",produces = "application/json")
+    @RequestMapping(value="quickRelease",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> editQuickReleaseAction(
+            @RequestParam(value="mainId",required=false,defaultValue = "") String mainId
+    ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object dataList = iwantReleaseService.getQuickRelease(mainId);
+        resmap.put("datas", dataList);
+
+        long post=System.currentTimeMillis();
+        System.out.println("我要举报编辑接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
     }
 
