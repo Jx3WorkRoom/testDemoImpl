@@ -99,8 +99,8 @@ public class IwantReleaseDao {
         sb.append(belongQf);
         sb.append(tixin);
         String MAIN_ID = MD5Util.getMd5(sb.toString());
-        sql.append(" update c_post_bar_11 set updatetime='"+updatetime+"',TRADE_TYPE='"+tradeType+"',belong_qf='"+belongQf+"',tixin='"+tixin+"',PRICE_NUM='"+priceNum+"',REPLY_CONTENT='"+replyContent+
-                "where favor_id='"+favorId+"'");
+        sql.append(" update c_post_bar_12 set updatetime='"+updatetime+"',TRADE_TYPE='"+tradeType+"',belong_qf='"+belongQf+"',tixin='"+tixin+"',PRICE_NUM='"+priceNum+"',REPLY_CONTENT='"+replyContent+"'," +
+                " where favor_id='"+favorId+"'");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
@@ -446,8 +446,8 @@ public class IwantReleaseDao {
         List<Object> paramList = new ArrayList<Object>();
         String updatetime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = updatetime;
-        sql.append(" update D_POST_BAR_13 set updatetime='"+updatetime+"',trade_type='"+tradeType+"',belong_qf='"+belongQf+"',tixin='"+tixin+"',price_num='"+priceNum+"',acco_info='"+accoInfo+
-                "where favor_id='"+favorId+"'");
+        sql.append(" update D_POST_BAR_13 set updatetime='"+updatetime+"',trade_type='"+tradeType+"',belong_qf='"+belongQf+"',tixin='"+tixin+"',price_num='"+priceNum+"',acco_info='"+accoInfo+"'" +
+                " where favor_id='"+favorId+"'");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
