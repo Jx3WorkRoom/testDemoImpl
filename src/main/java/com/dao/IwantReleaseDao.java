@@ -99,7 +99,7 @@ public class IwantReleaseDao {
         sb.append(belongQf);
         sb.append(tixin);
         String MAIN_ID = MD5Util.getMd5(sb.toString());
-        sql.append(" update c_post_bar_12 set updatetime='"+updatetime+"',TRADE_TYPE='"+tradeType+"',belong_qf='"+belongQf+"',tixin='"+tixin+"',PRICE_NUM='"+priceNum+"',REPLY_CONTENT='"+replyContent+"'," +
+        sql.append(" update c_post_bar_12 set updatetime='"+updatetime+"',TRADE_TYPE='"+tradeType+"',belong_qf='"+belongQf+"',tixin='"+tixin+"',PRICE_NUM='"+priceNum+"',REPLY_CONTENT='"+replyContent+"'" +
                 " where favor_id='"+favorId+"'");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
@@ -312,8 +312,8 @@ public class IwantReleaseDao {
         sb.append(favorInfo);
         sb.append(userId);
         String MAIN_ID = MD5Util.getMd5(sb.toString());
-        sql.append(" update c_post_bar_15 set updatetime='"+updatetime+"',NEED_TYPE='"+needType+"',belong_qf='"+belongQf+
-                "where favor_id='"+favorId+"'");
+        sql.append(" update c_post_bar_17 set updatetime='"+updatetime+"',NEED_TYPE='"+needType+"',belong_qf='"+belongQf+"'" +
+                " where favor_id='"+favorId+"'");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
@@ -424,8 +424,8 @@ public class IwantReleaseDao {
         List<Object> paramList = new ArrayList<Object>();
         String updatetime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = updatetime;
-        sql.append(" update D_POST_BAR_20 set updatetime='"+updatetime+"',need_type='"+needType+"',belong_qf='"+belongQf+
-                "where favor_id='"+favorId+"'");
+        sql.append(" update D_POST_BAR_20 set updatetime='"+updatetime+"',need_type='"+needType+"',belong_qf='"+belongQf+"'" +
+                " where favor_id='"+favorId+"'");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
@@ -605,5 +605,28 @@ public class IwantReleaseDao {
         System.out.println(sql);
         listSql = sql.toString();
         return this.commondao.query(sql.toString(), paramList);
+    }
+
+    //各类发布信息图片表(D_POST_BAR_21)
+    public int saveImageInfo(String recordId, int favorId, String userId, int seqnum, String filePath) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
+        String favorDate = createTime;
+
+        sql.append("INSERT INTO `grab`.`d_post_bar_21` (`RECORD_ID`, `CREATETIME`, `UPDATETIME`, `ISVALID`, `FAVOR_ID`, `SEQ_NUM`, `PIC_PATH`) \n" +
+                "VALUES ('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+seqnum+"','"+filePath+"')");
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(), paramList);
+    }
+    public int updateImageInfo(int favorId, String userId, int seqnum, String filePath) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        String updatetime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
+
+        sql.append(" update d_post_bar_21 set updatetime='"+updatetime+"',SEQ_NUM='"+seqnum+"',PIC_PATH='"+filePath+"' " +
+                "where favor_id='"+favorId+"'");
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(), paramList);
     }
 }
