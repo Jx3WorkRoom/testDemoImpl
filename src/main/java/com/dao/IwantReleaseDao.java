@@ -622,22 +622,23 @@ public class IwantReleaseDao {
     public int updateImageInfo(int favorId, String userId, int seqnum, String filePath) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        String updatetime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
+        String updatetime = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*", "");
 
-        sql.append(" update d_post_bar_21 set updatetime='"+updatetime+"',SEQ_NUM='"+seqnum+"',PIC_PATH='"+filePath+"' " +
-                "where favor_id='"+favorId+"'");
+        sql.append(" update d_post_bar_21 set updatetime='" + updatetime + "',SEQ_NUM='" + seqnum + "',PIC_PATH='" + filePath + "' " +
+                "where favor_id='" + favorId + "'");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
+    }
     public String queryCheatType(int cheatType) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append(" SELECT" +
-                    " T2.PAR_NAME" +
-                    " FROM" +
-                    " G_PUB_PAR_1 T2" +
-                    " WHERE" +
-                    " T2.PAR_NUM = '" +cheatType+"'"+
-                    " AND T2.PAR_SERIES = 1016 ");
+                " T2.PAR_NAME" +
+                " FROM" +
+                " G_PUB_PAR_1 T2" +
+                " WHERE" +
+                " T2.PAR_NUM = '" +cheatType+"'"+
+                " AND T2.PAR_SERIES = 1016 ");
         System.out.println(sql);
         return this.commondao.queryOne(sql.toString(), paramList);
     }
