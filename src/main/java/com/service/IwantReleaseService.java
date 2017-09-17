@@ -15,10 +15,9 @@ public class IwantReleaseService {
     IwantReleaseDao iwantReleaseDao;
 
     //我要举报
-    public String saveWyjbInfo(String userId, int cheatType, String belongQf, String tixin, String roleName, String cheatIntro, String cheatInfo, String pageUrl) {
+    public String saveWyjbInfo(String recordId,String userId, int cheatType, String belongQf, String tixin, String roleName, String cheatIntro, String cheatInfo, String pageUrl,String filePath) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
             int favorId = iwantReleaseDao.getSequence3();
             int insertResult = iwantReleaseDao.saveWyjbInfo(recordId,favorId,userId,cheatType,"["+belongQf+"]","["+tixin+"]",roleName,cheatIntro,cheatInfo,pageUrl);    //D_post_bar_11
             int insertResult2 = iwantReleaseDao.saveHbbgfo(recordId,favorId,userId,cheatType,"["+belongQf+"]","["+tixin+"]",roleName,cheatIntro,cheatInfo,pageUrl);     //C_POST_BAR_11
@@ -36,7 +35,8 @@ public class IwantReleaseService {
             int favorType =7;
             int COLLECT_STUSTA =1;
             int insertResult3 = iwantReleaseDao.savePub(recordId,createTime,updateTime,ISVALID,favorId,userId,favorDate,favorType,COLLECT_CONT,COLLECT_STUSTA);
-            if(insertResult==1 && insertResult2==1&&insertResult3==1) {
+            int insertResult4 = iwantReleaseDao.saveImageInfo(recordId, favorId, userId, 1, filePath);     //d_post_bar_21
+            if(insertResult==1 && insertResult2==1&&insertResult3==1&&insertResult4==1) {
                 return "保存成功!";
             }else{
                 return "保存失败!";
@@ -48,7 +48,7 @@ public class IwantReleaseService {
         return "保存失败!";
     }
     //我要举报-编辑
-    public String upeditWyjbInfo(int favorId, String userId, int cheatType, String belongQf, String tixin, String roleName, String cheatIntro, String cheatInfo, String pageUrl) {
+    public String upeditWyjbInfo(int favorId, String userId, int cheatType, String belongQf, String tixin, String roleName, String cheatIntro, String cheatInfo, String pageUrl,String filePath) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
             String recordId = "";
@@ -62,7 +62,8 @@ public class IwantReleaseService {
             int favorType =7;
             int COLLECT_STUSTA =1;
             int insertResult3 = iwantReleaseDao.updatePub(recordId,createTime,updateTime,ISVALID,favorId,userId,favorDate,favorType,COLLECT_CONT,COLLECT_STUSTA);
-            if(insertResult==1 && insertResult2==1) {
+            int insertResult4 = iwantReleaseDao.updateImageInfo( favorId, userId, 1, filePath);     //d_post_bar_21
+            if(insertResult==1 && insertResult2==1 && insertResult3==1 && insertResult4==1) {
                 return "保存成功!";
             }else{
                 return "保存失败!";
@@ -233,7 +234,7 @@ public class IwantReleaseService {
     }
 
     //代练代打
-    public String saveDlddInfo(String userId, int needtype, String belongQf, String favorInfo){
+    public String saveDlddInfo(String userId, int needtype, String belongQf, String favorInfo, String filePath){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
             String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
@@ -248,7 +249,8 @@ public class IwantReleaseService {
             int favorType =6;
             int COLLECT_STUSTA =1;
             int insertResult3 = iwantReleaseDao.savePub(recordId,createTime,updateTime,ISVALID,favorId,userId,favorDate,favorType,COLLECT_CONT,COLLECT_STUSTA);
-            if(insertResult==1 && insertResult2==1&&insertResult3==1) {
+            int insertResult4 = iwantReleaseDao.saveImageInfo(recordId, favorId, userId, 1, filePath);     //d_post_bar_21
+            if(insertResult==1 && insertResult2==1&&insertResult3==1&&insertResult4==1) {
                 return "保存成功!";
             }else{
                 return "保存失败!";
@@ -259,7 +261,7 @@ public class IwantReleaseService {
         }
         return "保存失败!";
     }
-    public String updateDlddInfo(int favorId, String userId, int needtype, String belongQf, String favorInfo){
+    public String updateDlddInfo(int favorId, String userId, int needtype, String belongQf, String favorInfo, String filePath){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
             String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
@@ -273,7 +275,8 @@ public class IwantReleaseService {
             int favorType =6;
             int COLLECT_STUSTA =1;
             int insertResult3 = iwantReleaseDao.updatePub(recordId,createTime,updateTime,ISVALID,favorId,userId,favorDate,favorType,COLLECT_CONT,COLLECT_STUSTA);
-            if(insertResult==1 && insertResult2==1&&insertResult3==1) {
+            int insertResult4 = iwantReleaseDao.updateImageInfo( favorId, userId, 1, filePath);     //d_post_bar_21
+            if(insertResult==1 && insertResult2==1 && insertResult3==1 && insertResult4==1) {
                 return "保存成功!";
             }else{
                 return "保存失败!";
@@ -286,7 +289,7 @@ public class IwantReleaseService {
     }
 
     //账号快售快速发布
-    public String saveZhssInfo(String userId,int tradeType, String belongQf,String tixin,int priceNum,String accoInfo){
+    public String saveZhssInfo(String userId,int tradeType, String belongQf,String tixin,int priceNum,String accoInfo,String filePath){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
             String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
@@ -301,7 +304,8 @@ public class IwantReleaseService {
             int favorType =1;
             int COLLECT_STUSTA =1;
             int insertResult3 = iwantReleaseDao.savePub(recordId,createTime,updateTime,ISVALID,favorId,userId,favorDate,favorType,COLLECT_CONT,COLLECT_STUSTA);
-            if(insertResult==1 && insertResult2==1&&insertResult3==1) {
+            int insertResult4 = iwantReleaseDao.saveImageInfo(recordId, favorId, userId, 1, filePath);     //d_post_bar_21
+            if(insertResult==1 && insertResult2==1&&insertResult3==1&&insertResult4==1) {
                 return "保存成功!";
             }else{
                 return "保存失败!";
@@ -312,7 +316,7 @@ public class IwantReleaseService {
         }
         return "保存失败!";
     }
-    public String updateZhssInfo(int favorId, String userId,int tradeType, String belongQf,String tixin,int priceNum,String accoInfo){
+    public String updateZhssInfo(int favorId, String userId,int tradeType, String belongQf,String tixin,int priceNum,String accoInfo,String filePath){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
             String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
@@ -326,7 +330,8 @@ public class IwantReleaseService {
             int favorType =1;
             int COLLECT_STUSTA =1;
             int insertResult3 = iwantReleaseDao.updatePub(recordId,createTime,updateTime,ISVALID,favorId,userId,favorDate,favorType,COLLECT_CONT,COLLECT_STUSTA);
-            if(insertResult==1 && insertResult2==1&&insertResult3==1) {
+            int insertResult4 = iwantReleaseDao.updateImageInfo( favorId, userId, 1, filePath);     //d_post_bar_21
+            if(insertResult==1 && insertResult2==1 && insertResult3==1 && insertResult4==1) {
                 return "保存成功!";
             }else{
                 return "保存失败!";
