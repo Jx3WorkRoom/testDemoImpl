@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.service.appearanceSaleService;
-
+import com.dao.userDao;
 import javax.ws.rs.Produces;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +20,9 @@ import java.util.Map;
 public class appearanceSaleAction {
     @Autowired
     appearanceSaleService appearanceSaleService;
+
+    @Autowired
+    userDao userDao;
 
     @ApiOperation(value="获取外观交易页面填充信息", notes="默认返回根据发布时间排倒序的最近十条数据和选择框及数据字典等数据",produces = "application/json")
     @RequestMapping(value="appearanceSale",method = RequestMethod.GET)
@@ -120,6 +123,23 @@ public class appearanceSaleAction {
         resmap.put("success", true);
         long post=System.currentTimeMillis();
         System.out.println("提交失效信息接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+
+    @ApiOperation(value="获取用户ID", notes="默认返回数据",produces = "application/json")
+    @RequestMapping(value="getUserId",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> getUserId(
+            @RequestParam(value="username",required=true) String userName
+    ) throws Exception {
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object userId = userDao.getUserId(userName);
+        resmap.put("userId", userId);
+        resmap.put("success", true);
+        long post=System.currentTimeMillis();
+        System.out.println("获取用户ID接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
     }
 

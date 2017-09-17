@@ -29,7 +29,7 @@ public class blackListDao {
             sql.append(" select c.*," +
                     "  d.USER_FOLLOW," +
                     " d.USER_ISVALID," +
-                    " e.COLL_TYPE from (SELECT" +
+                    " e.COLL_TYPE,e.user_id userIdColl from (SELECT" +
                     " a.*," +
                     " b.PAR_NAME" +
                     " FROM" +
@@ -43,13 +43,13 @@ public class blackListDao {
                     " a.MAIN_ID" +
                     " ORDER BY" +
                     " a.FAVOR_DATE DESC)  c LEFT JOIN f_user_follow d " +
-                    " ON c.main_id = d.main_id  LEFT JOIN F_USER_COLL_INFO e ON d.USER_ID = e.user_id LIMIT "+startNum+","+endNum
+                    " ON c.main_id = d.main_id  LEFT JOIN F_USER_COLL_INFO e ON e.MAIN_ID=c.MAIN_ID LIMIT "+startNum+","+endNum
             );
         }else{
             sql.append(" select c.*," +
                     "  d.USER_FOLLOW," +
                     " d.USER_ISVALID," +
-                    " e.COLL_TYPE from (SELECT" +
+                    " e.COLL_TYPE ,e.user_id userIdColl from (SELECT" +
                     " a.*," +
                     " b.PAR_NAME" +
                     " FROM" +
@@ -64,7 +64,7 @@ public class blackListDao {
                     " a.MAIN_ID" +
                     " ORDER BY" +
                     " a.FAVOR_DATE DESC)  c LEFT JOIN f_user_follow d ON " +
-                    " c.main_id = d.main_id LEFT JOIN F_USER_COLL_INFO e ON d.USER_ID = e.user_id LIMIT "+startNum+","+endNum
+                    " c.main_id = d.main_id LEFT JOIN F_USER_COLL_INFO e ON e.MAIN_ID=c.MAIN_ID LIMIT "+startNum+","+endNum
             );
         }
         System.out.println(sql);

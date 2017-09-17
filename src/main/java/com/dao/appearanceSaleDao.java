@@ -24,11 +24,11 @@ public class appearanceSaleDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append("SELECT" +
-                " a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE " +
+                " a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE,c.user_id userIdColl " +
                 " FROM" +
                 " c_post_bar_13 a " +
                 " LEFT JOIN f_user_follow b ON a.main_id = b.main_id " +
-                " LEFT JOIN F_USER_COLL_INFO c ON b.USER_ID = c.user_id " +
+                " LEFT JOIN F_USER_COLL_INFO c ON a.USER_ID = c.user_id " +
                 " WHERE" +
                 " a.TRADE_TYPE = "+tradeType);
         if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3)) {
@@ -58,9 +58,9 @@ public class appearanceSaleDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append(
-                " select a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE FROM c_post_bar_13 a " +
+                " select a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE,c.user_id userIdColl  FROM c_post_bar_13 a " +
                         " LEFT JOIN f_user_follow b ON a.main_id = b.main_id" +
-                        " LEFT JOIN F_USER_COLL_INFO c ON b.USER_ID = c.user_id" +
+                        " LEFT JOIN F_USER_COLL_INFO c ON  a.MAIN_ID=c.MAIN_ID" +
                         " WHERE a.TRADE_TYPE = "+tradeType +
                         " AND a.BELONG_QF is not NULL" +
                         " AND a.VIEW_NAME is not NULL" +
@@ -211,11 +211,11 @@ public class appearanceSaleDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append("SELECT" +
-                " a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE " +
+                " a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE ,c.user_id userIdColl " +
                 " FROM" +
                 " c_post_bar_13 a " +
                 " LEFT JOIN f_user_follow b ON a.main_id = b.main_id " +
-                " LEFT JOIN F_USER_COLL_INFO c ON b.USER_ID = c.user_id " +
+                " LEFT JOIN F_USER_COLL_INFO c ON  a.MAIN_ID=c.MAIN_ID " +
                 " WHERE" +
                 " a.TRADE_TYPE = "+tradeType);
         if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3)) {
@@ -263,7 +263,7 @@ public class appearanceSaleDao {
                     for(int i=1;i<arr.length;i++){
                         sql.append(" || A.WAIGUAN_NAME like '%"+arr[i]+"%'");
                     }
-                    sql.append(")");
+                    sql.append(" || A.POST_CONTENT like '%"+shape+"%' )");
                 }
             }
         }else{

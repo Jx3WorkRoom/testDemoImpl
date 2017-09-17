@@ -27,11 +27,11 @@ public class goldExchangeListDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append("SELECT" +
-                " a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE " +
+                " a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE,c.user_id userIdColl  " +
                 " FROM" +
                 " c_post_bar_19 a " +
-                " LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
-                " LEFT JOIN F_USER_COLL_INFO c ON b.USER_ID = c.user_id " +
+                " LEFT JOIN f_user_follow b on a.main_id = b.main_id,c.user_id userIdColl " +
+                " LEFT JOIN F_USER_COLL_INFO c ON  a.MAIN_ID=c.MAIN_ID " +
                 " WHERE" +
                 " a.TRADE_TYPE = "+tradeType);
         if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3)) {
@@ -83,9 +83,9 @@ public class goldExchangeListDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append(
-                " select a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE FROM c_post_bar_19 a " +
+                " select a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE,c.user_id userIdColl FROM c_post_bar_19 a " +
                         " LEFT JOIN f_user_follow b on a.main_id = b.main_id" +
-                        " LEFT JOIN F_USER_COLL_INFO c ON b.USER_ID = c.user_id" +
+                        " LEFT JOIN F_USER_COLL_INFO c ON a.MAIN_ID=c.MAIN_ID" +
                         " where a.TRADE_TYPE = "+tradeType +
                         " AND a.BELONG_QF is not NULL" +
                         " AND a.GOLD_TOTAL is not NULL" +

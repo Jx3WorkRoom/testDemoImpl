@@ -104,4 +104,12 @@ public class userDao {
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }
+
+    public Object getUserId(String userName) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" select id from userinfo where username = '"+userName+"' limit 0,1 ");
+        System.out.println(sql);
+        return this.commondao.queryOne(sql.toString(), paramList);
+    }
 }

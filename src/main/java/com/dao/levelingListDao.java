@@ -26,11 +26,11 @@ public class levelingListDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append("SELECT" +
-                " a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE " +
+                " a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE ,c.user_id userIdColl " +
                 " FROM" +
                 " c_post_bar_17 a " +
                 " LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
-                " LEFT JOIN F_USER_COLL_INFO c ON b.USER_ID = c.user_id " +
+                " LEFT JOIN F_USER_COLL_INFO c ON a.MAIN_ID=c.MAIN_ID  " +
                 " WHERE" +
                 " a.NEED_TYPE = "+needType);
         if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3)){

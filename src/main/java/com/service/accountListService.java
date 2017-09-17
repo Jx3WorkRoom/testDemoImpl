@@ -143,7 +143,7 @@ public class accountListService {
             if(insertResult==1) {
                 return "收藏成功!";
             }else{
-                return "收藏成功!";
+                return "收藏失败!";
             }
         }else {
             if (result != isValided) {

@@ -104,9 +104,7 @@ public class goldExchangeListService {
                 return "收藏成功!";
             }
         }else {
-            if (result != isValided) {
                 int edutResult = goldExchangeListDao.edituserIsvalid(userId,mainId,isValided);
-            }
             if (isValided == 1)
                 return "已收藏";
             else

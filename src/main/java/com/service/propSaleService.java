@@ -113,9 +113,7 @@ public class propSaleService {
                 return "收藏成功!";
             }
         }else {
-            if (result != isValided) {
                 int edutResult = propSaleDao.edituserIsvalid(userId,mainId,isValided);
-            }
             if (isValided == 1)
                 return "已收藏";
             else

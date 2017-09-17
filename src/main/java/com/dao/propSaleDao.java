@@ -20,47 +20,14 @@ public class propSaleDao {
             this.commondao = new CommonDao(this.jdbcTemplate);
     }
 
-    public List<Map<String,Object>> queryappearanceSaleInfo1(int tradeType, String selectTion1, String selectTion2, String selectTion3, String shape, int startNum, int endNum) throws Exception {
-        StringBuilder sql = new StringBuilder();
-        List<Object> paramList = new ArrayList<Object>();
-        sql.append("SELECT" +
-                " a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE " +
-                " FROM" +
-                " c_post_bar_15 a " +
-                " LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
-                " LEFT JOIN F_USER_COLL_INFO c ON b.USER_ID = c.user_id " +
-                " WHERE" +
-                " a.TRADE_TYPE = "+tradeType );
-        if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3)) {
-            sql.append(
-                    " AND a.BELONG_QF like '%" + selectTion1 + "%" + selectTion2 + "%" + selectTion3 + "%'");
-        }
-        if(!"".equals(shape)) {
-            sql.append(
-                    " AND a.prop_NAME like '%" + shape + "%'");
-        }
-        sql.append(
-                " AND a.BELONG_QF is not NULL" +
-                " AND a.prop_NAME is not NULL" +
-                " AND a.post_CONTENT IS NOT NULL" +
-                " AND a.PRICE_NUM is NOT null"+
-                " GROUP BY" +
-                " a.MAIN_ID" +
-                " ORDER BY" +
-                " a.REPLY_TIME DESC" +
-                " LIMIT "+startNum+"," + endNum);
-        System.out.println(sql);
-        listSql = sql.toString();
-        return this.commondao.query(sql.toString(), paramList);
-    }
 
     public List<Map<String,Object>> queryappearanceSaleInfo2(int tradeType, int startNum, int endNum) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append(
-                " select a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE FROM c_post_bar_15 a " +
+                " select a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE ,c.user_id userIdColl FROM c_post_bar_15 a " +
                         " LEFT JOIN f_user_follow b on a.main_id = b.main_id" +
-                        " LEFT JOIN F_USER_COLL_INFO c ON b.USER_ID = c.user_id" +
+                        " LEFT JOIN F_USER_COLL_INFO c ON a.MAIN_ID=c.MAIN_ID" +
                         " WHERE a.TRADE_TYPE = "+tradeType +
                         " AND a.BELONG_QF is not NULL" +
                         " AND a.prop_NAME is not NULL" +
@@ -206,11 +173,11 @@ public class propSaleDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append("SELECT" +
-                " a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE " +
+                " a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE,c.user_id userIdColl " +
                 " FROM" +
                 " c_post_bar_15 a " +
                 " LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
-                " LEFT JOIN F_USER_COLL_INFO c ON b.USER_ID = c.user_id " +
+                " LEFT JOIN F_USER_COLL_INFO c ON a.MAIN_ID=c.MAIN_ID" +
                 " WHERE" +
                 " a.TRADE_TYPE = "+tradeType );
         if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3)) {
@@ -258,7 +225,7 @@ public class propSaleDao {
                     for(int i=1;i<arr.length;i++){
                         sql.append(" || A.WAIGUAN_NAME like '%"+arr[i]+"%'");
                     }
-                    sql.append(")");
+                    sql.append(" || A.POST_CONTENT like '%"+shape+"%')");
                 }
             }
         }else{

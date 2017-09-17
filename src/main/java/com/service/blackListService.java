@@ -71,9 +71,7 @@ public class blackListService {
                 return "收藏成功!";
             }
         }else {
-            if (result != isValided) {
-                int edutResult = blackListDao.edituserIsvalid(userId,mainId,isValided);
-            }
+            int edutResult = blackListDao.edituserIsvalid(userId,mainId,isValided);
             if (isValided == 1)
                 return "已收藏";
             else
@@ -97,7 +95,11 @@ public class blackListService {
         int resultNum = blackListDao.addUserFollow(favorId);
         if(resultNum==0){
             if(!"".equals(username)) {
-                blackListDao.insertUserFollow(favorId, username);
+                try {
+                    blackListDao.insertUserFollow(favorId, username);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         }
     }

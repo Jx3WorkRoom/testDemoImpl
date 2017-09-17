@@ -120,12 +120,10 @@ public class appearanceSaleService {
             if(insertResult==1) {
                 return "收藏成功!";
             }else{
-                return "收藏成功!";
+                return "收藏失败!";
             }
         }else {
-            if (result != isValided) {
-                int edutResult = appearanceSaleDao.edituserIsvalid(userId,mainId,isValided);
-            }
+            int edutResult = appearanceSaleDao.edituserIsvalid(userId,mainId,isValided);
             if (isValided == 1)
                 return "已收藏";
             else
@@ -177,4 +175,5 @@ public class appearanceSaleService {
             appearanceSaleDao.insertUserFollow(mainId,userName);
         }
     }
+
 }
