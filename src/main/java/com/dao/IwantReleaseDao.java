@@ -606,4 +606,18 @@ public class IwantReleaseDao {
         listSql = sql.toString();
         return this.commondao.query(sql.toString(), paramList);
     }
+
+    public String queryCheatType(int cheatType) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" SELECT" +
+                    " T2.PAR_NAME" +
+                    " FROM" +
+                    " G_PUB_PAR_1 T2" +
+                    " WHERE" +
+                    " T2.PAR_NUM = '" +cheatType+"'"+
+                    " AND T2.PAR_SERIES = 1016 ");
+        System.out.println(sql);
+        return this.commondao.queryOne(sql.toString(), paramList);
+    }
 }

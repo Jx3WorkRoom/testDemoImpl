@@ -48,8 +48,6 @@ public class IwantReleaseAction {
         }else {
             returnVal = iwantReleaseService.upeditWyjbInfo(favorId, userId, tradeType, belongQf, tixin, roleName, cheatIntro, cheatInfo, pageUrl);
         }
-
-
         long post=System.currentTimeMillis();
         System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
