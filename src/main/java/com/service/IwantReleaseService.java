@@ -24,7 +24,13 @@ public class IwantReleaseService {
             String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
-            String COLLECT_CONT = "【欺诈类型】"+cheatType+'\n'+"【涉事区服】"+belongQf+'\n'+"【被黑经历】"+cheatIntro+'\n'+"【黑鬼资料综述】"+cheatInfo;
+            String cheatTypeSuffer ="";
+            try {
+                cheatTypeSuffer = iwantReleaseDao.queryCheatType(cheatType);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            String COLLECT_CONT = "【欺诈类型】"+cheatTypeSuffer+'\n'+"【涉事区服】"+belongQf+'\n'+"【被黑经历】"+cheatIntro+'\n'+"【黑鬼资料综述】"+cheatInfo;
             int ISVALID = 1;
             int favorType =7;
             int COLLECT_STUSTA =1;
