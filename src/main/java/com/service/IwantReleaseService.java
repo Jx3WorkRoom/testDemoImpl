@@ -15,13 +15,13 @@ public class IwantReleaseService {
     IwantReleaseDao iwantReleaseDao;
 
     //我要举报
-    public String saveWyjbInfo(String recordId,String userId, int cheatType, String belongQf, String tixin, String roleName, String cheatIntro, String cheatInfo, String pageUrl,String filePath) {
+    public String saveWyjbInfo(String recordId,String userId, int cheatType, String belongQf, String tixin, String roleName, String cheatIntro, String cheatInfo, String pageUrl,List<String> imgList) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
             int favorId = iwantReleaseDao.getSequence3();
             int insertResult = iwantReleaseDao.saveWyjbInfo(recordId,favorId,userId,cheatType,"["+belongQf+"]","["+tixin+"]",roleName,cheatIntro,cheatInfo,pageUrl);    //D_post_bar_11
             int insertResult2 = iwantReleaseDao.saveHbbgfo(recordId,favorId,userId,cheatType,"["+belongQf+"]","["+tixin+"]",roleName,cheatIntro,cheatInfo,pageUrl);     //C_POST_BAR_11
-            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
             String cheatTypeSuffer ="";
@@ -36,7 +36,7 @@ public class IwantReleaseService {
             int favorType =7;
             int COLLECT_STUSTA =1;
             int insertResult3 = iwantReleaseDao.savePub(recordId,createTime,updateTime,ISVALID,favorId,userId,favorDate,favorType,COLLECT_CONT,COLLECT_STUSTA);
-            int insertResult4 = iwantReleaseDao.saveImageInfo(recordId, favorId, userId, 1, filePath);     //d_post_bar_21
+            int insertResult4 = iwantReleaseDao.saveImageInfo(recordId, favorId, userId, 1, imgList);     //d_post_bar_21
             if(insertResult==1 && insertResult2==1&&insertResult3==1&&insertResult4==1) {
                 return "保存成功!";
             }else{
@@ -49,7 +49,7 @@ public class IwantReleaseService {
         return "保存失败!";
     }
     //我要举报-编辑
-    public String upeditWyjbInfo(int favorId, String userId, int cheatType, String belongQf, String tixin, String roleName, String cheatIntro, String cheatInfo, String pageUrl,String filePath) {
+    public String upeditWyjbInfo(int favorId, String userId, int cheatType, String belongQf, String tixin, String roleName, String cheatIntro, String cheatInfo, String pageUrl,List<String> imgList) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
             String recordId = "";
@@ -70,7 +70,7 @@ public class IwantReleaseService {
             int favorType =7;
             int COLLECT_STUSTA =1;
             int insertResult3 = iwantReleaseDao.updatePub(recordId,createTime,updateTime,ISVALID,favorId,userId,favorDate,favorType,COLLECT_CONT,COLLECT_STUSTA);
-            int insertResult4 = iwantReleaseDao.updateImageInfo( favorId, userId, 1, filePath);     //d_post_bar_21
+            int insertResult4 = iwantReleaseDao.updateImageInfo( favorId, userId, 1, imgList);     //d_post_bar_21
             if(insertResult==1 && insertResult2==1 && insertResult3==1 && insertResult4==1) {
                 return "保存成功!";
             }else{
@@ -257,7 +257,7 @@ public class IwantReleaseService {
             int favorType =6;
             int COLLECT_STUSTA =1;
             int insertResult3 = iwantReleaseDao.savePub(recordId,createTime,updateTime,ISVALID,favorId,userId,favorDate,favorType,COLLECT_CONT,COLLECT_STUSTA);
-            int insertResult4 = iwantReleaseDao.saveImageInfo(recordId, favorId, userId, 1, filePath);     //d_post_bar_21
+            int insertResult4 = iwantReleaseDao.saveImageInfo(recordId, favorId, userId, 1, null);     //d_post_bar_21
             if(insertResult==1 && insertResult2==1&&insertResult3==1&&insertResult4==1) {
                 return "保存成功!";
             }else{
@@ -283,7 +283,7 @@ public class IwantReleaseService {
             int favorType =6;
             int COLLECT_STUSTA =1;
             int insertResult3 = iwantReleaseDao.updatePub(recordId,createTime,updateTime,ISVALID,favorId,userId,favorDate,favorType,COLLECT_CONT,COLLECT_STUSTA);
-            int insertResult4 = iwantReleaseDao.updateImageInfo( favorId, userId, 1, filePath);     //d_post_bar_21
+            int insertResult4 = iwantReleaseDao.updateImageInfo( favorId, userId, 1, null);     //d_post_bar_21
             if(insertResult==1 && insertResult2==1 && insertResult3==1 && insertResult4==1) {
                 return "保存成功!";
             }else{
@@ -312,7 +312,7 @@ public class IwantReleaseService {
             int favorType =1;
             int COLLECT_STUSTA =1;
             int insertResult3 = iwantReleaseDao.savePub(recordId,createTime,updateTime,ISVALID,favorId,userId,favorDate,favorType,COLLECT_CONT,COLLECT_STUSTA);
-            int insertResult4 = iwantReleaseDao.saveImageInfo(recordId, favorId, userId, 1, filePath);     //d_post_bar_21
+            int insertResult4 = iwantReleaseDao.saveImageInfo(recordId, favorId, userId, 1, null);     //d_post_bar_21
             if(insertResult==1 && insertResult2==1&&insertResult3==1&&insertResult4==1) {
                 return "保存成功!";
             }else{
@@ -338,7 +338,7 @@ public class IwantReleaseService {
             int favorType =1;
             int COLLECT_STUSTA =1;
             int insertResult3 = iwantReleaseDao.updatePub(recordId,createTime,updateTime,ISVALID,favorId,userId,favorDate,favorType,COLLECT_CONT,COLLECT_STUSTA);
-            int insertResult4 = iwantReleaseDao.updateImageInfo( favorId, userId, 1, filePath);     //d_post_bar_21
+            int insertResult4 = iwantReleaseDao.updateImageInfo( favorId, userId, 1, null);     //d_post_bar_21
             if(insertResult==1 && insertResult2==1 && insertResult3==1 && insertResult4==1) {
                 return "保存成功!";
             }else{
