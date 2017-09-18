@@ -28,9 +28,10 @@ public class IwantReleaseService {
             try {
                 cheatTypeSuffer = iwantReleaseDao.queryCheatType(cheatType);
             }catch (Exception e){
+                cheatTypeSuffer="无效值";
                 e.printStackTrace();
             }
-            String COLLECT_CONT = "欺诈类型"+cheatTypeSuffer+","+"涉事区服"+belongQf+","+"被黑经历"+cheatIntro+","+"黑鬼资料综述"+cheatInfo;
+            String COLLECT_CONT = "【欺诈类型】"+cheatTypeSuffer+'\n'+"【涉事区服】"+belongQf+'\n'+"【被黑经历】"+cheatIntro+'\n'+"【黑鬼资料综述】"+cheatInfo;
             int ISVALID = 1;
             int favorType =7;
             int COLLECT_STUSTA =1;
@@ -61,9 +62,10 @@ public class IwantReleaseService {
             try {
                 cheatTypeSuffer = iwantReleaseDao.queryCheatType(cheatType);
             }catch (Exception e){
+                cheatTypeSuffer="无效值";
                 e.printStackTrace();
             }
-            String COLLECT_CONT = "欺诈类型"+cheatTypeSuffer+","+"涉事区服"+belongQf+","+"被黑经历"+cheatIntro+","+"黑鬼资料综述"+cheatInfo;
+            String COLLECT_CONT = "【欺诈类型】"+cheatTypeSuffer+'\n'+"【涉事区服】"+belongQf+'\n'+"【被黑经历】"+cheatIntro+'\n'+"【黑鬼资料综述】"+cheatInfo;
             int ISVALID = 1;
             int favorType =7;
             int COLLECT_STUSTA =1;
