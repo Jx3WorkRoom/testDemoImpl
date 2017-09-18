@@ -697,6 +697,7 @@ public class IwantReleaseDao {
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
         for(int i=0;i<imgList.size();i++) {
+            i=i+1;
             sql.delete(0,sql.length());
             String time =new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");;
             String upaloadUrl = "/JX3JZ/"+time+"/"+imgList.get(i);
