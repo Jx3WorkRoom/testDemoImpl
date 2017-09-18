@@ -71,7 +71,7 @@ public class IwantReleaseDao {
         List<Object> paramList = new ArrayList<Object>();
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("s*","");
         String favorDate = createTime;
-        String REPLY_TIME = createTime;String BELONG_FLOOR = "1";String PAGE_NUM = "1";String PAGE_URL = "";String URL_VALID = "1";String SOURCE_TYPE = "1";String MENPAI_NAME = "";String XINFA_NAME = "";String TITLE_NAME = "";
+        String REPLY_TIME = createTime;String BELONG_FLOOR = "1";String PAGE_NUM = "1";String PAGE_URL = "";String URL_VALID = "1";String SOURCE_TYPE = "2";String MENPAI_NAME = "";String XINFA_NAME = "";String TITLE_NAME = "";
         String WAIGUAN_NAME = "";String HORSE_NAME = "";String ARM_NAME = "";String STRA_NAME = "";String PEND_NAME = "";String THEME_ID = "";String THEME_NAME = "";String POST_BAR = "";String POST_ID = "";String POST_BAR_CLASS = "0";String BAR_SOUR_TYPE = "0";
         StringBuffer sb = new StringBuffer();
         sb.append(belongQf);
@@ -93,7 +93,7 @@ public class IwantReleaseDao {
         List<Object> paramList = new ArrayList<Object>();
         String updatetime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("s*","");
         String favorDate = updatetime;
-        String REPLY_TIME = updatetime;String BELONG_FLOOR = "1";String PAGE_NUM = "1";String PAGE_URL = "";String URL_VALID = "1";String SOURCE_TYPE = "1";String MENPAI_NAME = "";String XINFA_NAME = "";String TITLE_NAME = "";
+        String REPLY_TIME = updatetime;String BELONG_FLOOR = "1";String PAGE_NUM = "1";String PAGE_URL = "";String URL_VALID = "1";String SOURCE_TYPE = "2";String MENPAI_NAME = "";String XINFA_NAME = "";String TITLE_NAME = "";
         String WAIGUAN_NAME = "";String HORSE_NAME = "";String ARM_NAME = "";String STRA_NAME = "";String PEND_NAME = "";String THEME_ID = "";String THEME_NAME = "";String POST_BAR = "";String POST_ID = "";String POST_BAR_CLASS = "0";String BAR_SOUR_TYPE = "0";
         StringBuffer sb = new StringBuffer();
         sb.append(belongQf);
