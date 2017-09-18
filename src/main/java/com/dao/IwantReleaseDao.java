@@ -159,7 +159,7 @@ public class IwantReleaseDao {
                 "`POST_BAR_CLASS`, `POST_CONTENT`, `REPLY_TIME`, `SOURCE_TYPE`, `TRADE_TYPE`, `USER_ID`, `BELONG_QF`, `WAIGUAN_NAME`, `VIEW_NAME`, `PRICE_NUM`, `BELONG_FLOOR`, " +
                 "`PAGE_NUM`, `THEME_NAME`, `URL_VALID`, `MAIN_ID`) " +
                 "VALUES ('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"', '"+THEME_ID+"', '"+PAGE_URL+"', '"+POST_BAR+"', '"+POST_ID+"', " +
-                "null, '"+sb.toString()+"', '"+favorDate+"', '"+SOURCE_TYPE+"', '"+userId+"', '"+userId+"', '["+belongQf+"]', '"+WAIGUAN_NAME+"', '"+viewName+"', '"+priceNum+"', null, " +
+                "null, '"+sb.toString()+"', '"+favorDate+"', '"+SOURCE_TYPE+"', '"+tradeType+"', '"+userId+"', '["+belongQf+"]', '"+WAIGUAN_NAME+"', '"+viewName+"', '"+priceNum+"', null, " +
                 "null, '"+THEME_NAME+"', '"+URL_VALID+"', '"+MAIN_ID+"')");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
@@ -206,7 +206,7 @@ public class IwantReleaseDao {
                 "`POST_BAR_CLASS`, `POST_CONTENT`, `REPLY_TIME`, `BELONG_QF`, `PROP_NAME`, `PRICE_NUM`, `OTHER_EXPLAIN`, `THEME_NAME`, `BELONG_FLOOR`, `PAGE_NUM`, `USER_ID`, " +
                 "`TRADE_TYPE`, `SOURCE_TYPE`, `URL_VALID`, `MAIN_ID`) " +
                 "VALUES ('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"', '"+THEME_ID+"', '"+PAGE_URL+"', '"+POST_BAR+"', '"+POST_ID+"', " +
-                "null, '"+favorInfo+"', '"+favorDate+"', '["+belongQf+"]', '"+propName+"', '"+priceNum+"', '"+OTHER_EXPLAIN+"', '"+THEME_NAME+"', null, null, '"+userId+"', " +
+                "null, '"+sb.toString()+"', '"+favorDate+"', '["+belongQf+"]', '"+propName+"', '"+priceNum+"', '"+OTHER_EXPLAIN+"', '"+THEME_NAME+"', null, null, '"+userId+"', " +
                 "'"+tradeType+"', '"+SOURCE_TYPE+"', '"+URL_VALID+"', '"+MAIN_ID+"')");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
