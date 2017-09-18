@@ -20,10 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Produces;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @Api(value = "accountListAction", description = "账号交易页面接口", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -33,6 +30,8 @@ public class IwantReleaseAction {
     accountListService accountListService;
     @Autowired
     IwantReleaseService iwantReleaseService;
+
+    List<String> imgList= new LinkedList<>();
 
     @ApiOperation(value="我要举报", notes="保存",produces = "application/json")
     @RequestMapping(value="saveWyjbInfo",method = RequestMethod.POST)
@@ -51,24 +50,10 @@ public class IwantReleaseAction {
 
             HttpServletRequest request,HttpServletResponse response
     ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
         try{
-            Map<String,Object> resmap=new HashMap<String,Object>();
-            long pre=System.currentTimeMillis();
-            String returnVal = "";
             String saveFileName = "";
-
-            String operate = request.getParameter("operate");
-
-            String userId = request.getParameter("userId");
-            int tradeType = request.getParameter("tradeType")==null?-1:Integer.parseInt(request.getParameter("tradeType"));
-            String belongQf = request.getParameter("belongQf");
-            String tixin = request.getParameter("tixin");
-            String roleName = request.getParameter("roleName");
-            String cheatIntro = request.getParameter("cheatIntro");
-            String cheatInfo = request.getParameter("cheatInfo");
-            String pageUrl = request.getParameter("pageUrl");
-            String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
-
 //            System.out.println(request.getParameter("userId"));
 //            System.out.println(request.getParameter("favorId"));
 //            System.out.println(request.getParameter("favorId"));
@@ -85,6 +70,7 @@ public class IwantReleaseAction {
             Map<String, MultipartFile> files = Murequest.getFileMap();//得到文件map对象
             String time =new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");;
             String upaloadUrl = "D:\\JX3JZ\\"+time+"/";
+            upaloadUrl = "C:\\JX3JZ\\"+time+"/";
             String pathUrl = "/JX3JZ/"+time+"/";
             File dir = new File(upaloadUrl);
 //            System.out.println(upaloadUrl);
@@ -96,21 +82,19 @@ public class IwantReleaseAction {
             for(MultipartFile file :files.values()){
 //                String fileName=file.getOriginalFilename();
 //                String saveFileName = recordId;
-
                 String fileName=file.getOriginalFilename();
                 int pixindex = fileName.lastIndexOf(".");
-
+                String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
                 saveFileName = recordId+fileName.substring(pixindex,fileName.length());//.substring(fileName.lastIndexOf(".").fileName.length());
-System.out.println("saveFileName: "+saveFileName);
-
+                System.out.println("saveFileName: "+saveFileName);
                 File tagetFile = new File(upaloadUrl,saveFileName);//创建文件对象
                 if(!tagetFile.exists()){//文件名不存在 则新建文件，并将文件复制到新建文件中
                     try {
                         file.transferTo(tagetFile);
-                    } catch (IllegalStateException e) {
+                        imgList.add(saveFileName);
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        imgList.add(saveFileName);
                     }
                 }
             }
@@ -118,20 +102,34 @@ System.out.println("saveFileName: "+saveFileName);
 
             System.out.println("接收完毕");
 
-            if(operate.equals("save")){
-                returnVal = iwantReleaseService.saveWyjbInfo(recordId, userId, tradeType, belongQf, tixin, roleName, cheatIntro, cheatInfo, pageUrl, filePath);
-            }else {
-                int favorId = request.getParameter("favorId")==null?-1:Integer.parseInt(request.getParameter("favorId"));
-                returnVal = iwantReleaseService.upeditWyjbInfo(favorId, userId, tradeType, belongQf, tixin, roleName, cheatIntro, cheatInfo, pageUrl, filePath);
-            }
-
-            long post=System.currentTimeMillis();
-            System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
-
-            return resmap;
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }finally {
+            int imgNum = Integer.parseInt(request.getParameter("imgNum"));
+            while(imgList.size()==imgNum) {
+                String returnVal = "";
+                String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
+                String operate = request.getParameter("operate");
+                String userId = request.getParameter("userId");
+                int tradeType = request.getParameter("cheatType") == null ? 1 : Integer.parseInt(request.getParameter("cheatType"));
+                String belongQf = request.getParameter("belongQf");
+                String tixin = request.getParameter("tixin");
+                String roleName = request.getParameter("roleName");
+                String cheatIntro = request.getParameter("cheatIntro");
+                String cheatInfo = request.getParameter("cheatInfo");
+                String pageUrl = request.getParameter("pageUrl");
+                if (operate.equals("save")) {
+                    returnVal = iwantReleaseService.saveWyjbInfo(recordId, userId, tradeType, belongQf, tixin, roleName, cheatIntro, cheatInfo, pageUrl, imgList);
+                } else {
+                    int favorId = request.getParameter("favorId") == null ? -1 : Integer.parseInt(request.getParameter("favorId"));
+                    returnVal = iwantReleaseService.upeditWyjbInfo(favorId, userId, tradeType, belongQf, tixin, roleName, cheatIntro, cheatInfo, pageUrl, imgList);
+                }
+                long post = System.currentTimeMillis();
+                System.out.println("查询账号交易接口执行时间（单位：毫秒）：" + (post - pre));
+                imgList.clear();
+                return resmap;
+            }
         }
         return null;
     }

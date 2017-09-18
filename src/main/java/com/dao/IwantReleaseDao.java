@@ -608,26 +608,34 @@ public class IwantReleaseDao {
     }
 
     //各类发布信息图片表(D_POST_BAR_21)
-    public int saveImageInfo(String recordId, int favorId, String userId, int seqnum, String filePath) throws Exception {
+    public int saveImageInfo(String recordId, int favorId, String userId, int seqnum, List<String> imgList) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
-
-        sql.append("INSERT INTO `grab`.`d_post_bar_21` (`RECORD_ID`, `CREATETIME`, `UPDATETIME`, `ISVALID`, `FAVOR_ID`, `SEQ_NUM`, `PIC_PATH`) \n" +
-                "VALUES ('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+seqnum+"','"+filePath+"')");
-        System.out.println(sql);
-        return this.commondao.update(sql.toString(), paramList);
+        for(int i=0;i<imgList.size();i++) {
+            sql.delete(0,sql.length());
+            String time =new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");;
+            String upaloadUrl = "/JX3JZ/"+time+"/"+imgList.get(i);
+            sql.append("INSERT INTO `grab`.`d_post_bar_21` (`RECORD_ID`, `CREATETIME`, `UPDATETIME`, `ISVALID`, `FAVOR_ID`, `SEQ_NUM`, `PIC_PATH`) \n" +
+                    "VALUES ('" + recordId + "','" + createTime + "','" + createTime + "','1','" + favorId + "','" + i + "','" + upaloadUrl + "')");
+            System.out.println(sql);
+            this.commondao.update(sql.toString(), paramList);
+        }
+        return 1;
     }
-    public int updateImageInfo(int favorId, String userId, int seqnum, String filePath) throws Exception {
+    public int updateImageInfo(int favorId, String userId, int seqnum, List<String> imgList) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         String updatetime = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*", "");
-
-        sql.append(" update d_post_bar_21 set updatetime='" + updatetime + "',SEQ_NUM='" + seqnum + "',PIC_PATH='" + filePath + "' " +
-                "where favor_id='" + favorId + "'");
-        System.out.println(sql);
-        return this.commondao.update(sql.toString(), paramList);
+        for(int i=0;i<imgList.size();i++) {
+            sql.delete(0, sql.length());
+            sql.append(" update d_post_bar_21 set updatetime='" + updatetime + "',SEQ_NUM='" + seqnum + "',PIC_PATH='" + imgList.get(i) + "' " +
+                    "where favor_id='" + favorId + "'");
+            System.out.println(sql);
+            this.commondao.update(sql.toString(), paramList);
+        }
+        return 1;
     }
     public String queryCheatType(int cheatType) throws Exception {
         StringBuilder sql = new StringBuilder();
