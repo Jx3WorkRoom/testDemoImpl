@@ -274,7 +274,7 @@ public class IwantReleaseDao {
         sb.append(favorDate);sb.append(",");
         sb.append(favorInfo);
         String MAIN_ID = MD5Util.getMd5(sb.toString());
-        sql.append(" update c_post_bar_19 set updatetime='"+updatetime+"',TRADE_TYPE='"+tradeType+"',belong_qf='"+belongQf+"',GOLD_TOTAL='"+goldTotal+"',UNIT_PRICE='"+unitPrice+"',IF_SPLIT='"+ifSplit+"' " +
+        sql.append(" update c_post_bar_19 set updatetime='"+updatetime+"',TRADE_TYPE='"+tradeType+"',belong_qf='"+belongQf+"',GOLD_TOTAL='"+goldTotal+"',UNIT_PRICE='"+unitPrice+"',IF_SPLIT='"+ifSplit+"',FAVOR_INFO='"+favorInfo+"' " +
                 "where favor_id='"+favorId+"'");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
@@ -294,9 +294,9 @@ public class IwantReleaseDao {
         String MAIN_ID = MD5Util.getMd5(sb.toString());
         //sql.append(" insert into C_POST_BAR_17(record_id,createtime,updatetime,isvalid,favor_id,user_id,cheat_type,belong_qf,favor_info,favorDate) " +
         //        " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+cheatType+"','"+belongQf+"','"+favorInfo+"','"+favorDate+"')");
-        sql.append(" INSERT INTO `grab`.`c_post_bar_17` (`RECORD_ID`, `CREATETIME`, `UPDATETIME`, `ISVALID`, `FAVOR_ID`, `USER_ID`, `NEED_TYPE`, `POST_CONTENT`, " +
+        sql.append(" INSERT INTO `grab`.`c_post_bar_17` (`RECORD_ID`, `CREATETIME`, `UPDATETIME`, `ISVALID`, `FAVOR_ID`, `USER_ID`, `NEED_TYPE`, `SOURCE_TYPE`, `POST_CONTENT`, " +
                 "`REPLY_TIME`, `BELONG_QF`, `THEME_ID`, `PAGE_URL`, `POST_BAR`, `POST_ID`, `POST_BAR_CLASS`, `BELONG_FLOOR`, `PAGE_NUM`, `THEME_NAME`, `MAIN_ID`) " +
-                "VALUES ('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"', '"+needType+"', '"+favorInfo+"', " +
+                "VALUES ('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"', '"+needType+"', '"+2+"', '"+favorInfo+"', " +
                 "'"+favorDate+"', '"+belongQf+"', '"+THEME_ID+"', '"+PAGE_URL+"', '"+POST_BAR+"', '"+POST_ID+"', null, null, null, '"+THEME_NAME+"', '"+MAIN_ID+"')");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
@@ -402,7 +402,7 @@ public class IwantReleaseDao {
         List<Object> paramList = new ArrayList<Object>();
         String updatetime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = updatetime;
-        sql.append(" update D_POST_BAR_19 set updatetime='"+updatetime+"',trade_type='"+tradeType+"',belong_qf='"+belongQf+"',gold_total='"+goldTotal+"',unit_price='"+unitPrice+"',if_split='"+ifSplit+"' " +
+        sql.append(" update D_POST_BAR_19 set updatetime='"+updatetime+"',trade_type='"+tradeType+"',belong_qf='"+belongQf+"',gold_total='"+goldTotal+"',unit_price='"+unitPrice+"',if_split='"+ifSplit+"',FAVOR_INFO='"+favorInfo+"' " +
                 "where favor_id='"+favorId+"'");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
