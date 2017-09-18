@@ -3,6 +3,7 @@ package com.dao;
 import com.utils.CommonDao;
 import com.utils.MD5Util;
 import com.utils.MyDateTimeUtils;
+import com.utils.SegmentDemo;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -66,13 +67,95 @@ public class IwantReleaseDao {
     }
 
     //账号交易信息表(C_POST_BAR_12)
-    public int saveZhjyxxInfo(String recordId, int favorId,int tradeType, String userId, String belongQf,String tixin,String priceNum,String replyContent) throws Exception {
+    public int saveZhjyxxInfo(String recordId, int favorId,int tradeType, String userId, String belongQf,String tixin,String priceNum,String replyContent,Map<String,Set<String>> splitWordMap) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("s*","");
         String favorDate = createTime;
-        String REPLY_TIME = createTime;String BELONG_FLOOR = "1";String PAGE_NUM = "1";String PAGE_URL = "";String URL_VALID = "1";String SOURCE_TYPE = "2";String MENPAI_NAME = "";String XINFA_NAME = "";String TITLE_NAME = "";
-        String WAIGUAN_NAME = "";String HORSE_NAME = "";String ARM_NAME = "";String STRA_NAME = "";String PEND_NAME = "";String THEME_ID = "";String THEME_NAME = "";String POST_BAR = "";String POST_ID = "";String POST_BAR_CLASS = "0";String BAR_SOUR_TYPE = "0";
+        String REPLY_TIME = createTime;
+        String BELONG_FLOOR = "1";
+        String PAGE_NUM = "1";
+        String PAGE_URL = "";
+        String URL_VALID = "1";
+        String SOURCE_TYPE = "2";
+        String MENPAI_NAME = "[";
+        for (String str : splitWordMap.get("menpai")) {
+            MENPAI_NAME +=str+",";
+        }
+        if(MENPAI_NAME.length()>1) {
+            MENPAI_NAME = MENPAI_NAME.substring(0, MENPAI_NAME.length() - 1);
+        }
+        MENPAI_NAME +="]";
+
+        String XINFA_NAME = "[";
+        for (String str : splitWordMap.get("xinfa")) {
+            XINFA_NAME +=str+",";
+        }
+        if(XINFA_NAME.length()>1) {
+            XINFA_NAME = XINFA_NAME.substring(0, XINFA_NAME.length() - 1);
+        }
+        XINFA_NAME +="]";
+
+        String TITLE_NAME = "[";
+        for (String str : splitWordMap.get("title")) {
+            TITLE_NAME +=str+",";
+        }
+        if(TITLE_NAME.length()>1) {
+            TITLE_NAME = TITLE_NAME.substring(0, TITLE_NAME.length() - 1);
+        }
+        TITLE_NAME +="]";
+
+        String WAIGUAN_NAME = "[";
+        for (String str : splitWordMap.get("waiguan")) {
+            WAIGUAN_NAME +=str+",";
+        }
+        if(WAIGUAN_NAME.length()>1) {
+            WAIGUAN_NAME = WAIGUAN_NAME.substring(0, WAIGUAN_NAME.length() - 1);
+        }
+        WAIGUAN_NAME +="]";
+
+        String HORSE_NAME = "[";
+        for (String str : splitWordMap.get("horse")) {
+            HORSE_NAME +=str+",";
+        }
+        if(HORSE_NAME.length()>1) {
+            HORSE_NAME = HORSE_NAME.substring(0, HORSE_NAME.length() - 1);
+        }
+        HORSE_NAME +="]";
+
+        String ARM_NAME = "[";
+        for (String str : splitWordMap.get("arm")) {
+            ARM_NAME +=str+",";
+        }
+        if(ARM_NAME.length()>1) {
+            ARM_NAME = ARM_NAME.substring(0, ARM_NAME.length() - 1);
+        }
+        ARM_NAME +="]";
+
+        String STRA_NAME = "[";
+        for (String str : splitWordMap.get("stra")) {
+            STRA_NAME +=str+",";
+        }
+        if(STRA_NAME.length()>1) {
+            STRA_NAME = STRA_NAME.substring(0, STRA_NAME.length() - 1);
+        }
+        STRA_NAME +="]";
+
+        String PEND_NAME = "[";
+        for (String str : splitWordMap.get("pend")) {
+            PEND_NAME +=str+",";
+        }
+        if(PEND_NAME.length()>1) {
+            PEND_NAME = PEND_NAME.substring(0, PEND_NAME.length() - 1);
+        }
+        PEND_NAME +="]";
+
+        String THEME_ID = "";
+        String THEME_NAME = "";
+        String POST_BAR = "";
+        String POST_ID = "";
+        String POST_BAR_CLASS = "0";
+        String BAR_SOUR_TYPE = "0";
         StringBuffer sb = new StringBuffer();
         sb.append(belongQf);
         sb.append(tixin);
@@ -88,7 +171,7 @@ public class IwantReleaseDao {
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
-    public int updateZhjyxxInfo(String recordId, int favorId,int tradeType, String userId, String belongQf,String tixin,String priceNum,String replyContent) throws Exception {
+    public int updateZhjyxxInfo(String recordId, int favorId, int tradeType, String userId, String belongQf, String tixin, String priceNum,String replyContent, Map<String, Set<String>> splitWordMap) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         String updatetime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("s*","");

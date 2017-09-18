@@ -49,7 +49,7 @@ public class IwantReleaseAction {
 //            @RequestParam(value="pageUrl",required=false,defaultValue ="") String pageUrl
 
             HttpServletRequest request,HttpServletResponse response
-    ){
+    )   {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
         try{
@@ -70,7 +70,7 @@ public class IwantReleaseAction {
             Map<String, MultipartFile> files = Murequest.getFileMap();//得到文件map对象
             String time =new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");;
             String upaloadUrl = "D:\\JX3JZ\\"+time+"/";
-            upaloadUrl = "C:\\JX3JZ\\"+time+"/";
+//            upaloadUrl = "C:\\JX3JZ\\"+time+"/";
             String pathUrl = "/JX3JZ/"+time+"/";
             File dir = new File(upaloadUrl);
 //            System.out.println(upaloadUrl);

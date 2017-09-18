@@ -3,6 +3,7 @@ package com.service;
 import com.dao.IwantReleaseDao;
 import com.dao.accountListDao;
 import com.utils.MyDateTimeUtils;
+import com.utils.SegmentDemo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,9 @@ public class IwantReleaseService {
 
     @Autowired
     IwantReleaseDao iwantReleaseDao;
+
+    @Autowired
+    SegmentDemo segmentDemo;
 
     //我要举报
     public String saveWyjbInfo(String recordId,String userId, int cheatType, String belongQf, String tixin, String roleName, String cheatIntro, String cheatInfo, String pageUrl,List<String> imgList) {
@@ -303,7 +307,8 @@ public class IwantReleaseService {
             String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
             int favorId = iwantReleaseDao.getSequence3();
             int insertResult = iwantReleaseDao.saveZhssInfo(recordId,favorId,tradeType,userId,"["+belongQf+"]","["+tixin+"]",priceNum,accoInfo);  //D_POST_BAR_13
-            int insertResult2 = iwantReleaseDao.saveZhjyxxInfo(recordId,favorId,tradeType,userId,"["+belongQf+"]","["+tixin+"]",String.valueOf(priceNum),accoInfo);  //C_POST_BAR_12
+            Map<String,Set<String>> splitWordMap = segmentDemo.test(accoInfo);
+            int insertResult2 = iwantReleaseDao.saveZhjyxxInfo(recordId,favorId,tradeType,userId,"["+belongQf+"]","["+tixin+"]",String.valueOf(priceNum),accoInfo,splitWordMap);  //C_POST_BAR_12
             String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
@@ -329,7 +334,8 @@ public class IwantReleaseService {
         try {
             String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
             int insertResult = iwantReleaseDao.updateZhssInfo(recordId,favorId,tradeType,userId,"["+belongQf+"]","["+tixin+"]",priceNum,accoInfo);  //D_POST_BAR_13
-            int insertResult2 = iwantReleaseDao.updateZhjyxxInfo(recordId,favorId,tradeType,userId,"["+belongQf+"]","["+tixin+"]",String.valueOf(priceNum),accoInfo);  //C_POST_BAR_12
+            Map<String,Set<String>> splitWordMap = segmentDemo.test(accoInfo);
+            int insertResult2 = iwantReleaseDao.updateZhjyxxInfo(recordId,favorId,tradeType,userId,"["+belongQf+"]","["+tixin+"]",String.valueOf(priceNum),accoInfo,splitWordMap);  //C_POST_BAR_12
             String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
@@ -369,7 +375,7 @@ public class IwantReleaseService {
             //        CRED_NUM,TOP_NUM,CONSUM_NUM,INTEG_NUM,GOLD_NUM,PET_NUM,CREATE_ACCO,CARD_TIME,CURR_NUM,TWO_INPUT,THREE_INPUT,_95cw,_90cw,_80cw,_70cw,
             //        mptx,XUANJIN_95,XIAOTIE_95,XUANJIN_90,XIAOTIE_90,XUANJIN_80,XIAOTIE_80,XUANJIN_70,XIAOTIE_70,
             //        PVP_HPS,PVE_HPS,PVP_T,PVP_IN,PVE_IN,PVP_OUT,PVE_OUT,OTHER_EXPLAIN);     //C_POST_BAR_12_1
-            int insertResult2 = iwantReleaseDao.saveZhjyxxInfo(recordId,favorId,tradeType,userId,BELONG_QF,TIXIN,PRICE_NUM,FACE_NUM);  //C_POST_BAR_12
+            int insertResult2 = iwantReleaseDao.saveZhjyxxInfo(recordId,favorId,tradeType,userId,BELONG_QF,TIXIN,PRICE_NUM,null,null);  //C_POST_BAR_12
             String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
