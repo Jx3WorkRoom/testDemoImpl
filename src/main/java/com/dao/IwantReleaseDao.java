@@ -79,76 +79,108 @@ public class IwantReleaseDao {
         String URL_VALID = "1";
         String SOURCE_TYPE = "2";
         String MENPAI_NAME = "[";
-        for (String str : splitWordMap.get("menpai")) {
-            MENPAI_NAME +=str+",";
+        if(splitWordMap.containsKey("menpai")) {
+            for (String str : splitWordMap.get("menpai")) {
+                MENPAI_NAME += str + ",";
+            }
+            if (MENPAI_NAME.length() > 1) {
+                MENPAI_NAME = MENPAI_NAME.substring(0, MENPAI_NAME.length() - 1);
+            }
+            MENPAI_NAME += "]";
+        }else{
+            MENPAI_NAME= "[]";
         }
-        if(MENPAI_NAME.length()>1) {
-            MENPAI_NAME = MENPAI_NAME.substring(0, MENPAI_NAME.length() - 1);
-        }
-        MENPAI_NAME +="]";
 
         String XINFA_NAME = "[";
-        for (String str : splitWordMap.get("xinfa")) {
-            XINFA_NAME +=str+",";
+        if(splitWordMap.containsKey("xinfa")) {
+            for (String str : splitWordMap.get("xinfa")) {
+                XINFA_NAME += str + ",";
+            }
+            if (XINFA_NAME.length() > 1) {
+                XINFA_NAME = XINFA_NAME.substring(0, XINFA_NAME.length() - 1);
+            }
+            XINFA_NAME += "]";
+        }else {
+            XINFA_NAME ="[]";
         }
-        if(XINFA_NAME.length()>1) {
-            XINFA_NAME = XINFA_NAME.substring(0, XINFA_NAME.length() - 1);
-        }
-        XINFA_NAME +="]";
 
         String TITLE_NAME = "[";
-        for (String str : splitWordMap.get("title")) {
-            TITLE_NAME +=str+",";
+        if(splitWordMap.containsKey("title")) {
+            for (String str : splitWordMap.get("title")) {
+                TITLE_NAME += str + ",";
+            }
+            if (TITLE_NAME.length() > 1) {
+                TITLE_NAME = TITLE_NAME.substring(0, TITLE_NAME.length() - 1);
+            }
+            TITLE_NAME += "]";
+        }else{
+            TITLE_NAME = "[]";
         }
-        if(TITLE_NAME.length()>1) {
-            TITLE_NAME = TITLE_NAME.substring(0, TITLE_NAME.length() - 1);
-        }
-        TITLE_NAME +="]";
 
         String WAIGUAN_NAME = "[";
-        for (String str : splitWordMap.get("waiguan")) {
-            WAIGUAN_NAME +=str+",";
+        if(splitWordMap.containsKey("waiguan")) {
+            for (String str : splitWordMap.get("waiguan")) {
+                WAIGUAN_NAME += str + ",";
+            }
+            if (WAIGUAN_NAME.length() > 1) {
+                WAIGUAN_NAME = WAIGUAN_NAME.substring(0, WAIGUAN_NAME.length() - 1);
+            }
+            WAIGUAN_NAME += "]";
+        }else{
+            WAIGUAN_NAME="[]";
         }
-        if(WAIGUAN_NAME.length()>1) {
-            WAIGUAN_NAME = WAIGUAN_NAME.substring(0, WAIGUAN_NAME.length() - 1);
-        }
-        WAIGUAN_NAME +="]";
 
         String HORSE_NAME = "[";
-        for (String str : splitWordMap.get("horse")) {
-            HORSE_NAME +=str+",";
+        if(splitWordMap.containsKey("horse")) {
+            for (String str : splitWordMap.get("horse")) {
+                HORSE_NAME += str + ",";
+            }
+            if (HORSE_NAME.length() > 1) {
+                HORSE_NAME = HORSE_NAME.substring(0, HORSE_NAME.length() - 1);
+            }
+            HORSE_NAME += "]";
+        }else{
+            HORSE_NAME="[]";
         }
-        if(HORSE_NAME.length()>1) {
-            HORSE_NAME = HORSE_NAME.substring(0, HORSE_NAME.length() - 1);
-        }
-        HORSE_NAME +="]";
 
         String ARM_NAME = "[";
-        for (String str : splitWordMap.get("arm")) {
-            ARM_NAME +=str+",";
+        if(splitWordMap.containsKey("arm")) {
+            for (String str : splitWordMap.get("arm")) {
+                ARM_NAME += str + ",";
+            }
+            if (ARM_NAME.length() > 1) {
+                ARM_NAME = ARM_NAME.substring(0, ARM_NAME.length() - 1);
+            }
+            ARM_NAME += "]";
+        }else{
+            ARM_NAME = "[]";
         }
-        if(ARM_NAME.length()>1) {
-            ARM_NAME = ARM_NAME.substring(0, ARM_NAME.length() - 1);
-        }
-        ARM_NAME +="]";
 
         String STRA_NAME = "[";
-        for (String str : splitWordMap.get("stra")) {
-            STRA_NAME +=str+",";
+        if(splitWordMap.containsKey("stra")) {
+            for (String str : splitWordMap.get("stra")) {
+                STRA_NAME += str + ",";
+            }
+            if (STRA_NAME.length() > 1) {
+                STRA_NAME = STRA_NAME.substring(0, STRA_NAME.length() - 1);
+            }
+            STRA_NAME += "]";
+        }else {
+            STRA_NAME ="[]";
         }
-        if(STRA_NAME.length()>1) {
-            STRA_NAME = STRA_NAME.substring(0, STRA_NAME.length() - 1);
-        }
-        STRA_NAME +="]";
 
         String PEND_NAME = "[";
-        for (String str : splitWordMap.get("pend")) {
-            PEND_NAME +=str+",";
+        if(splitWordMap.containsKey("pend")) {
+            for (String str : splitWordMap.get("pend")) {
+                PEND_NAME += str + ",";
+            }
+            if (PEND_NAME.length() > 1) {
+                PEND_NAME = PEND_NAME.substring(0, PEND_NAME.length() - 1);
+            }
+            PEND_NAME += "]";
+        }else{
+            PEND_NAME ="[]";
         }
-        if(PEND_NAME.length()>1) {
-            PEND_NAME = PEND_NAME.substring(0, PEND_NAME.length() - 1);
-        }
-        PEND_NAME +="]";
 
         String THEME_ID = "";
         String THEME_NAME = "";

@@ -33,6 +33,10 @@ public class IwantReleaseAction {
 
     List<String> imgList= new LinkedList<>();
 
+    List<String> imgList2= new LinkedList<>();
+
+    List<String> imgList3= new LinkedList<>();
+
     @ApiOperation(value="我要举报", notes="保存",produces = "application/json")
     @RequestMapping(value="saveWyjbInfo",method = RequestMethod.POST)
     @Produces("application/json")
@@ -228,60 +232,36 @@ public class IwantReleaseAction {
 //            @RequestParam(value="favorInfo",required=false,defaultValue="") String favorInfo
             HttpServletRequest request,HttpServletResponse response
     ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
         try{
-            Map<String,Object> resmap=new HashMap<String,Object>();
-            long pre=System.currentTimeMillis();
-            String returnVal = "";
-
-
-            String saveFileName = "";
-
-            String operate = request.getParameter("operate");
-            String userId = request.getParameter("userId");
-            int needtype = request.getParameter("needtype")==null?-1:Integer.parseInt(request.getParameter("needtype"));
-            String belongQf = request.getParameter("belongQf");
-            String favorInfo = request.getParameter("favorInfo");
-            String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
-
-            System.out.println(request.getParameter("operate"));
-            System.out.println(request.getParameter("userId"));
-            System.out.println(request.getParameter("needtype"));
-            System.out.println(request.getParameter("belongQf"));
-            System.out.println(request.getParameter("favorInfo"));
-
-
             System.out.println("收到图片!");
             MultipartHttpServletRequest Murequest = (MultipartHttpServletRequest)request;
-
+            String saveFileName = "";
             Map<String, MultipartFile> files = Murequest.getFileMap();//得到文件map对象
             String time =new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");;
             String upaloadUrl = "D:\\JX3JZ\\"+time+"/";
+            upaloadUrl = "C:\\JX3JZ\\"+time+"/";
             String pathUrl = "/JX3JZ/"+time+"/";
             File dir = new File(upaloadUrl);
 //            System.out.println(upaloadUrl);
             if(!dir.exists())//目录不存在则创建
                 dir.mkdirs();
-
             System.out.println(files.values().size());
-
             for(MultipartFile file :files.values()){
-//                String fileName=file.getOriginalFilename();
-//                String saveFileName = recordId;
-
                 String fileName=file.getOriginalFilename();
                 int pixindex = fileName.lastIndexOf(".");
-
+                String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
                 saveFileName = recordId+fileName.substring(pixindex,fileName.length());//.substring(fileName.lastIndexOf(".").fileName.length());
                 System.out.println("saveFileName: "+saveFileName);
-
                 File tagetFile = new File(upaloadUrl,saveFileName);//创建文件对象
                 if(!tagetFile.exists()){//文件名不存在 则新建文件，并将文件复制到新建文件中
                     try {
                         file.transferTo(tagetFile);
-                    } catch (IllegalStateException e) {
+                        imgList2.add(saveFileName);
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        imgList2.add(saveFileName);
                     }
                 }
             }
@@ -290,18 +270,31 @@ public class IwantReleaseAction {
             System.out.println("接收完毕");
 
 
-            if(operate.equals("save")){
-                returnVal = iwantReleaseService.saveDlddInfo(userId,needtype,belongQf,favorInfo,filePath);
-            }else {
-                int favorId = request.getParameter("favorId")==null?-1:Integer.parseInt(request.getParameter("favorId"));
-                returnVal = iwantReleaseService.updateDlddInfo(favorId,userId,needtype,belongQf,favorInfo,filePath);
-            }
-            long post=System.currentTimeMillis();
-            System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
-            return resmap;
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }finally{
+            int imgNum = Integer.parseInt(request.getParameter("imgNum"));
+            while(imgList2.size()==imgNum) {
+                String returnVal = "";
+                System.out.println("执行!");
+                String operate = request.getParameter("operate");
+                String userId = request.getParameter("userId");
+                int needtype = request.getParameter("needtype") == null ? -1 : Integer.parseInt(request.getParameter("needtype"));
+                String belongQf = request.getParameter("belongQf");
+                String favorInfo = request.getParameter("favorInfo");
+                String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
+                if (operate.equals("save")) {
+                    returnVal = iwantReleaseService.saveDlddInfo(userId, needtype, belongQf, favorInfo, imgList2);
+                } else {
+                    int favorId = request.getParameter("favorId") == null ? -1 : Integer.parseInt(request.getParameter("favorId"));
+                    returnVal = iwantReleaseService.updateDlddInfo(favorId, userId, needtype, belongQf, favorInfo, imgList2);
+                }
+                long post = System.currentTimeMillis();
+                System.out.println("查询账号交易接口执行时间（单位：毫秒）：" + (post - pre));
+                imgList2.clear();
+                return resmap;
+            }
         }
         return null;
     }
@@ -320,78 +313,69 @@ public class IwantReleaseAction {
 //            @RequestParam(value="accoInfo",required=false,defaultValue ="") String accoInfo
             HttpServletRequest request,HttpServletResponse response
     ){
-        Map<String,Object> resmap=new HashMap<String,Object>();
-        long pre=System.currentTimeMillis();
-        String returnVal = "";
-
-
-        String saveFileName = "";
-
-        String operate = request.getParameter("operate");
-        String userId = request.getParameter("userId");
-        int tradeType = request.getParameter("tradeType")==null?-1:Integer.parseInt(request.getParameter("tradeType"));
-        String belongQf = request.getParameter("belongQf");
-        String tixin = request.getParameter("tixin");
-        int priceNum = request.getParameter("priceNum")==null?-1:Integer.parseInt(request.getParameter("priceNum"));    //价格
-        String accoInfo = request.getParameter("accoInfo");
-        String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
-
-        System.out.println(request.getParameter("operate"));
-        System.out.println(request.getParameter("userId"));
-        System.out.println(request.getParameter("needtype"));
-        System.out.println(request.getParameter("belongQf"));
-        System.out.println(request.getParameter("favorInfo"));
-
-
-        System.out.println("收到图片!");
-        MultipartHttpServletRequest Murequest = (MultipartHttpServletRequest)request;
-
-        Map<String, MultipartFile> files = Murequest.getFileMap();//得到文件map对象
-        String time =new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");;
-        String upaloadUrl = "D:\\JX3JZ\\"+time+"/";
-        String pathUrl = "/JX3JZ/"+time+"/";
-        File dir = new File(upaloadUrl);
+        Map<String, Object> resmap = new HashMap<String, Object>();
+        long pre = System.currentTimeMillis();
+        try {
+            System.out.println("收到图片!");
+            MultipartHttpServletRequest Murequest = (MultipartHttpServletRequest)request;
+            String saveFileName = "";
+            Map<String, MultipartFile> files = Murequest.getFileMap();//得到文件map对象
+            String time =new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");;
+            String upaloadUrl = "D:\\JX3JZ\\"+time+"/";
+            upaloadUrl = "C:\\JX3JZ\\"+time+"/";
+            String pathUrl = "/JX3JZ/"+time+"/";
+            File dir = new File(upaloadUrl);
 //            System.out.println(upaloadUrl);
-        if(!dir.exists())//目录不存在则创建
-            dir.mkdirs();
-
-        System.out.println(files.values().size());
-
-        for(MultipartFile file :files.values()){
-//                String fileName=file.getOriginalFilename();
-//                String saveFileName = recordId;
-
-            String fileName=file.getOriginalFilename();
-            int pixindex = fileName.lastIndexOf(".");
-
-            saveFileName = recordId+fileName.substring(pixindex,fileName.length());//.substring(fileName.lastIndexOf(".").fileName.length());
-            System.out.println("saveFileName: "+saveFileName);
-
-            File tagetFile = new File(upaloadUrl,saveFileName);//创建文件对象
-            if(!tagetFile.exists()){//文件名不存在 则新建文件，并将文件复制到新建文件中
-                try {
-                    file.transferTo(tagetFile);
-                } catch (IllegalStateException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+            if(!dir.exists())//目录不存在则创建
+                dir.mkdirs();
+            System.out.println(files.values().size());
+            for(MultipartFile file :files.values()){
+                String fileName=file.getOriginalFilename();
+                int pixindex = fileName.lastIndexOf(".");
+                String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
+                saveFileName = recordId+fileName.substring(pixindex,fileName.length());//.substring(fileName.lastIndexOf(".").fileName.length());
+                System.out.println("saveFileName: "+saveFileName);
+                File tagetFile = new File(upaloadUrl,saveFileName);//创建文件对象
+                if(!tagetFile.exists()){//文件名不存在 则新建文件，并将文件复制到新建文件中
+                    try {
+                        file.transferTo(tagetFile);
+                        imgList3.add(saveFileName);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        imgList3.add(saveFileName);
+                    }
                 }
             }
+            String filePath = pathUrl+saveFileName;
+
+            System.out.println("接收完毕");
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            int imgNum = Integer.parseInt(request.getParameter("imgNum"));
+            while(imgList3.size()==imgNum) {
+                String returnVal = "";
+                String saveFileName = "";
+                String operate = request.getParameter("operate");
+                String userId = request.getParameter("userId");
+                int tradeType = request.getParameter("tradeType") == null ? -1 : Integer.parseInt(request.getParameter("tradeType"));
+                String belongQf = request.getParameter("belongQf");
+                String tixin = request.getParameter("tixin");
+                int priceNum = request.getParameter("priceNum") == null ? -1 : Integer.parseInt(request.getParameter("priceNum"));    //价格
+                String accoInfo = request.getParameter("accoInfo");
+                if (operate.equals("save")) {
+                    returnVal = iwantReleaseService.saveZhssInfo(userId, tradeType, belongQf, tixin, priceNum, accoInfo, imgList3);
+                } else {
+                    int favorId = request.getParameter("favorId") == null ? -1 : Integer.parseInt(request.getParameter("favorId"));
+                    returnVal = iwantReleaseService.updateZhssInfo(favorId, userId, tradeType, belongQf, tixin, priceNum, accoInfo, imgList3);
+                }
+                long post = System.currentTimeMillis();
+                System.out.println("查询账号交易接口执行时间（单位：毫秒）：" + (post - pre));
+                imgList3.clear();
+                return resmap;
+            }
         }
-        String filePath = pathUrl+saveFileName;
-
-        System.out.println("接收完毕");
-
-
-        if(operate.equals("save")){
-            returnVal = iwantReleaseService.saveZhssInfo(userId,tradeType,belongQf,tixin,priceNum,accoInfo,filePath);
-        }else {
-            int favorId = request.getParameter("favorId")==null?-1:Integer.parseInt(request.getParameter("favorId"));
-            returnVal = iwantReleaseService.updateZhssInfo(favorId,userId,tradeType,belongQf,tixin,priceNum,accoInfo,filePath);
-        }
-        long post=System.currentTimeMillis();
-        System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
-        return resmap;
+        return null;
     }
 
     @ApiOperation(value="账号收售详细发布", notes="保存",produces = "application/json")
