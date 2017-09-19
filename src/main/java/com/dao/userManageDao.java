@@ -66,7 +66,7 @@ public class userManageDao {
                 " F_SYS_MOD_2 a" +
                 " LEFT JOIN f_sys_mod_1 b ON a.MOD_ID = b.MOD_ID " +
                 " WHERE" +
-                " a.MOD_ID = '"+modId+"' and a.ISVALID=1");
+                " a.MOD_ID = '"+modId+"' and a.ISVALID=1 ORDER BY UPDATETIME DESC");
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }
