@@ -831,18 +831,21 @@ public class IwantReleaseDao {
     }
 
     //各类发布信息图片表(D_POST_BAR_21)
-    public int saveImageInfo(String recordId, int favorId, String userId, int seqnum, List<String> imgList) throws Exception {
+    public int saveImageInfo(String recordId, int favorId, String userId, int seqnum, List<String> imgList, String imgTotal) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
         for(int i=0;i<imgList.size();i++) {
-            int j=i+1;
+            int j=i+1+Integer.parseInt(imgTotal);
             sql.delete(0,sql.length());
             String time =new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");;
             String upaloadUrl = "/JX3JZ/"+time+"/"+imgList.get(i);
+            int pixindex = imgList.get(i).lastIndexOf(".");
+
+            String imgRecordId = imgList.get(i).substring(0,pixindex);
             sql.append("INSERT INTO `grab`.`d_post_bar_21` (`RECORD_ID`, `CREATETIME`, `UPDATETIME`, `ISVALID`, `FAVOR_ID`, `SEQ_NUM`, `PIC_PATH`) \n" +
-                    "VALUES ('" + recordId + "','" + createTime + "','" + createTime + "','1','" + favorId + "','" + j + "','" + upaloadUrl + "')");
+                    "VALUES ('" + imgRecordId + "','" + createTime + "','" + createTime + "','1','" + favorId + "','" + j + "','" + upaloadUrl + "')");
             System.out.println(sql);
             this.commondao.update(sql.toString(), paramList);
         }
@@ -854,7 +857,7 @@ public class IwantReleaseDao {
         String updatetime = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*", "");
         for(int i=0;i<imgList.size();i++) {
             sql.delete(0, sql.length());
-            sql.append(" update d_post_bar_21 set updatetime='" + updatetime + "',SEQ_NUM='" + seqnum + "',PIC_PATH='" + imgList.get(i) + "' " +
+            sql.append(" update d_post_bar_21 set updatetime='" + updatetime + "',PIC_PATH='" + imgList.get(i) + "' " +
                     "where favor_id='" + favorId + "'");
             System.out.println(sql);
             this.commondao.update(sql.toString(), paramList);
@@ -873,5 +876,26 @@ public class IwantReleaseDao {
                 " AND T2.PAR_SERIES = 1016 ");
         System.out.println(sql);
         return this.commondao.queryOne(sql.toString(), paramList);
+    }
+
+    //获取图片路径
+    public List<Map<String,Object>> getImgList(String mainId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append("select record_id,favor_id,seq_num,pic_path from d_post_bar_21 where isvalid= 1 and favor_id = " + mainId);
+
+        System.out.println(sql);
+        listSql = sql.toString();
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
+    //删除图片路径
+    public int delImg(String recordId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        //sql.append(" update d_post_bar_21 set ISVALID = 0 where record_id = '"+recordId+"'");
+        sql.append(" delete from d_post_bar_21 where record_id = '"+recordId+"'");
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(), paramList);
     }
 }

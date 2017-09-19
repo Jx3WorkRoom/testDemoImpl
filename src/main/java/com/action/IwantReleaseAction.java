@@ -126,8 +126,9 @@ public class IwantReleaseAction {
                 if (operate.equals("save")) {
                     returnVal = iwantReleaseService.saveWyjbInfo(recordId, userId, tradeType, belongQf, tixin, roleName, cheatIntro, cheatInfo, pageUrl, imgList);
                 } else {
+                    String imgTotal = request.getParameter("imgTotal");
                     int favorId = request.getParameter("favorId") == null ? -1 : Integer.parseInt(request.getParameter("favorId"));
-                    returnVal = iwantReleaseService.upeditWyjbInfo(favorId, userId, tradeType, belongQf, tixin, roleName, cheatIntro, cheatInfo, pageUrl, imgList);
+                    returnVal = iwantReleaseService.upeditWyjbInfo(favorId, userId, tradeType, belongQf, tixin, roleName, cheatIntro, cheatInfo, pageUrl, imgList, imgTotal);
                 }
                 long post = System.currentTimeMillis();
                 System.out.println("查询账号交易接口执行时间（单位：毫秒）：" + (post - pre));
@@ -241,7 +242,7 @@ public class IwantReleaseAction {
             Map<String, MultipartFile> files = Murequest.getFileMap();//得到文件map对象
             String time =new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");;
             String upaloadUrl = "D:\\JX3JZ\\"+time+"/";
-            upaloadUrl = "C:\\JX3JZ\\"+time+"/";
+            upaloadUrl = "D:\\JX3JZ\\"+time+"/";
             String pathUrl = "/JX3JZ/"+time+"/";
             File dir = new File(upaloadUrl);
 //            System.out.println(upaloadUrl);
@@ -287,8 +288,9 @@ public class IwantReleaseAction {
                 if (operate.equals("save")) {
                     returnVal = iwantReleaseService.saveDlddInfo(userId, needtype, belongQf, favorInfo, imgList2);
                 } else {
+                    String imgTotal = request.getParameter("imgTotal");
                     int favorId = request.getParameter("favorId") == null ? -1 : Integer.parseInt(request.getParameter("favorId"));
-                    returnVal = iwantReleaseService.updateDlddInfo(favorId, userId, needtype, belongQf, favorInfo, imgList2);
+                    returnVal = iwantReleaseService.updateDlddInfo(favorId, userId, needtype, belongQf, favorInfo, imgList2, imgTotal);
                 }
                 long post = System.currentTimeMillis();
                 System.out.println("查询账号交易接口执行时间（单位：毫秒）：" + (post - pre));
@@ -322,7 +324,7 @@ public class IwantReleaseAction {
             Map<String, MultipartFile> files = Murequest.getFileMap();//得到文件map对象
             String time =new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");;
             String upaloadUrl = "D:\\JX3JZ\\"+time+"/";
-            upaloadUrl = "C:\\JX3JZ\\"+time+"/";
+            upaloadUrl = "D:\\JX3JZ\\"+time+"/";
             String pathUrl = "/JX3JZ/"+time+"/";
             File dir = new File(upaloadUrl);
 //            System.out.println(upaloadUrl);
@@ -363,11 +365,13 @@ public class IwantReleaseAction {
                 String tixin = request.getParameter("tixin");
                 int priceNum = request.getParameter("priceNum") == null ? -1 : Integer.parseInt(request.getParameter("priceNum"));    //价格
                 String accoInfo = request.getParameter("accoInfo");
+
                 if (operate.equals("save")) {
                     returnVal = iwantReleaseService.saveZhssInfo(userId, tradeType, belongQf, tixin, priceNum, accoInfo, imgList3);
                 } else {
+                    String imgTotal = request.getParameter("imgTotal");
                     int favorId = request.getParameter("favorId") == null ? -1 : Integer.parseInt(request.getParameter("favorId"));
-                    returnVal = iwantReleaseService.updateZhssInfo(favorId, userId, tradeType, belongQf, tixin, priceNum, accoInfo, imgList3);
+                    returnVal = iwantReleaseService.updateZhssInfo(favorId, userId, tradeType, belongQf, tixin, priceNum, accoInfo, imgList3,imgTotal);
                 }
                 long post = System.currentTimeMillis();
                 System.out.println("查询账号交易接口执行时间（单位：毫秒）：" + (post - pre));
@@ -500,9 +504,11 @@ public class IwantReleaseAction {
         Object SelectionList = accountListService.querySelectionListInfo();
         Object tixinList = accountListService.queryTixinListInfo();
         Object dataList = iwantReleaseService.getReport(mainId);
+        Object imgList = iwantReleaseService.getImgList(mainId);
         resmap.put("selecttions", SelectionList);
         resmap.put("tixinList", tixinList);
         resmap.put("info", dataList);
+        resmap.put("imgList", imgList);
         resmap.put("success", true);
 
         long post=System.currentTimeMillis();
@@ -589,10 +595,12 @@ public class IwantReleaseAction {
         Object SelectionList = accountListService.querySelectionListInfo();
         Object tixinList = accountListService.queryTixinListInfo();
         Object dataList = iwantReleaseService.getAccountExchange(mainId);
+        Object imgList = iwantReleaseService.getImgList(mainId);
         resmap.put("selecttions", SelectionList);
         resmap.put("resultList", tixinList);
         resmap.put("info", dataList);
         resmap.put("success", true);
+        resmap.put("imgList", imgList);
 
         long post=System.currentTimeMillis();
         System.out.println("我要举报编辑接口执行时间（单位：毫秒）："+ (post-pre));
@@ -612,13 +620,31 @@ public class IwantReleaseAction {
         Object SelectionList = accountListService.querySelectionListInfo();
         Object tixinList = accountListService.queryTixinListInfo();//体型
         Object dataList = iwantReleaseService.getQuickRelease(mainId);
+        Object imgList = iwantReleaseService.getImgList(mainId);
         resmap.put("selecttions", SelectionList);
         resmap.put("tixinList", tixinList);
         resmap.put("info", dataList);
         resmap.put("success", true);
+        resmap.put("imgList", imgList);
 
         long post=System.currentTimeMillis();
         System.out.println("我要举报编辑接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+    @ApiOperation(value="图片置无效", notes="置无效",produces = "application/json")
+    @RequestMapping(value="delImgInfo",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> delImgAction(
+            @RequestParam(value="recordId",required=false,defaultValue = "") String recordId
+    ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+
+        Object dataList = iwantReleaseService.delImg(recordId);
+
+        long post=System.currentTimeMillis();
+        System.out.println("图片置无效接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
     }
 
