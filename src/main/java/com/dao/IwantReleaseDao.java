@@ -208,8 +208,116 @@ public class IwantReleaseDao {
         List<Object> paramList = new ArrayList<Object>();
         String updatetime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("s*","");
         String favorDate = updatetime;
-        String REPLY_TIME = updatetime;String BELONG_FLOOR = "1";String PAGE_NUM = "1";String PAGE_URL = "";String URL_VALID = "1";String SOURCE_TYPE = "2";String MENPAI_NAME = "";String XINFA_NAME = "";String TITLE_NAME = "";
-        String WAIGUAN_NAME = "";String HORSE_NAME = "";String ARM_NAME = "";String STRA_NAME = "";String PEND_NAME = "";String THEME_ID = "";String THEME_NAME = "";String POST_BAR = "";String POST_ID = "";String POST_BAR_CLASS = "0";String BAR_SOUR_TYPE = "0";
+        String REPLY_TIME = updatetime;
+        String BELONG_FLOOR = "1";
+        String PAGE_NUM = "1";
+        String PAGE_URL = "";
+        String URL_VALID = "1";
+        String SOURCE_TYPE = "2";
+        String MENPAI_NAME = "[";
+        if(splitWordMap.containsKey("menpai")) {
+            for (String str : splitWordMap.get("menpai")) {
+                MENPAI_NAME += str + ",";
+            }
+            if (MENPAI_NAME.length() > 1) {
+                MENPAI_NAME = MENPAI_NAME.substring(0, MENPAI_NAME.length() - 1);
+            }
+            MENPAI_NAME += "]";
+        }else{
+            MENPAI_NAME= "[]";
+        }
+
+        String XINFA_NAME = "[";
+        if(splitWordMap.containsKey("xinfa")) {
+            for (String str : splitWordMap.get("xinfa")) {
+                XINFA_NAME += str + ",";
+            }
+            if (XINFA_NAME.length() > 1) {
+                XINFA_NAME = XINFA_NAME.substring(0, XINFA_NAME.length() - 1);
+            }
+            XINFA_NAME += "]";
+        }else {
+            XINFA_NAME ="[]";
+        }
+
+        String TITLE_NAME = "[";
+        if(splitWordMap.containsKey("title")) {
+            for (String str : splitWordMap.get("title")) {
+                TITLE_NAME += str + ",";
+            }
+            if (TITLE_NAME.length() > 1) {
+                TITLE_NAME = TITLE_NAME.substring(0, TITLE_NAME.length() - 1);
+            }
+            TITLE_NAME += "]";
+        }else{
+            TITLE_NAME = "[]";
+        }
+
+        String WAIGUAN_NAME = "[";
+        if(splitWordMap.containsKey("waiguan")) {
+            for (String str : splitWordMap.get("waiguan")) {
+                WAIGUAN_NAME += str + ",";
+            }
+            if (WAIGUAN_NAME.length() > 1) {
+                WAIGUAN_NAME = WAIGUAN_NAME.substring(0, WAIGUAN_NAME.length() - 1);
+            }
+            WAIGUAN_NAME += "]";
+        }else{
+            WAIGUAN_NAME="[]";
+        }
+
+        String HORSE_NAME = "[";
+        if(splitWordMap.containsKey("horse")) {
+            for (String str : splitWordMap.get("horse")) {
+                HORSE_NAME += str + ",";
+            }
+            if (HORSE_NAME.length() > 1) {
+                HORSE_NAME = HORSE_NAME.substring(0, HORSE_NAME.length() - 1);
+            }
+            HORSE_NAME += "]";
+        }else{
+            HORSE_NAME="[]";
+        }
+
+        String ARM_NAME = "[";
+        if(splitWordMap.containsKey("arm")) {
+            for (String str : splitWordMap.get("arm")) {
+                ARM_NAME += str + ",";
+            }
+            if (ARM_NAME.length() > 1) {
+                ARM_NAME = ARM_NAME.substring(0, ARM_NAME.length() - 1);
+            }
+            ARM_NAME += "]";
+        }else{
+            ARM_NAME = "[]";
+        }
+
+        String STRA_NAME = "[";
+        if(splitWordMap.containsKey("stra")) {
+            for (String str : splitWordMap.get("stra")) {
+                STRA_NAME += str + ",";
+            }
+            if (STRA_NAME.length() > 1) {
+                STRA_NAME = STRA_NAME.substring(0, STRA_NAME.length() - 1);
+            }
+            STRA_NAME += "]";
+        }else {
+            STRA_NAME ="[]";
+        }
+
+        String PEND_NAME = "[";
+        if(splitWordMap.containsKey("pend")) {
+            for (String str : splitWordMap.get("pend")) {
+                PEND_NAME += str + ",";
+            }
+            if (PEND_NAME.length() > 1) {
+                PEND_NAME = PEND_NAME.substring(0, PEND_NAME.length() - 1);
+            }
+            PEND_NAME += "]";
+        }else{
+            PEND_NAME ="[]";
+        }
+        String THEME_ID = "";String THEME_NAME = "";String POST_BAR = "";String POST_ID = "";String POST_BAR_CLASS = "0";String BAR_SOUR_TYPE = "0";
         StringBuffer sb = new StringBuffer();
         sb.append(belongQf);
         sb.append(tixin);
