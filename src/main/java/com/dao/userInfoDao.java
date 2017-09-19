@@ -69,7 +69,7 @@ public class userInfoDao {
         Calendar ca=Calendar.getInstance();
         ca.setTime(new Date());
         ca.add(Calendar.HOUR_OF_DAY, hour);
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         System.out.println(sdf.format(ca.getTime()));
         sql.append(" update F_USER_INFO set ADMIN_LOCK = '"+sdf.format(ca.getTime())+"' where user_id = '"+userId+"'");
         System.out.println(sql);
