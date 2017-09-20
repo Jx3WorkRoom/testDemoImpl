@@ -26,7 +26,7 @@ public class registerDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         String recordId= UUID.randomUUID().toString();
-        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         sql.append(" INSERT INTO f_user_info (" +
                 " record_id," +
                 " CREATETIME," +
@@ -112,7 +112,7 @@ public class registerDao {
                 modId=54;
             }
             String recordId= UUID.randomUUID().toString();
-            String dateTime = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+            String dateTime = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
             sql = " insert into F_SYS_MOD_3(RECORD_id,CREATETIME,UPDATETIME,ISVALID,USER_ID,MOD_ID,COST_DATE,SERVER_NUM,COST_QUOTA,IF_PAY) " +
                        " VALUES('"+recordId+"','"+dateTime+"','"+dateTime+"','1','"+userId+"','"+modId+"','"+dateTime+"','2000','0','1')";
             System.out.println(sql);

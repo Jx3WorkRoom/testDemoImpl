@@ -59,7 +59,7 @@ public class IwantReleaseService {
             String recordId = "";
             int insertResult = iwantReleaseDao.upeditWyjbInfo(favorId,userId,cheatType,"["+belongQf+"]","["+tixin+"]",roleName,cheatIntro,cheatInfo,pageUrl);    //D_post_bar_11
             int insertResult2 = iwantReleaseDao.upeditHbbgfo(favorId,userId,cheatType,"["+belongQf+"]","["+tixin+"]",roleName,cheatIntro,cheatInfo,pageUrl);     //C_POST_BAR_11
-            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
             String cheatTypeSuffer ="";
@@ -95,7 +95,7 @@ public class IwantReleaseService {
             int favorId = iwantReleaseDao.getSequence3();
             int insertResult = iwantReleaseDao.saveWgjyInfo(recordId,favorId, userId,tradeType,"["+belongQf+"]",viewName,priceNum,favorInfo);    //D_POST_BAR_16
             int insertResult2 = iwantReleaseDao.saveWgjyxxInfo(recordId,favorId, userId,tradeType,belongQf,viewName,priceNum,favorInfo);    //C_POST_BAR_13
-            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
             String COLLECT_CONT = "【所属区服】"+belongQf+'\n'+"【外观名】"+viewName+'\n'+"【价格】"+priceNum;
@@ -120,7 +120,7 @@ public class IwantReleaseService {
             String recordId = "";
             int insertResult = iwantReleaseDao.upeditWgjyInfo(recordId,favorId, userId,tradeType,"["+belongQf+"]",viewName,priceNum,favorInfo);    //D_POST_BAR_16
             int insertResult2 = iwantReleaseDao.upeditWgjyxxInfo(recordId,favorId, userId,tradeType,belongQf,viewName,priceNum,favorInfo);    //C_POST_BAR_13
-            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
             String COLLECT_CONT = "【所属区服】"+belongQf+'\n'+"【外观名】"+viewName+'\n'+"【价格】"+priceNum;
@@ -147,7 +147,7 @@ public class IwantReleaseService {
             int favorId = iwantReleaseDao.getSequence3();
             int insertResult = iwantReleaseDao.saveDjjyInfo(recordId,favorId, userId,tradeType, "["+belongQf+"]", propName, priceNum, favorInfo);    //D_POST_BAR_18
             int insertResult2 = iwantReleaseDao.saveDjjyxxInfo(recordId,favorId, userId,tradeType, belongQf, propName, priceNum, favorInfo);    //C_POST_BAR_15
-            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
             String COLLECT_CONT = "【所属区服】"+belongQf+'\n'+"【道具名】"+propName+'\n'+"【价格】"+priceNum;
@@ -173,7 +173,7 @@ public class IwantReleaseService {
             String recordId = "";
             int insertResult = iwantReleaseDao.upeditDjjyInfo(recordId,favorId, userId,tradeType, "["+belongQf+"]", propName, priceNum, favorInfo);    //D_POST_BAR_18
             int insertResult2 = iwantReleaseDao.upeditDjjyxxInfo(recordId,favorId, userId,tradeType, "["+belongQf+"]", propName, priceNum, favorInfo);    //C_POST_BAR_15
-            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
             String COLLECT_CONT = "【所属区服】"+belongQf+'\n'+"【道具名】"+propName+'\n'+"【价格】"+priceNum;
@@ -200,7 +200,7 @@ public class IwantReleaseService {
             int favorId = iwantReleaseDao.getSequence3();
             int insertResult = iwantReleaseDao.saveJbjyInfo(recordId,favorId, userId, tradeType, "["+belongQf+"]", goldTotal, unitPrice, ifSplit, favorInfo);     //D_POST_BAR_19
             int insertResult2 = iwantReleaseDao.saveYxjbjyInfo(recordId,favorId, userId, tradeType, belongQf, goldTotal, unitPrice, ifSplit, favorInfo);     //C_POST_BAR_19
-            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
             String COLLECT_CONT = "【所属区服】"+belongQf+'\n'+"【金币总量】"+goldTotal+'\n'+"【单价】"+unitPrice;
@@ -226,7 +226,7 @@ public class IwantReleaseService {
             //int favorId = iwantReleaseDao.getSequence3();
             int insertResult = iwantReleaseDao.updateJbjyInfo(recordId,favorId, userId, tradeType, "["+belongQf+"]", goldTotal, unitPrice, ifSplit, favorInfo);     //D_POST_BAR_19
             int insertResult2 = iwantReleaseDao.updateYxjbjyInfo(recordId,favorId, userId, tradeType, belongQf, goldTotal, unitPrice, ifSplit, favorInfo);     //C_POST_BAR_19
-            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
             String COLLECT_CONT = "【所属区服】"+belongQf+'\n'+"【金币总量】"+goldTotal+'\n'+"【单价】"+unitPrice;
@@ -254,7 +254,7 @@ public class IwantReleaseService {
             int favorId = iwantReleaseDao.getSequence3();
             int insertResult = iwantReleaseDao.saveDlddInfo(recordId,favorId, userId, needtype, "["+belongQf+"]",  favorInfo);   //D_POST_BAR_20
             int insertResult2 = iwantReleaseDao.saveYxddxxInfo(recordId,favorId, userId, needtype, "["+belongQf+"]",  favorInfo);   //C_POST_BAR_17
-            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
             String COLLECT_CONT = "【所属区服】"+belongQf+'\n'+"【代练说明】"+favorInfo;
@@ -280,7 +280,7 @@ public class IwantReleaseService {
             String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
             int insertResult = iwantReleaseDao.updateDlddInfo(recordId,favorId, userId, needtype, "["+belongQf+"]",  favorInfo);   //D_POST_BAR_20
             int insertResult2 = iwantReleaseDao.updateYxddxxInfo(recordId,favorId, userId, needtype, "["+belongQf+"]",  favorInfo);   //C_POST_BAR_17
-            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
             String COLLECT_CONT = "【所属区服】"+belongQf+'\n'+"【代练说明】"+favorInfo;
@@ -311,7 +311,7 @@ public class IwantReleaseService {
             int insertResult = iwantReleaseDao.saveZhssInfo(recordId,favorId,tradeType,userId,"["+belongQf+"]","["+tixin+"]",priceNum,accoInfo);  //D_POST_BAR_13
             Map<String,Set<String>> splitWordMap = segmentDemo.test(accoInfo);
             int insertResult2 = iwantReleaseDao.saveZhjyxxInfo(recordId,favorId,tradeType,userId,"["+belongQf+"]","["+tixin+"]",String.valueOf(priceNum),accoInfo,splitWordMap);  //C_POST_BAR_12
-            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
             String COLLECT_CONT = accoInfo;
@@ -338,7 +338,7 @@ public class IwantReleaseService {
             int insertResult = iwantReleaseDao.updateZhssInfo(recordId,favorId,tradeType,userId,"["+belongQf+"]","["+tixin+"]",priceNum,accoInfo);  //D_POST_BAR_13
             Map<String,Set<String>> splitWordMap = segmentDemo.test(accoInfo);
             int insertResult2 = iwantReleaseDao.updateZhjyxxInfo(recordId,favorId,tradeType,userId,"["+belongQf+"]","["+tixin+"]",String.valueOf(priceNum),accoInfo,splitWordMap);  //C_POST_BAR_12
-            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
             String COLLECT_CONT = accoInfo;
@@ -379,7 +379,7 @@ public class IwantReleaseService {
             //        mptx,XUANJIN_95,XIAOTIE_95,XUANJIN_90,XIAOTIE_90,XUANJIN_80,XIAOTIE_80,XUANJIN_70,XIAOTIE_70,
             //        PVP_HPS,PVE_HPS,PVP_T,PVP_IN,PVE_IN,PVP_OUT,PVE_OUT,OTHER_EXPLAIN);     //C_POST_BAR_12_1
             int insertResult2 = iwantReleaseDao.saveZhjyxxInfo(recordId,favorId,tradeType,userId,BELONG_QF,TIXIN,PRICE_NUM,null,null);  //C_POST_BAR_12
-            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*","");
+            String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
             String COLLECT_CONT = "【所属区服】"+BELONG_QF+'\n'+"【门派体型】"+TIXIN+'\n'+"【价格】"+PRICE_NUM;

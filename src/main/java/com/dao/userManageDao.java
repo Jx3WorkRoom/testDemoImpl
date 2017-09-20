@@ -37,7 +37,7 @@ public class userManageDao {
     public int addMod(String belong_web, int modId, String mod_name, int modType, int visitRole, int registRole, String serverCost, String serverNum) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        String createTime = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*", "");
+        String createTime = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*", "");
         String recordId = UUID.randomUUID().toString();
         if(!"".equals(serverCost)||!"".equals(serverNum)) {
             sql.append(" insert into  f_sys_mod_2(RECORD_ID,ISVALID,CREATETIME,UPDATETIME,MOD_ID,START_DATE,SERVER_COST,SERVER_NUM) values('"+recordId+"','1','"+createTime+"','"+createTime+"','"+modId+"','"+createTime+"','"+serverCost+"','"+serverNum+"')");
@@ -82,7 +82,7 @@ public class userManageDao {
     public int addModDetail( String modId, String costNum, String canNum) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        String createTime = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd hh:mm:ss").replace("\\s*", "");
+        String createTime = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*", "");
         String recordId = UUID.randomUUID().toString();
         sql.append(" insert into  f_sys_mod_2(RECORD_ID,ISVALID,CREATETIME,UPDATETIME,MOD_ID,START_DATE,SERVER_COST,SERVER_NUM) " +
                 " values('"+recordId+"','1','"+createTime+"','"+createTime+"','"+modId+"','"+createTime+"','"+costNum+"','"+canNum+"')");
