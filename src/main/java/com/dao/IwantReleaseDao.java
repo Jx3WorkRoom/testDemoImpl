@@ -652,7 +652,7 @@ public class IwantReleaseDao {
         List<Object> paramList = new ArrayList<Object>();
         String updatetime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = updatetime;
-        sql.append(" update D_POST_BAR_20 set updatetime='"+updatetime+"',need_type='"+needType+"',belong_qf='"+belongQf+"'" +
+        sql.append(" update D_POST_BAR_20 set updatetime='"+updatetime+"',need_type='"+needType+"',belong_qf='"+belongQf+"',favor_info='"+favorInfo+"'"+
                 " where favor_id='"+favorId+"'");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
