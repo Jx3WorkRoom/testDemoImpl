@@ -317,7 +317,12 @@ public class IwantReleaseDao {
         }else{
             PEND_NAME ="[]";
         }
-        String THEME_ID = "";String THEME_NAME = "";String POST_BAR = "";String POST_ID = "";String POST_BAR_CLASS = "0";String BAR_SOUR_TYPE = "0";
+        String THEME_ID = "";
+        String THEME_NAME = "";
+        String POST_BAR = "";
+        String POST_ID = "";
+        String POST_BAR_CLASS = "0";
+        String BAR_SOUR_TYPE = "0";
         StringBuffer sb = new StringBuffer();
         sb.append(belongQf);
         sb.append(tixin);
