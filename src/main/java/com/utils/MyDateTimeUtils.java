@@ -44,6 +44,7 @@ public class MyDateTimeUtils
 	public static String DateTimeToStr(Date date, String Formater)
 	{
 		// "yyyy-MM-dd HH:mm:ss"
+		Formater = "yyyy-MM-dd HH:mm:ss";
 		SimpleDateFormat sdt = new SimpleDateFormat(Formater);
 		String str = sdt.format(date);
 		return str;
@@ -54,8 +55,6 @@ public class MyDateTimeUtils
 	 * 
 	 * @param oldDT
 	 *            旧日期
-	 * @param IntervalMin
-	 *            变化分钟数
 	 * @return 新 Date
 	 */
 	public static Date getNewDateByMinute(Date oldDT, int changeMinute)
