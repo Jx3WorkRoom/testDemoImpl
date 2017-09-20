@@ -30,7 +30,7 @@ public class goldExchangeListDao {
                 " a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE,c.user_id userIdColl  " +
                 " FROM" +
                 " c_post_bar_19 a " +
-                " LEFT JOIN f_user_follow b on a.main_id = b.main_id,c.user_id userIdColl " +
+                " LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
                 " LEFT JOIN F_USER_COLL_INFO c ON  a.MAIN_ID=c.MAIN_ID " +
                 " WHERE" +
                 " a.TRADE_TYPE = "+tradeType);

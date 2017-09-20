@@ -190,10 +190,10 @@ public class accountListDao {
         return this.commondao.query(sql.toString(), paramList);
     }
 
-    public List<Map<String,Object>> queryaccountDetailSource2(int userId) throws Exception {
+    public List<Map<String,Object>> queryaccountDetailSource2(String userName) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append("select user_qq from f_user_info where USER_ID = "+userId);
+        sql.append("select user_qq from f_user_info where LOGIN_NAME = '"+userName+"'");
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }

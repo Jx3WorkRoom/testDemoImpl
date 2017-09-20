@@ -94,8 +94,10 @@ public class levelingListService {
                 for (Map.Entry<String, Object> entry : map.entrySet()) {
                     if(entry.getValue()!=""&&entry.getValue()!="[]") {
                         COLLECT_CONT.append(entry.getValue());
+                        COLLECT_CONT.append("，");
                     }
                 }
+                COLLECT_CONT.delete(COLLECT_CONT.length()-1,COLLECT_CONT.length());
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

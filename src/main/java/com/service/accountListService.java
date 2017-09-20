@@ -169,7 +169,7 @@ public class accountListService {
                 if (sourceType == 1) {
                     resArr = accountListDao.queryaccountDetailSource(mainId, startNum, endNum);
                 } else {
-                    resArr = accountListDao.queryaccountDetailSource2(userId);
+                    resArr = accountListDao.queryaccountDetailSource2(userName);
                 }
             }else{
                 return "noAuth";
