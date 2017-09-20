@@ -124,7 +124,7 @@ public class IwantReleaseAction {
                 String cheatInfo = request.getParameter("cheatInfo");
                 String pageUrl = request.getParameter("pageUrl");
                 if (operate.equals("save")) {
-                    returnVal = iwantReleaseService.saveWyjbInfo(recordId, userId, tradeType, belongQf, tixin, roleName, cheatIntro, cheatInfo, pageUrl, imgList);
+                    returnVal = iwantReleaseService.saveWyjbInfo(recordId, userId, tradeType, belongQf, tixin, roleName, cheatIntro, cheatInfo, pageUrl, imgList,true);
                 } else {
                     String imgTotal = request.getParameter("imgTotal");
                     int favorId = request.getParameter("favorId") == null ? -1 : Integer.parseInt(request.getParameter("favorId"));
@@ -137,6 +137,35 @@ public class IwantReleaseAction {
             }
         }
         return null;
+    }
+    @ApiOperation(value="我要举报无图片保存", notes="保存",produces = "application/json")
+    @RequestMapping(value="saveWyjbInfoNotImg",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> getAccountListAction(
+            @RequestParam(value="operate",required=false,defaultValue = "") String operate,
+            @RequestParam(value="favorId",required=false,defaultValue = "") int favorId,
+            @RequestParam(value="userId",required=false,defaultValue = "") String userId,
+            @RequestParam(value="cheatType",required=false,defaultValue = "") int tradeType,
+            @RequestParam(value="belongQf",required=false,defaultValue ="") String belongQf,
+            @RequestParam(value="tixin",required=false,defaultValue ="") String tixin,
+            @RequestParam(value="roleName",required=false,defaultValue ="") String roleName,
+            @RequestParam(value="cheatIntro",required=false,defaultValue="") String cheatIntro,
+            @RequestParam(value="cheatInfo",required=false,defaultValue ="") String cheatInfo,
+            @RequestParam(value="pageUrl",required=false,defaultValue ="") String pageUrl
+    )   {
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        String returnVal = "";
+        String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
+        if(operate.equals("save")){
+            returnVal = iwantReleaseService.saveWyjbInfo(recordId, userId, tradeType, belongQf, tixin, roleName, cheatIntro, cheatInfo, pageUrl, imgList, false);
+        }else {
+            returnVal = iwantReleaseService.upeditWyjbInfo(favorId, userId, tradeType, belongQf, tixin, roleName, cheatIntro, cheatInfo, pageUrl, imgList, "0");
+        }
+        long post=System.currentTimeMillis();
+        System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+
     }
 
     @ApiOperation(value="外观交易", notes="保存",produces = "application/json")
@@ -286,7 +315,7 @@ public class IwantReleaseAction {
                 String favorInfo = request.getParameter("favorInfo");
                 String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
                 if (operate.equals("save")) {
-                    returnVal = iwantReleaseService.saveDlddInfo(userId, needtype, belongQf, favorInfo, imgList2);
+                    returnVal = iwantReleaseService.saveDlddInfo(userId, needtype, belongQf, favorInfo, imgList2,true);
                 } else {
                     String imgTotal = request.getParameter("imgTotal");
                     int favorId = request.getParameter("favorId") == null ? -1 : Integer.parseInt(request.getParameter("favorId"));
@@ -299,6 +328,31 @@ public class IwantReleaseAction {
             }
         }
         return null;
+    }
+    @ApiOperation(value="代练代打无图片", notes="保存",produces = "application/json")
+    @RequestMapping(value="saveDlddInfoNotImg",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> saveDlddInfoNotImgAction(
+            @RequestParam(value="operate",required=false,defaultValue = "") String operate,
+            @RequestParam(value="favorId",required=false,defaultValue = "") int favorId,
+            @RequestParam(value="userId",required=false,defaultValue = "") String userId,
+            @RequestParam(value="needtype",required=false,defaultValue = "") int needtype,
+            @RequestParam(value="belongQf",required=false,defaultValue ="") String belongQf,
+            @RequestParam(value="favorInfo",required=false,defaultValue="") String favorInfo
+    ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        String returnVal = "";
+        if(operate.equals("save")){
+            returnVal = iwantReleaseService.saveDlddInfo(userId, needtype, belongQf, favorInfo, imgList2,false);
+        }else {
+            returnVal = iwantReleaseService.updateDlddInfo(favorId, userId, needtype, belongQf, favorInfo, imgList2, "0");
+        }
+
+        long post=System.currentTimeMillis();
+        System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+
     }
 
     @ApiOperation(value="账号快售快速发布", notes="保存",produces = "application/json")
@@ -367,7 +421,7 @@ public class IwantReleaseAction {
                 String accoInfo = request.getParameter("accoInfo");
 
                 if (operate.equals("save")) {
-                    returnVal = iwantReleaseService.saveZhssInfo(userId, tradeType, belongQf, tixin, priceNum, accoInfo, imgList3);
+                    returnVal = iwantReleaseService.saveZhssInfo(userId, tradeType, belongQf, tixin, priceNum, accoInfo, imgList3, true);
                 } else {
                     String imgTotal = request.getParameter("imgTotal");
                     int favorId = request.getParameter("favorId") == null ? -1 : Integer.parseInt(request.getParameter("favorId"));
@@ -380,6 +434,31 @@ public class IwantReleaseAction {
             }
         }
         return null;
+    }
+    @ApiOperation(value="账号快售快速发布", notes="保存",produces = "application/json")
+    @RequestMapping(value="saveZhssInfoNotImg",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> saveZhssInfoNotImgAction(
+            @RequestParam(value="operate",required=false,defaultValue = "") String operate,
+            @RequestParam(value="favorId",required=false,defaultValue = "") int favorId,
+            @RequestParam(value="userId",required=false,defaultValue = "") String userId,
+            @RequestParam(value="tradeType",required=false,defaultValue = "") int tradeType,
+            @RequestParam(value="belongQf",required=false,defaultValue ="") String belongQf,
+            @RequestParam(value="tixin",required=false,defaultValue ="") String tixin,
+            @RequestParam(value="priceNum",required=false,defaultValue ="") int priceNum,
+            @RequestParam(value="accoInfo",required=false,defaultValue ="") String accoInfo
+    ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        String returnVal = "";
+        if(operate.equals("save")){
+            returnVal = iwantReleaseService.saveZhssInfo(userId, tradeType, belongQf, tixin, priceNum, accoInfo, imgList3, false);
+        }else {
+            returnVal = iwantReleaseService.updateZhssInfo(favorId, userId, tradeType, belongQf, tixin, priceNum, accoInfo, imgList3, "0");
+        }
+        long post=System.currentTimeMillis();
+        System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
     }
 
     @ApiOperation(value="账号收售详细发布", notes="保存",produces = "application/json")

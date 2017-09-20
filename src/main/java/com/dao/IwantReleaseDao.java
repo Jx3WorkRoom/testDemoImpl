@@ -73,9 +73,9 @@ public class IwantReleaseDao {
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("s*","");
         String favorDate = createTime;
         String REPLY_TIME = createTime;
-        String BELONG_FLOOR = "1";
-        String PAGE_NUM = "1";
-        String PAGE_URL = "";
+        String BELONG_FLOOR = null;
+        String PAGE_NUM = null;
+        String PAGE_URL = null;
         String URL_VALID = "1";
         String SOURCE_TYPE = "2";
         String MENPAI_NAME = "[";
@@ -198,7 +198,7 @@ public class IwantReleaseDao {
                 "`REPLY_TIME`, `REPLY_CONTENT`, `BELONG_FLOOR`, `PAGE_NUM`, `PAGE_URL`, `URL_VALID`, `MAIN_ID`, `USER_ID`, `SOURCE_TYPE`, `MENPAI_NAME`, `XINFA_NAME`, `TITLE_NAME`, " +
                 "`WAIGUAN_NAME`, `HORSE_NAME`, `ARM_NAME`, `STRA_NAME`, `PEND_NAME`, `THEME_ID`, `THEME_NAME`, `POST_BAR`, `POST_ID`, `POST_BAR_CLASS`, `BAR_SOUR_TYPE`) " +
                 "VALUES ('"+recordId+"','"+createTime+"','"+createTime+"','1', '"+favorId+"', '"+tradeType+"', '"+belongQf+"', '"+tixin+"', '"+priceNum+"', " +
-                "'"+REPLY_TIME+"', '"+replyContent+"', '"+BELONG_FLOOR+"', '"+PAGE_NUM+"', '"+PAGE_URL+"', '"+URL_VALID+"', '"+MAIN_ID+"', '"+userId+"', '"+SOURCE_TYPE+"', '"+MENPAI_NAME+"', '"+XINFA_NAME+"', '"+TITLE_NAME+"'," +
+                "'"+REPLY_TIME+"', '"+replyContent+"', "+BELONG_FLOOR+", "+PAGE_NUM+", "+PAGE_URL+", '"+URL_VALID+"', '"+MAIN_ID+"', '"+userId+"', '"+SOURCE_TYPE+"', '"+MENPAI_NAME+"', '"+XINFA_NAME+"', '"+TITLE_NAME+"'," +
                 "'"+WAIGUAN_NAME+"', '"+HORSE_NAME+"', '"+ARM_NAME+"', '"+STRA_NAME+"', '"+PEND_NAME+"', '"+THEME_ID+"', '"+THEME_NAME+"', '"+POST_BAR+"', '"+POST_ID+"', '"+POST_BAR_CLASS+"', '"+BAR_SOUR_TYPE+"')");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
@@ -209,9 +209,9 @@ public class IwantReleaseDao {
         String updatetime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("s*","");
         String favorDate = updatetime;
         String REPLY_TIME = updatetime;
-        String BELONG_FLOOR = "1";
-        String PAGE_NUM = "1";
-        String PAGE_URL = "";
+        String BELONG_FLOOR = null;
+        String PAGE_NUM = null;
+        String PAGE_URL = null;
         String URL_VALID = "1";
         String SOURCE_TYPE = "2";
         String MENPAI_NAME = "[";
@@ -373,7 +373,7 @@ public class IwantReleaseDao {
         List<Object> paramList = new ArrayList<Object>();
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
-        String THEME_ID = ""; String PAGE_URL = ""; String POST_BAR = ""; String POST_ID = ""; String REPLY_TIME = ""; String POST_BAR_CLASS = "1"; String SOURCE_TYPE = "2"; String WAIGUAN_NAME = ""; String BELONG_FLOOR = "1";
+        String THEME_ID = ""; String PAGE_URL = null; String POST_BAR = ""; String POST_ID = ""; String REPLY_TIME = ""; String POST_BAR_CLASS = "1"; String SOURCE_TYPE = "2"; String WAIGUAN_NAME = ""; String BELONG_FLOOR = "1";
         String PAGE_NUM = "1";String THEME_NAME = "";String URL_VALID = "1";
         StringBuffer sb = new StringBuffer();
         sb.append(belongQf);sb.append(",");
@@ -386,7 +386,7 @@ public class IwantReleaseDao {
         sql.append(" INSERT INTO `grab`.`c_post_bar_13` (`RECORD_ID`, `CREATETIME`, `UPDATETIME`, `ISVALID`,FAVOR_ID, `THEME_ID`, `PAGE_URL`, `POST_BAR`, `POST_ID`, " +
                 "`POST_BAR_CLASS`, `POST_CONTENT`, `REPLY_TIME`, `SOURCE_TYPE`, `TRADE_TYPE`, `USER_ID`, `BELONG_QF`, `WAIGUAN_NAME`, `VIEW_NAME`, `PRICE_NUM`, `BELONG_FLOOR`, " +
                 "`PAGE_NUM`, `THEME_NAME`, `URL_VALID`, `MAIN_ID`) " +
-                "VALUES ('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"', '"+THEME_ID+"', '"+PAGE_URL+"', '"+POST_BAR+"', '"+POST_ID+"', " +
+                "VALUES ('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"', '"+THEME_ID+"', "+PAGE_URL+", '"+POST_BAR+"', '"+POST_ID+"', " +
                 "null, '"+sb.toString()+"', '"+favorDate+"', '"+SOURCE_TYPE+"', '"+tradeType+"', '"+userId+"', '["+belongQf+"]', '"+WAIGUAN_NAME+"', '"+viewName+"', '"+priceNum+"', null, " +
                 "null, '"+THEME_NAME+"', '"+URL_VALID+"', '"+MAIN_ID+"')");
         System.out.println(sql);
@@ -398,7 +398,7 @@ public class IwantReleaseDao {
         List<Object> paramList = new ArrayList<Object>();
         String updatetime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = updatetime;
-        String THEME_ID = ""; String PAGE_URL = ""; String POST_BAR = ""; String POST_ID = ""; String REPLY_TIME = ""; String POST_BAR_CLASS = "1"; String SOURCE_TYPE = "2"; String WAIGUAN_NAME = ""; String BELONG_FLOOR = "1";
+        String THEME_ID = ""; String PAGE_URL = null; String POST_BAR = ""; String POST_ID = ""; String REPLY_TIME = ""; String POST_BAR_CLASS = "1"; String SOURCE_TYPE = "2"; String WAIGUAN_NAME = ""; String BELONG_FLOOR = "1";
         String PAGE_NUM = "1";String THEME_NAME = "";String URL_VALID = "1";
         StringBuffer sb = new StringBuffer();
         sb.append(belongQf);sb.append(",");
@@ -420,7 +420,7 @@ public class IwantReleaseDao {
         List<Object> paramList = new ArrayList<Object>();
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
-        String THEME_ID = ""; String PAGE_URL = "";String POST_BAR = "";String POST_ID = "";String POST_BAR_CLASS = "1";String OTHER_EXPLAIN = "";String THEME_NAME = "";String BELONG_FLOOR = "1";String PAGE_NUM = "1";
+        String THEME_ID = ""; String PAGE_URL = null;String POST_BAR = "";String POST_ID = "";String POST_BAR_CLASS = "1";String OTHER_EXPLAIN = "";String THEME_NAME = "";String BELONG_FLOOR = null;String PAGE_NUM = null;
         String SOURCE_TYPE = "2";String URL_VALID = "1";
         StringBuffer sb = new StringBuffer();
         sb.append(belongQf);sb.append(",");
@@ -433,7 +433,7 @@ public class IwantReleaseDao {
         sql.append(" INSERT INTO `grab`.`c_post_bar_15` (`RECORD_ID`, `CREATETIME`, `UPDATETIME`, `ISVALID`, FAVOR_ID, `THEME_ID`, `PAGE_URL`, `POST_BAR`, `POST_ID`, " +
                 "`POST_BAR_CLASS`, `POST_CONTENT`, `REPLY_TIME`, `BELONG_QF`, `PROP_NAME`, `PRICE_NUM`, `OTHER_EXPLAIN`, `THEME_NAME`, `BELONG_FLOOR`, `PAGE_NUM`, `USER_ID`, " +
                 "`TRADE_TYPE`, `SOURCE_TYPE`, `URL_VALID`, `MAIN_ID`) " +
-                "VALUES ('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"', '"+THEME_ID+"', '"+PAGE_URL+"', '"+POST_BAR+"', '"+POST_ID+"', " +
+                "VALUES ('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"', '"+THEME_ID+"', "+PAGE_URL+", '"+POST_BAR+"', '"+POST_ID+"', " +
                 "null, '"+sb.toString()+"', '"+favorDate+"', '["+belongQf+"]', '"+propName+"', '"+priceNum+"', '"+OTHER_EXPLAIN+"', '"+THEME_NAME+"', null, null, '"+userId+"', " +
                 "'"+tradeType+"', '"+SOURCE_TYPE+"', '"+URL_VALID+"', '"+MAIN_ID+"')");
         System.out.println(sql);
@@ -444,7 +444,7 @@ public class IwantReleaseDao {
         List<Object> paramList = new ArrayList<Object>();
         String updatetime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = updatetime;
-        String THEME_ID = ""; String PAGE_URL = "";String POST_BAR = "";String POST_ID = "";String POST_BAR_CLASS = "1";String OTHER_EXPLAIN = "";String THEME_NAME = "";String BELONG_FLOOR = "1";String PAGE_NUM = "1";
+        String THEME_ID = ""; String PAGE_URL = null;String POST_BAR = "";String POST_ID = "";String POST_BAR_CLASS = "1";String OTHER_EXPLAIN = "";String THEME_NAME = "";String BELONG_FLOOR = null;String PAGE_NUM = null;
         String SOURCE_TYPE = "2";String URL_VALID = "1";
         StringBuffer sb = new StringBuffer();
         sb.append(favorInfo);
@@ -468,10 +468,10 @@ public class IwantReleaseDao {
         }
         StringBuffer sb = new StringBuffer();
         sb.append(belongQf);sb.append(",");
-        sb.append(goldTotal);sb.append("砖,");sb.append(goldTotal);sb.append("G/R,");
-        sb.append(unitPrice);sb.append(",");
+        sb.append(goldTotal);sb.append("砖,");sb.append(",");
+        sb.append(unitPrice);sb.append("G/R");sb.append(",");
         sb.append(ifSplitStr);sb.append(",");
-        sb.append(favorDate);sb.append(",");
+        sb.append(favorDate.substring(0,10));sb.append(",");
         sb.append(favorInfo);
         String MAIN_ID = MD5Util.getMd5(sb.toString());
         //sql.append(" insert into C_POST_BAR_19(record_id,createtime,updatetime,isvalid,favor_id,user_id,favor_date,trade_type,belong_qf,gold_total,unit_price,if_split,favor_info) " +
@@ -502,8 +502,8 @@ public class IwantReleaseDao {
         sb.append(favorDate);sb.append(",");
         sb.append(favorInfo);
         String MAIN_ID = MD5Util.getMd5(sb.toString());
-        sql.append(" update c_post_bar_19 set updatetime='"+updatetime+"',TRADE_TYPE='"+tradeType+"',belong_qf='"+belongQf+"',GOLD_TOTAL='"+goldTotal+"',UNIT_PRICE='"+unitPrice+"',IF_SPLIT='"+ifSplit+"',FAVOR_INFO='"+favorInfo+"' " +
-                "where favor_id='"+favorId+"'");
+        sql.append(" update c_post_bar_19 set updatetime='"+updatetime+"',TRADE_TYPE='"+tradeType+"',belong_qf='"+belongQf+"',GOLD_TOTAL='"+goldTotal+"',UNIT_PRICE='"+unitPrice+"',IF_SPLIT='"+ifSplit+"'"+//"',FAVOR_INFO='"+favorInfo+"' " +
+                " where favor_id='"+favorId+"'");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
@@ -514,7 +514,7 @@ public class IwantReleaseDao {
         List<Object> paramList = new ArrayList<Object>();
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
-        String THEME_ID = "";String PAGE_URL = "";String POST_BAR = "";String POST_ID = "";int POST_BAR_CLASS = 0;String BELONG_FLOOR = "1";String PAGE_NUM = "1";String THEME_NAME = "";
+        String THEME_ID = "";String PAGE_URL = null;String POST_BAR = "";String POST_ID = "";int POST_BAR_CLASS = 0;String BELONG_FLOOR = null;String PAGE_NUM = null;String THEME_NAME = "";
         StringBuffer sb = new StringBuffer();
         sb.append(belongQf);
         sb.append(favorInfo);
@@ -525,7 +525,7 @@ public class IwantReleaseDao {
         sql.append(" INSERT INTO `grab`.`c_post_bar_17` (`RECORD_ID`, `CREATETIME`, `UPDATETIME`, `ISVALID`, `FAVOR_ID`, `USER_ID`, `NEED_TYPE`, `SOURCE_TYPE`, `POST_CONTENT`, " +
                 "`REPLY_TIME`, `BELONG_QF`, `THEME_ID`, `PAGE_URL`, `POST_BAR`, `POST_ID`, `POST_BAR_CLASS`, `BELONG_FLOOR`, `PAGE_NUM`, `THEME_NAME`, `MAIN_ID`) " +
                 "VALUES ('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"', '"+needType+"', '"+2+"', '"+favorInfo+"', " +
-                "'"+favorDate+"', '"+belongQf+"', '"+THEME_ID+"', '"+PAGE_URL+"', '"+POST_BAR+"', '"+POST_ID+"', null, null, null, '"+THEME_NAME+"', '"+MAIN_ID+"')");
+                "'"+favorDate+"', '"+belongQf+"', '"+THEME_ID+"', "+PAGE_URL+", '"+POST_BAR+"', '"+POST_ID+"', null, null, null, '"+THEME_NAME+"', '"+MAIN_ID+"')");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
@@ -534,7 +534,7 @@ public class IwantReleaseDao {
         List<Object> paramList = new ArrayList<Object>();
         String updatetime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = updatetime;
-        String THEME_ID = "";String PAGE_URL = "";String POST_BAR = "";String POST_ID = "";int POST_BAR_CLASS = 0;String BELONG_FLOOR = "1";String PAGE_NUM = "1";String THEME_NAME = "";
+        String THEME_ID = "";String PAGE_URL = null;String POST_BAR = "";String POST_ID = "";int POST_BAR_CLASS = 0;String BELONG_FLOOR = null;String PAGE_NUM = null;String THEME_NAME = "";
         StringBuffer sb = new StringBuffer();
         sb.append(belongQf);
         sb.append(favorInfo);

@@ -19,7 +19,7 @@ public class IwantReleaseService {
     SegmentDemo segmentDemo;
 
     //我要举报
-    public String saveWyjbInfo(String recordId,String userId, int cheatType, String belongQf, String tixin, String roleName, String cheatIntro, String cheatInfo, String pageUrl,List<String> imgList) {
+    public String saveWyjbInfo(String recordId,String userId, int cheatType, String belongQf, String tixin, String roleName, String cheatIntro, String cheatInfo, String pageUrl,List<String> imgList,boolean uploadImg) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
             int favorId = iwantReleaseDao.getSequence3();
@@ -40,11 +40,19 @@ public class IwantReleaseService {
             int favorType =7;
             int COLLECT_STUSTA =1;
             int insertResult3 = iwantReleaseDao.savePub(recordId,createTime,updateTime,ISVALID,favorId,userId,favorDate,favorType,COLLECT_CONT,COLLECT_STUSTA);
-            int insertResult4 = iwantReleaseDao.saveImageInfo(recordId, favorId, userId, 1, imgList, "0");     //d_post_bar_21
-            if(insertResult==1 && insertResult2==1&&insertResult3==1&&insertResult4==1) {
-                return "保存成功!";
+            if(uploadImg==true){    //有图片上传
+                int insertResult4 = iwantReleaseDao.saveImageInfo(recordId, favorId, userId, 1, imgList, "0");     //d_post_bar_21
+                if(insertResult==1 && insertResult2==1&&insertResult3==1&&insertResult4==1) {
+                    return "保存成功!";
+                }else{
+                    return "保存失败!";
+                }
             }else{
-                return "保存失败!";
+                if(insertResult==1 && insertResult2==1&&insertResult3==1) {
+                    return "保存成功!";
+                }else{
+                    return "保存失败!";
+                }
             }
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -247,7 +255,7 @@ public class IwantReleaseService {
     }
 
     //代练代打
-    public String saveDlddInfo(String userId, int needtype, String belongQf, String favorInfo, List<String> imgList){
+    public String saveDlddInfo(String userId, int needtype, String belongQf, String favorInfo, List<String> imgList, boolean uploadImg){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
             String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
@@ -262,11 +270,19 @@ public class IwantReleaseService {
             int favorType =6;
             int COLLECT_STUSTA =1;
             int insertResult3 = iwantReleaseDao.savePub(recordId,createTime,updateTime,ISVALID,favorId,userId,favorDate,favorType,COLLECT_CONT,COLLECT_STUSTA);
-            int insertResult4 = iwantReleaseDao.saveImageInfo(recordId, favorId, userId, 1, imgList ,"0");     //d_post_bar_21
-            if(insertResult==1 && insertResult2==1&&insertResult3==1&&insertResult4==1) {
-                return "保存成功!";
+            if(uploadImg==true) {    //有图片上传
+                int insertResult4 = iwantReleaseDao.saveImageInfo(recordId, favorId, userId, 1, imgList, "0");     //d_post_bar_21
+                if (insertResult == 1 && insertResult2 == 1 && insertResult3 == 1 && insertResult4 == 1) {
+                    return "保存成功!";
+                } else {
+                    return "保存失败!";
+                }
             }else{
-                return "保存失败!";
+                if (insertResult == 1 && insertResult2 == 1 && insertResult3 == 1) {
+                    return "保存成功!";
+                } else {
+                    return "保存失败!";
+                }
             }
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -303,7 +319,7 @@ public class IwantReleaseService {
     }
 
     //账号快售快速发布
-    public String saveZhssInfo(String userId,int tradeType, String belongQf,String tixin,int priceNum,String accoInfo,List<String> imgList){
+    public String saveZhssInfo(String userId,int tradeType, String belongQf,String tixin,int priceNum,String accoInfo,List<String> imgList, boolean uploadImg){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
             String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
@@ -319,11 +335,19 @@ public class IwantReleaseService {
             int favorType =1;
             int COLLECT_STUSTA =1;
             int insertResult3 = iwantReleaseDao.savePub(recordId,createTime,updateTime,ISVALID,favorId,userId,favorDate,favorType,COLLECT_CONT,COLLECT_STUSTA);
-            int insertResult4 = iwantReleaseDao.saveImageInfo(recordId, favorId, userId, 1, imgList ,"0");     //d_post_bar_21
-            if(insertResult==1 && insertResult2==1&&insertResult3==1&&insertResult4==1) {
-                return "保存成功!";
+            if(uploadImg==true) {    //有图片上传
+                int insertResult4 = iwantReleaseDao.saveImageInfo(recordId, favorId, userId, 1, imgList, "0");     //d_post_bar_21
+                if (insertResult == 1 && insertResult2 == 1 && insertResult3 == 1 && insertResult4 == 1) {
+                    return "保存成功!";
+                } else {
+                    return "保存失败!";
+                }
             }else{
-                return "保存失败!";
+                if (insertResult == 1 && insertResult2 == 1 && insertResult3 == 1) {
+                    return "保存成功!";
+                } else {
+                    return "保存失败!";
+                }
             }
         } catch (Exception e) {
             // TODO Auto-generated catch block
