@@ -57,7 +57,8 @@ public class blackListDao {
                     " g_pub_par_1 b" +
                     " WHERE" +
                     " a.CHEAT_INFO IS NOT NULL" +
-                    " AND a.CHEAT_INFO like '%"+shape+"%'" +
+                    " AND (a.CHEAT_INFO like '%"+shape+"%'" +
+                    " ||a.CHEAT_INTRO like '%"+shape+"%')" +
                     " AND b.PAR_SERIES = 1016" +
                     " AND b.PAR_NUM = a.CHEAT_TYPE" +
                     " GROUP BY" +
