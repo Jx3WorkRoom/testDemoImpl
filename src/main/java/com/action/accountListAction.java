@@ -72,11 +72,12 @@ public class accountListAction {
     @Produces("application/json")
     public Map<String,Object> getAccountDetailAction(
             @RequestParam(value="favorId",required=true) int favorId,
+            @RequestParam(value="sourceType",required=true) int sourceType,
             @RequestParam(value="userName",required=false,defaultValue = "") String userName
     ) throws Exception {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        Object accountDetail = accountListService.queryAccountDetailInfo(favorId);
+        Object accountDetail = accountListService.queryAccountDetailInfo(favorId,sourceType);
         accountListService.addUserFollow(favorId,userName);
         resmap.put("datas", accountDetail);
         resmap.put("success", true);

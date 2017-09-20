@@ -106,10 +106,14 @@ public class accountListService {
         return resArr;
     }
 
-    public Object queryAccountDetailInfo(int favorId) {
+    public Object queryAccountDetailInfo(int favorId,int sourceType) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            resArr = accountListDao.queryAccountDetailInfo(favorId);
+            if(sourceType==1){
+                resArr = accountListDao.queryAccountDetailInfo(favorId);
+            }else{
+                resArr = accountListDao.queryAccountDetailInfo2(favorId);
+            }
 
         } catch (Exception e) {
             // TODO Auto-generated catch block

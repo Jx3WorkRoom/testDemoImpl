@@ -380,4 +380,19 @@ public class accountListDao {
         listSql = sql.toString();
         return this.commondao.query(sql.toString(), paramList);
     }
+
+    public List<Map<String,Object>> queryAccountDetailInfo2(int favorId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" SELECT" +
+                " a.*, b.*, c.*" +
+                " FROM" +
+                " c_post_bar_12 a" +
+                " LEFT JOIN d_post_bar_21  b ON a.favor_id = b.favor_id " +
+                " LEFT JOIN f_user_follow c ON a.main_id = c.main_id" +
+                " WHERE" +
+                " a.FAVOR_ID =" +favorId);
+        System.out.println(sql);
+        return this.commondao.query(sql.toString(), paramList);
+    }
 }
