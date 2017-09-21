@@ -844,7 +844,7 @@ public class IwantReleaseDao {
         for(int i=0;i<imgList.size();i++) {
             int j=i+1+Integer.parseInt(imgTotal);
             sql.delete(0,sql.length());
-            String time =new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");;
+            String time =new MyDateTimeUtils().DateToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");;
             String upaloadUrl = "/JX3JZ/"+time+"/"+imgList.get(i);
             int pixindex = imgList.get(i).lastIndexOf(".");
 

@@ -41,17 +41,6 @@ public class IwantReleaseAction {
     @RequestMapping(value="saveWyjbInfo",method = RequestMethod.POST)
     @Produces("application/json")
     public Map<String,Object> getAccountListAction(
-//            @RequestParam(value="operate",required=false,defaultValue = "") String operate,
-//            @RequestParam(value="favorId",required=false,defaultValue = "") int favorId,
-//            @RequestParam(value="userId",required=false,defaultValue = "") String userId,
-//            @RequestParam(value="cheatType",required=false,defaultValue = "") int tradeType,
-//            @RequestParam(value="belongQf",required=false,defaultValue ="") String belongQf,
-//            @RequestParam(value="tixin",required=false,defaultValue ="") String tixin,
-//            @RequestParam(value="roleName",required=false,defaultValue ="") String roleName,
-//            @RequestParam(value="cheatIntro",required=false,defaultValue="") String cheatIntro,
-//            @RequestParam(value="cheatInfo",required=false,defaultValue ="") String cheatInfo,
-//            @RequestParam(value="pageUrl",required=false,defaultValue ="") String pageUrl
-
             HttpServletRequest request,HttpServletResponse response
     )   {
         Map<String,Object> resmap=new HashMap<String,Object>();
@@ -72,10 +61,10 @@ public class IwantReleaseAction {
             MultipartHttpServletRequest Murequest = (MultipartHttpServletRequest)request;
 
             Map<String, MultipartFile> files = Murequest.getFileMap();//得到文件map对象
-            String time =new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");;
-            String upaloadUrl = "D:\\JX3JZ\\"+time+"/";
+            String date =new MyDateTimeUtils().DateToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");;
+            String upaloadUrl = "D:\\JX3JZ\\"+date+"/";
 //            upaloadUrl = "C:\\JX3JZ\\"+time+"/";
-            String pathUrl = "/JX3JZ/"+time+"/";
+            String pathUrl = "/JX3JZ/"+date+"/";
             File dir = new File(upaloadUrl);
 //            System.out.println(upaloadUrl);
             if(!dir.exists())//目录不存在则创建
@@ -269,10 +258,9 @@ public class IwantReleaseAction {
             MultipartHttpServletRequest Murequest = (MultipartHttpServletRequest)request;
             String saveFileName = "";
             Map<String, MultipartFile> files = Murequest.getFileMap();//得到文件map对象
-            String time =new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");;
-            String upaloadUrl = "D:\\JX3JZ\\"+time+"/";
-            upaloadUrl = "D:\\JX3JZ\\"+time+"/";
-            String pathUrl = "/JX3JZ/"+time+"/";
+            String date =new MyDateTimeUtils().DateToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");;
+            String upaloadUrl = "D:\\JX3JZ\\"+date+"/";
+            String pathUrl = "/JX3JZ/"+date+"/";
             File dir = new File(upaloadUrl);
 //            System.out.println(upaloadUrl);
             if(!dir.exists())//目录不存在则创建
@@ -376,10 +364,9 @@ public class IwantReleaseAction {
             MultipartHttpServletRequest Murequest = (MultipartHttpServletRequest)request;
             String saveFileName = "";
             Map<String, MultipartFile> files = Murequest.getFileMap();//得到文件map对象
-            String time =new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");;
-            String upaloadUrl = "D:\\JX3JZ\\"+time+"/";
-            upaloadUrl = "D:\\JX3JZ\\"+time+"/";
-            String pathUrl = "/JX3JZ/"+time+"/";
+            String date =new MyDateTimeUtils().DateToStr(new Date(), "yyyy-MM-dd").replace("\\s*","");;
+            String upaloadUrl = "D:\\JX3JZ\\"+date+"/";
+            String pathUrl = "/JX3JZ/"+date+"/";
             File dir = new File(upaloadUrl);
 //            System.out.println(upaloadUrl);
             if(!dir.exists())//目录不存在则创建

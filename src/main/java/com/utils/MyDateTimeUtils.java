@@ -37,6 +37,19 @@ public class MyDateTimeUtils
 
 	/**
 	 * 日期转换成字符串
+	 *
+	 * @param date
+	 * @return str
+	 */
+	public static String DateToStr(Date date, String Formater)
+	{
+		SimpleDateFormat sdt = new SimpleDateFormat(Formater);
+		String str = sdt.format(date);
+		return str;
+	}
+
+	/**
+	 * 日期转换成字符串
 	 * 
 	 * @param date
 	 * @return str
