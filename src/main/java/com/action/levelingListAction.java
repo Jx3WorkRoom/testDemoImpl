@@ -143,4 +143,22 @@ public class levelingListAction {
         return resmap;
     }
 
+    @ApiOperation(value="获取代练代打详情页面", notes="默认返回数据",produces = "application/json")
+    @RequestMapping(value="levelingDetail",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> levelingDetail(
+            @RequestParam(value="favorId",required=true) String favorId,
+            @RequestParam(value="userId",required=true) String userId,
+            @RequestParam(value="sourceType",required=true) int sourceType
+    ) throws Exception {
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object accountDetail = levelingListService.queryLevelingDetailInfo(favorId,userId,sourceType);
+        resmap.put("datas", accountDetail);
+        resmap.put("success", true);
+        long post=System.currentTimeMillis();
+        System.out.println("查询账号交易详情页面接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
 }

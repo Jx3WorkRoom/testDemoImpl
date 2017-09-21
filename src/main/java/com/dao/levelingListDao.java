@@ -224,4 +224,37 @@ public class levelingListDao {
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }
+
+    public List<Map<String,Object>> queryLevelingDetailInfo(String favorId,String userId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" SELECT" +
+                " a.*, b.*, c.*,d.user_qq" +
+                " FROM" +
+                " c_post_bar_17 a" +
+                " LEFT JOIN A_POST_BAR_JX3_3 b ON a.THEME_ID = b.THEME_ID and  a.BELONG_FLOOR = b.BELONG_FLOOR " +
+                " LEFT JOIN f_user_follow c ON a.main_id = c.main_id" +
+                " LEFT JOIN f_user_info d ON a.user_id = d.user_id and a.user_id ='"+userId+"'" +
+                " WHERE" +
+                " a.FAVOR_ID =" +favorId);
+        System.out.println(sql);
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
+    public List<Map<String,Object>> queryLevelingDetailInfo2(String favorId,String userId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" SELECT" +
+                " a.*, b.*, c.*,d.user_qq" +
+                " FROM" +
+                " c_post_bar_17 a" +
+                " LEFT JOIN d_post_bar_21  b ON a.favor_id = b.favor_id " +
+                " LEFT JOIN f_user_follow c ON a.main_id = c.main_id" +
+                " LEFT JOIN f_user_info d ON a.user_id = d.user_id and a.user_id ='"+userId+"'" +
+                " WHERE" +
+                " a.FAVOR_ID =" +favorId);
+        System.out.println(sql);
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
 }

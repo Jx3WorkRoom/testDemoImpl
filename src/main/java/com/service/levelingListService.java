@@ -161,4 +161,20 @@ public class levelingListService {
             return  "提交成功";
         }
     }
+
+    public Object queryLevelingDetailInfo(String favorId, String userId, int sourceType) {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            if(sourceType==1){
+                resArr = levelingListDao.queryLevelingDetailInfo(favorId,userId);
+            }else{
+                resArr = levelingListDao.queryLevelingDetailInfo2(favorId,userId);
+            }
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
 }
