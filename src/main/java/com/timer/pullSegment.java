@@ -1,17 +1,13 @@
 package com.timer;
 
 import com.action.CheckUrlValidAction;
-import com.utils.SegmentDemo;
+import com.utils.*;
 import org.hibernate.annotations.Check;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import com.utils.checkUrlDao;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class pullSegment {
@@ -19,17 +15,19 @@ public class pullSegment {
     SegmentDemo segmentDemo;
     @Autowired
     checkUrlDao checkUrlDao;
+    @Autowired
+    JDBCTestDemo2 JDBCTestDemo2;
 
     int sumNum = 0;
 
     CheckUrlValidAction checkUrlValidAction  = new CheckUrlValidAction();
 
-    @Scheduled(cron="0/60 * * * * ?")//每60S执行一次
+    @Scheduled(cron="0 0 2/12 * * ?")//每12个小时执行一次
     public void pullSegmentWords()  {
         segmentDemo.test("");
     }
 
-    @Scheduled(cron="0 0 0-23 * * ? ")//每一天执行一次
+    @Scheduled(cron="0 0 1/23 * * ? ")//每一天执行一次
 //    @Scheduled(cron="0/60 * * * * ?")//每10S执行一次
     public void checkUrlIsValid() throws Exception {
         String str = "";
@@ -66,5 +64,22 @@ public class pullSegment {
             sumNum++;
             System.out.println(sumNum);
         }
+    }
+
+    @Scheduled(cron="0/60 * * * * ?")//每60S执行一次
+    public void pullDemo1() {
+        try {
+            JDBCTestDemo2.run2();
+        }catch (Exception e) {
+            String time = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*", "");
+            Commons.chargeTime = time;
+        }
+    }
+
+
+    @Scheduled(cron="0 0 1/23 * * ?")//每10S执行一次
+//    @Scheduled(cron="0/20 * * * * ?")//每60S执行一次
+    public void pullDemo2() throws Exception {
+        JDBCTestDemo2.run1();
     }
 }

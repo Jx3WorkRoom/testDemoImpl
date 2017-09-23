@@ -7,4 +7,6 @@ import java.util.Set;
 public class Commons {
 	public static final String  author ="hupeng";
 	public static Map<String,Set<String>> segMentWordMap = new HashMap<String,Set<String>>();
+
+	public static String chargeTime = "";
 }

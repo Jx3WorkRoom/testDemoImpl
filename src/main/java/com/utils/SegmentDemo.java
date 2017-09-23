@@ -81,7 +81,6 @@ public class SegmentDemo {
         if(data!="") {
             Result segResult = (Result) DicAnalysis.parse(data.replaceAll("[\\pP\\p{Punct}]", ""));
             System.out.println(segResult.toString());
-
             Set<String> qufu = new HashSet<String>();
             Set<String> tixin = new HashSet<String>();
             Set<String> price = new HashSet<String>();
