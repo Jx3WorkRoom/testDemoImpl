@@ -29,7 +29,7 @@ public class IndexDao {
                     " AND a.TIXIN is not NULL" +
                     " AND a.REPLY_CONTENT IS NOT NULL" +
                     " AND a.PRICE_NUM is NOT null"+
-                    " GROUP BY a.MAIN_ID ORDER BY a.REPLY_TIME DESC LIMIT 0,10");
+                    " ORDER BY a.REPLY_TIME DESC LIMIT 0,10");
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }
@@ -39,11 +39,11 @@ public class IndexDao {
         List<Object> paramList = new ArrayList<Object>();
         sql.append(" select a.*,b.USER_FOLLOW,B.USER_ISVALID FROM c_post_bar_13 a LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
                 " WHERE a.TRADE_TYPE = "+tradeType+
-                " AND a.BELONG_QF is not NULL" +
+//                " AND a.BELONG_QF is not NULL" +
                 " AND a.VIEW_NAME is not NULL" +
                 " AND a.POST_CONTENT IS NOT NULL" +
-                " AND a.PRICE_NUM is NOT null"+
-                " GROUP BY a.MAIN_ID ORDER BY a.REPLY_TIME DESC LIMIT 0,6");
+//                " AND a.PRICE_NUM is NOT null"+
+                " ORDER BY a.REPLY_TIME DESC LIMIT 0,6");
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }
@@ -53,11 +53,11 @@ public class IndexDao {
         List<Object> paramList = new ArrayList<Object>();
         sql.append(" select a.*,b.USER_FOLLOW,B.USER_ISVALID FROM c_post_bar_15 a LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
                 " WHERE a.TRADE_TYPE = "+tradeType+
-                " AND a.BELONG_QF is not NULL" +
+//                " AND a.BELONG_QF is not NULL" +
                 " AND a.THEME_NAME is not NULL" +
                 " AND a.POST_CONTENT IS NOT NULL" +
-                " AND a.PRICE_NUM is NOT null"+
-                " GROUP BY a.MAIN_ID ORDER BY a.REPLY_TIME DESC LIMIT 0,6");
+//                " AND a.PRICE_NUM is NOT null"+
+                " ORDER BY a.REPLY_TIME DESC LIMIT 0,6");
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }

@@ -46,9 +46,7 @@ public class accountListDao {
                 " AND a.BELONG_QF is not NULL" +
                 " AND a.TIXIN is not NULL" +
                 " AND a.REPLY_CONTENT IS NOT NULL" +
-                " AND a.PRICE_NUM is NOT null"+
-                " GROUP BY" +
-                " a.MAIN_ID" +
+//                " AND a.PRICE_NUM is NOT null"+
                 " ORDER BY" +
                 " a.REPLY_TIME DESC" +
                 " LIMIT "+startNum+"," + endNum);
@@ -67,8 +65,8 @@ public class accountListDao {
                         " AND a.BELONG_QF is not NULL" +
                         " AND a.TIXIN is not NULL" +
                         " AND a.REPLY_CONTENT IS NOT NULL" +
-                        " AND a.PRICE_NUM is NOT null"+
-                        " GROUP BY a.MAIN_ID ORDER BY a.REPLY_TIME DESC " +
+//                        " AND a.PRICE_NUM is NOT null"+
+                        " ORDER BY a.REPLY_TIME DESC " +
                         " LIMIT "+startNum+","+endNum);
 
         System.out.println(sql);
@@ -155,7 +153,7 @@ public class accountListDao {
     public List<Map<String,Object>> queryCollectCont(String mainId) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(" select REPLY_CONTENT from C_POST_BAR_12 where main_id ='"+mainId + "' GROUP BY MAIN_ID");
+        sql.append(" select REPLY_CONTENT from C_POST_BAR_12 where main_id ='"+mainId + "'");
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }
@@ -370,9 +368,7 @@ public class accountListDao {
                 " AND a.BELONG_QF is not NULL" +
                         " AND a.TIXIN is not NULL" +
                         " AND a.REPLY_CONTENT IS NOT NULL" +
-                        " AND a.PRICE_NUM is NOT null"+
-                        " GROUP BY" +
-                        " a.MAIN_ID" +
+//                        " AND a.PRICE_NUM is NOT null"+
                         " ORDER BY" +
                         " a.REPLY_TIME DESC" +
                         " LIMIT "+startNum+"," + endNum);

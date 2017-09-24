@@ -1,5 +1,6 @@
 package com;
 
+import com.utils.JDBCTestDemo2;
 import com.utils.SegmentDemo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,12 +17,13 @@ import java.util.Date;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class testDemoImplApplicationTests {
-
+	@Autowired
+	JDBCTestDemo2 JDBCTestDemo2;
 	@Autowired
 	private JavaMailSender mailSender;
 
 	@Test
-	public void contextLoads(){
+	public void contextLoads() throws Exception {
 	}
 
 

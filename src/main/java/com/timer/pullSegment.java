@@ -56,30 +56,27 @@ public class pullSegment {
                 if (!"".equals(url)) {
                     int checkFlag = checkUrlValidAction.checkUrl(url);
                     if (checkFlag == 1) {
-                        System.out.println(url);
                         checkUrlDao.del(id,tableName);
                     }
                 }
             }
-            sumNum++;
-            System.out.println(sumNum);
         }
     }
 
-    @Scheduled(cron="0/60 * * * * ?")//每60S执行一次
-    public void pullDemo1() {
-        try {
-            JDBCTestDemo2.run2();
-        }catch (Exception e) {
-            String time = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*", "");
-            Commons.chargeTime = time;
-        }
-    }
+//    @Scheduled(cron="0/60 * * * * ?")//每60S执行一次
+//    public void pullDemo1() {
+//        try {
+//            JDBCTestDemo2.run2();
+//        }catch (Exception e) {
+//            String time = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*", "");
+//            Commons.chargeTime = time;
+//        }
+//    }
 
+//
+//    @Scheduled(cron="0 0 1/23 * * ?")//每10S执行一次
+//    public void pullDemo2() throws Exception {
+//        JDBCTestDemo2.run1();
+//    }
 
-    @Scheduled(cron="0 0 1/23 * * ?")//每10S执行一次
-//    @Scheduled(cron="0/20 * * * * ?")//每60S执行一次
-    public void pullDemo2() throws Exception {
-        JDBCTestDemo2.run1();
-    }
 }
