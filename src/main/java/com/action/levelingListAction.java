@@ -1,6 +1,7 @@
 package com.action;
 
 import com.dao.userDao;
+import com.utils.Commons;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +39,30 @@ public class levelingListAction {
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        Object dataList = levelingListService.queryLevelingListInfo(needType,areaSelection,shape,pageNumSelected,startNum,endNum);
-        Object pageList = levelingListService.queryPageListNum(needType);
+        Object dataList = new Object();
+        Object pageList = new Object();
+        if(!"".equals(shape)||!"".equals(areaSelection)) {
+           dataList = levelingListService.queryLevelingListInfo(needType, areaSelection, shape, pageNumSelected, startNum, endNum);
+           pageList = levelingListService.queryPageListNum(needType);
+        }else{
+            if(needType==1) {
+                if(startNum!=0){
+                    dataList = levelingListService.queryLevelingListInfo(needType, areaSelection, shape, pageNumSelected, startNum, endNum);
+                    pageList = Commons.levelingListPageNum1;
+                }else {
+                    dataList = Commons.levelingList1;
+                    pageList = Commons.levelingListPageNum1;
+                }
+            }else{
+                if(startNum!=0){
+                    dataList = levelingListService.queryLevelingListInfo(needType, areaSelection, shape, pageNumSelected, startNum, endNum);
+                    pageList = Commons.levelingListPageNum2;
+                }else {
+                    dataList = Commons.levelingList2;
+                    pageList = Commons.levelingListPageNum2;
+                }
+            }
+        }
         resmap.put("datas", dataList);
         resmap.put("pageList", pageList);
         resmap.put("success", true);

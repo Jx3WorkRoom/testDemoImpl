@@ -1,6 +1,7 @@
 package com.action;
 
 import com.dao.userDao;
+import com.utils.Commons;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,30 @@ public class goldExchangeListAction {
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        Object dataList = goldExchangeListService.queryGoldExchangeListInfo(tradeType,areaSelection,pageNumSelected,startNum,endNum);
-        Object pageList = goldExchangeListService.queryPageListNum(tradeType);
+        Object dataList = new Object();
+        Object pageList = new Object();
+        if(!"".equals(areaSelection)) {
+            dataList = goldExchangeListService.queryGoldExchangeListInfo(tradeType,areaSelection,pageNumSelected,startNum,endNum);
+            pageList = goldExchangeListService.queryPageListNum(tradeType);
+        }else{
+            if(tradeType==1) {
+                if(startNum!=0){
+                    dataList = goldExchangeListService.queryGoldExchangeListInfo(tradeType,areaSelection,pageNumSelected,startNum,endNum);
+                    pageList = Commons.goldExchangelistPageNum1;
+                }else {
+                    dataList = Commons.goldExchange1;
+                    pageList = Commons.goldExchangelistPageNum1;
+                }
+            }else{
+                if(startNum!=0){
+                    dataList = goldExchangeListService.queryGoldExchangeListInfo(tradeType,areaSelection,pageNumSelected,startNum,endNum);
+                    pageList = Commons.goldExchangelistPageNum2;
+                }else {
+                    dataList = Commons.goldExchange2;
+                    pageList = Commons.goldExchangelistPageNum2;
+                }
+            }
+        }
         resmap.put("datas", dataList);
         resmap.put("pageList", pageList);
         resmap.put("success", true);

@@ -242,4 +242,12 @@ public class propSaleDao {
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }
+
+    public int quertLength(int i) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" select COUNT(RECORD_ID) FROM c_post_bar_15 where TRADE_TYPE='"+i+"'");
+        System.out.println(sql);
+        return Integer.parseInt(this.commondao.queryOne(sql.toString(), paramList));
+    }
 }

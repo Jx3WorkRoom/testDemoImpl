@@ -1,5 +1,6 @@
 package com.action;
 
+import com.utils.Commons;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,30 @@ public class appearanceSaleAction {
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        Object dataList = appearanceSaleService.queryAppearanceSaleInfo(tradeType,areaSelection,shape,pageNumSelected,startNum,endNum);
-        Object pageList = appearanceSaleService.queryPageListNum();
+        Object dataList = new Object();
+        Object pageList = new Object();
+        if(!"".equals(shape)||!"".equals(areaSelection)) {
+            dataList = appearanceSaleService.queryAppearanceSaleInfo(tradeType, areaSelection, shape, pageNumSelected, startNum, endNum);
+            pageList = appearanceSaleService.queryPageListNum();
+        }else{
+            if(tradeType==1) {
+                if(startNum!=0){
+                    dataList = appearanceSaleService.queryAppearanceSaleInfo(tradeType, areaSelection, shape, pageNumSelected, startNum, endNum);
+                    pageList = Commons.appearanceSalelistPageNum1;
+                }else {
+                    dataList = Commons.appearanceSaleList1;
+                    pageList = Commons.appearanceSalelistPageNum1;
+                }
+            }else {
+                if(startNum!=0){
+                    dataList = appearanceSaleService.queryAppearanceSaleInfo(tradeType, areaSelection, shape, pageNumSelected, startNum, endNum);
+                    pageList = Commons.appearanceSalelistPageNum2;
+                }else {
+                    dataList = Commons.appearanceSaleList2;
+                    pageList = Commons.appearanceSalelistPageNum2;
+                }
+            }
+        }
         resmap.put("datas", dataList);
         resmap.put("pageList", pageList);
         resmap.put("success", true);

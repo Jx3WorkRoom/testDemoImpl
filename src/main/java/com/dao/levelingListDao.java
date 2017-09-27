@@ -255,4 +255,11 @@ public class levelingListDao {
         return this.commondao.query(sql.toString(), paramList);
     }
 
+    public int quertLength(int i) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" select COUNT(RECORD_ID) FROM c_post_bar_17 where NEED_TYPE='"+i+"'");
+        System.out.println(sql);
+        return Integer.parseInt(this.commondao.queryOne(sql.toString(), paramList));
+    }
 }

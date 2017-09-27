@@ -1,6 +1,7 @@
 package com.action;
 
 import com.dao.userDao;
+import com.utils.Commons;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +39,30 @@ public class propSaleAction {
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        Object dataList = propSaleService.queryPropSaleInfo(tradeType,areaSelection,shape,pageNumSelected,startNum,endNum);
-        Object pageList = propSaleService.queryPageListNum();
+        Object dataList = new Object();
+        Object pageList = new Object();
+        if(!"".equals(shape)||!"".equals(shape)||!"".equals(areaSelection)) {
+            dataList = propSaleService.queryPropSaleInfo(tradeType, areaSelection, shape, pageNumSelected, startNum, endNum);
+            pageList = propSaleService.queryPageListNum();
+        }else{
+           if (tradeType == 1) {
+               if(startNum!=0){
+                   dataList = propSaleService.queryPropSaleInfo(tradeType, areaSelection, shape, pageNumSelected, startNum, endNum);
+                   pageList = Commons.propSalelistPageNum1;
+               }else {
+                   dataList = Commons.propSaleList1;
+                   pageList = Commons.propSalelistPageNum1;
+               }
+           } else {
+               if(startNum!=0){
+                   dataList = propSaleService.queryPropSaleInfo(tradeType, areaSelection, shape, pageNumSelected, startNum, endNum);
+                   pageList = Commons.propSalelistPageNum2;
+               }else {
+                   dataList = Commons.propSaleList2;
+                   pageList = Commons.propSalelistPageNum2;
+               }
+           }
+        }
         resmap.put("datas", dataList);
         resmap.put("pageList", pageList);
         resmap.put("success", true);

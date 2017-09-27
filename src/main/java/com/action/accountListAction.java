@@ -37,8 +37,30 @@ public class accountListAction {
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        Object dataList = accountListService.queryAccountListInfo(tradeType,areaSelection,shape,info,pageNumSelected,startNum,endNum);
-        Object pageList = accountListService.queryPageListNum();
+        Object dataList = new Object();
+        Object pageList = new Object();
+        if(!"".equals(shape)||!"".equals(info)||!"".equals(areaSelection)) {
+            dataList = accountListService.queryAccountListInfo(tradeType, areaSelection, shape, info, pageNumSelected, startNum, endNum);
+            pageList = accountListService.queryPageListNum();
+        }else{
+            if(tradeType==1) {
+                if(startNum!=0){
+                    dataList = accountListService.queryAccountListInfo(tradeType, areaSelection, shape, info, pageNumSelected, startNum, endNum);
+                    pageList = Commons.accountlistPageNum1;
+                }else {
+                    dataList = Commons.accountList1;
+                    pageList = Commons.accountlistPageNum1;
+                }
+            }else{
+                if(startNum!=0){
+                    dataList = accountListService.queryAccountListInfo(tradeType, areaSelection, shape, info, pageNumSelected, startNum, endNum);
+                    pageList = Commons.accountlistPageNum2;
+                }else {
+                    dataList = Commons.accountList2;
+                    pageList = Commons.accountlistPageNum2;
+                }
+            }
+        }
         Object segMentWordMap = Commons.segMentWordMap;
         resmap.put("datas", dataList);
         resmap.put("pageList", pageList);
