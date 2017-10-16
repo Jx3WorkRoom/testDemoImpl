@@ -124,7 +124,9 @@ public class appearanceSaleAction {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
         Object dataList = appearanceSaleService.queryappearanceSaleSource(mainId,sourceType,userId,userName);
-        appearanceSaleService.addUserFollow(mainId,userName);
+        if(!"".equals(userName)) {
+            appearanceSaleService.addUserFollow(mainId, userName);
+        }
         resmap.put("datas", dataList);
         resmap.put("success", true);
         long post=System.currentTimeMillis();

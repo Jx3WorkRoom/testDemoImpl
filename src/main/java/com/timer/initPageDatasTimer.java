@@ -25,7 +25,7 @@ public class initPageDatasTimer {
     @Autowired
     levelingListDao levelingListDao;
 
-    @Scheduled(cron="0 0/2 * * * ? ")//每10分钟执行一次
+    @Scheduled(cron="0 0/1 * * * ? ")//每1分钟执行一次
     public void pullAccountListDatas1() {
         Object accountList1 = new Object();
         int accountlistPageNum1 = 0;
@@ -42,7 +42,7 @@ public class initPageDatasTimer {
         }
     }
 
-    @Scheduled(cron="0 0/2 * * * ? ")//每10分钟执行一次
+    @Scheduled(cron="0 0/1 * * * ? ")//每1分钟执行一次
     public void pullAccountListDatas2() {
         Object accountList2 = new Object();
         int accountlistPageNum2 = 0;
@@ -59,7 +59,7 @@ public class initPageDatasTimer {
         }
     }
 
-    @Scheduled(cron="0 0/2 * * * ? ")//每10分钟执行一次
+    @Scheduled(cron="0 0/1 * * * ? ")//每1分钟执行一次
     public void pullAppearanceSaleDatas1() {
         Object appearanceSaleList1 = new Object();
         int appearanceSalelistPageNum1 = 0;
@@ -76,7 +76,7 @@ public class initPageDatasTimer {
         }
     }
 
-    @Scheduled(cron="0 0/2 * * * ? ")//每10分钟执行一次
+    @Scheduled(cron="0 0/1 * * * ? ")//每1分钟执行一次
     public void pullAppearanceSaleDatas2() {
         Object appearanceSaleList2 = new Object();
         int appearanceSalelistPageNum2 = 0;
@@ -92,7 +92,7 @@ public class initPageDatasTimer {
         }
     }
 
-    @Scheduled(cron="0 0/2 * * * ? ")//每10分钟执行一次
+    @Scheduled(cron="0 0/1 * * * ? ")//每1分钟执行一次
     public void pullPropSaleDatas1() {
         Object propSaleList1 = new Object();
         int propSalelistPageNum1 = 0;
@@ -109,7 +109,7 @@ public class initPageDatasTimer {
         }
     }
 
-    @Scheduled(cron="0 0/2 * * * ? ")//每10分钟执行一次
+    @Scheduled(cron="0 0/1 * * * ? ")//每1分钟执行一次
     public void pullPropSaleDatas2() {
         Object propSaleList2 = new Object();
         int propSalelistPageNum2 = 0;
@@ -126,7 +126,7 @@ public class initPageDatasTimer {
         }
     }
 
-    @Scheduled(cron="0 0/2 * * * ? ")//每10分钟执行一次
+    @Scheduled(cron="0 0/1 * * * ? ")//每1分钟执行一次
     public void pullGoldExchangeDatas1() {
         Object goldExchangeList1 = new Object();
         int goldExchangelistPageNum1 = 0;
@@ -143,7 +143,7 @@ public class initPageDatasTimer {
         }
     }
 
-    @Scheduled(cron="0 0/2 * * * ? ")//每10分钟执行一次
+    @Scheduled(cron="0 0/1 * * * ? ")//每1分钟执行一次
     public void pullGoldExchangeDatas2() {
         Object goldExchangeList2 = new Object();
         int goldExchangelistPageNum2 = 0;
@@ -160,7 +160,7 @@ public class initPageDatasTimer {
         }
     }
 
-    @Scheduled(cron="0 0/2 * * * ? ")//每10分钟执行一次
+    @Scheduled(cron="0 0/1 * * * ? ")//每1分钟执行一次
     public void pullLevelingListDatas1() {
         Object levelingList1 = new Object();
         int levelingListPageNum1 = 0;

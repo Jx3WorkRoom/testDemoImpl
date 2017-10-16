@@ -165,15 +165,15 @@ public class accountListService {
         List<Map<String, Object>> hasAuth = new ArrayList<Map<String, Object>>();
         try {
             hasAuth = accountListDao.hasAuth(userName);
-            if(hasAuth.size()>0) {
+//            if(hasAuth.size()>0) {
                 if (sourceType == 1) {
                     resArr = accountListDao.queryaccountDetailSource(mainId, startNum, endNum);
                 } else {
                     resArr = accountListDao.queryaccountDetailSource2(userName);
                 }
-            }else{
-                return "noAuth";
-            }
+//            }else{
+//                return "noAuth";
+//            }
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
