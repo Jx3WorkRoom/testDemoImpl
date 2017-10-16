@@ -127,16 +127,16 @@ public class propSaleService {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         List<Map<String, Object>> hasAuth = new ArrayList<Map<String, Object>>();
         try {
-            hasAuth = propSaleDao.hasAuth(userName);
-            if(hasAuth.size()>0) {
+//            hasAuth = propSaleDao.hasAuth(userName);
+//            if(hasAuth.size()>0) {
                 if (sourceType == 1) {
                     resArr = propSaleDao.queryappearanceSaleSource(mainId);
                 } else {
                     resArr = propSaleDao.queryappearanceSaleSource2(userId);
                 }
-            }else{
-                return "noAuth";
-            }
+//            }else{
+//                return "noAuth";
+//            }
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

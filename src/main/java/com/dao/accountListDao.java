@@ -27,7 +27,7 @@ public class accountListDao {
         sql.append("SELECT" +
                 " a.*,b.USER_FOLLOW,B.USER_ISVALID " +
                 " FROM" +
-                " c_post_bar_12 a" +
+                " c_post_bar_12_1 a" +
                 " LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
                 " WHERE" +
                 " a.TRADE_TYPE = "+tradeType);
@@ -59,7 +59,7 @@ public class accountListDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append(
-                " select a.*,b.USER_FOLLOW,B.USER_ISVALID  FROM c_post_bar_12 a LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
+                " select a.*,b.USER_FOLLOW,B.USER_ISVALID  FROM c_post_bar_12_1 a LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
                         " WHERE " +
                         "  a.TRADE_TYPE = "+tradeType +
                         " AND a.BELONG_QF is not NULL" +
@@ -117,7 +117,7 @@ public class accountListDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append(" SELECT" +
-                " a.*, b.*, c.*" +
+                " a.MAIN_ID,a.REPLY_CONTENT,a.REPLY_TIME,a.SOURCE_TYPE, b.*,c.USER_ISVALID" +
                 " FROM" +
                 " c_post_bar_12 a" +
                 " LEFT JOIN A_POST_BAR_JX3_3 b ON a.THEME_ID = b.THEME_ID and  a.BELONG_FLOOR = b.BELONG_FLOOR " +
@@ -395,7 +395,7 @@ public class accountListDao {
     public int quertLength(int i) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(" select COUNT(RECORD_ID) FROM c_post_bar_12 where TRADE_TYPE='"+i+"'");
+        sql.append(" select COUNT(RECORD_ID) FROM c_post_bar_12_1 where TRADE_TYPE='"+i+"'");
         System.out.println(sql);
         return Integer.parseInt(this.commondao.queryOne(sql.toString(), paramList));
     }

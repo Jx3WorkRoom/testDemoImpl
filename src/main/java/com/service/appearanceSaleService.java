@@ -137,16 +137,16 @@ public class appearanceSaleService {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         List<Map<String, Object>> hasAuth = new ArrayList<Map<String, Object>>();
         try {
-            hasAuth = appearanceSaleDao.hasAuth(userName);
-            if(hasAuth.size()>0) {
+//            hasAuth = appearanceSaleDao.hasAuth(userName);
+//            if(hasAuth.size()>0) {
                 if (sourceType == 1) {
                     resArr = appearanceSaleDao.queryappearanceSaleSource(mainId);
                 } else {
                     resArr = appearanceSaleDao.queryappearanceSaleSource2(userId);
                 }
-            }else {
-                return "noAuth";
-            }
+//            }else {
+//                return "noAuth";
+//            }
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
