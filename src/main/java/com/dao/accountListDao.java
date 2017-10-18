@@ -354,12 +354,9 @@ public class accountListDao {
                         sql.append(" || A.PEND_NAME like '%"+arr[i]+"%'");
                     }
                     sql.append("||");
-                }else{
-                    sql.append(" A.REPLY_CONTENT like '%"+info+"%'");
-                    sql.append("||");
                 }
             }
-            sql.delete(sql.length()-2,sql.length());
+            sql.append(" A.REPLY_CONTENT like '%"+info+"%'");
             sql.append(")");
         }else{
             sql.append(" AND A.REPLY_CONTENT like '%"+info+"%'");
