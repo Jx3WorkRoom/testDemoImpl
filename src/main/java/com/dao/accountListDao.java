@@ -244,7 +244,7 @@ public class accountListDao {
         sql.append("SELECT" +
                 " a.*,b.USER_FOLLOW,B.USER_ISVALID " +
                 " FROM" +
-                " c_post_bar_12 a" +
+                " c_post_bar_12_1 a" +
                 " LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
                 " WHERE" +
                 " a.TRADE_TYPE = "+tradeType);
