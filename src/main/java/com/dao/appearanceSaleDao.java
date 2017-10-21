@@ -52,15 +52,14 @@ public class appearanceSaleDao {
         return this.commondao.query(sql.toString(), paramList);
     }
 
-    public List<Map<String,Object>> queryappearanceSaleInfo2(int tradeType, int startNum, int endNum) throws Exception {
+    public List<Map<String,Object>> queryappearanceSaleInfo2(int startNum, int endNum) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append(
                 " select a.*,b.USER_FOLLOW,B.USER_ISVALID,c.COLL_TYPE,c.user_id userIdColl  FROM c_post_bar_13 a " +
                         " LEFT JOIN f_user_follow b ON a.main_id = b.main_id" +
                         " LEFT JOIN F_USER_COLL_INFO c ON  a.MAIN_ID=c.MAIN_ID" +
-                        " WHERE a.TRADE_TYPE = "+tradeType +
-                        " AND a.BELONG_QF is not NULL" +
+                        " WHERE a.BELONG_QF is not NULL" +
                         " AND a.VIEW_NAME is not NULL" +
                         " AND a.POST_CONTENT IS NOT NULL" +
 //                        " AND a.PRICE_NUM is NOT null"+
@@ -96,7 +95,6 @@ public class appearanceSaleDao {
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }
-
 
     public int selectIsvalid(String userId, String mainId) throws Exception {
         StringBuilder sql = new StringBuilder();
@@ -205,7 +203,7 @@ public class appearanceSaleDao {
         return this.commondao.query(sql.toString(), paramList);
     }
 
-    public List<Map<String,Object>> queryappearanceSaleInfo3(int tradeType, String selectTion1, String selectTion2, String selectTion3, Map<String, Set<String>> map, int startNum, int endNum,String shape) throws Exception {
+    public List<Map<String,Object>> queryappearanceSaleInfo3(String selectTion1, String selectTion2, String selectTion3, Map<String, Set<String>> map, int startNum, int endNum,String shape) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append("SELECT" +
@@ -215,7 +213,7 @@ public class appearanceSaleDao {
                 " LEFT JOIN f_user_follow b ON a.main_id = b.main_id " +
                 " LEFT JOIN F_USER_COLL_INFO c ON  a.MAIN_ID=c.MAIN_ID " +
                 " WHERE" +
-                " a.TRADE_TYPE = "+tradeType);
+                " 1 = 1 ");
         if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3)) {
             if(!"".equals(selectTion3)){
                 sql.append(" AND (REPLACE (" +
@@ -286,6 +284,217 @@ public class appearanceSaleDao {
         sql.append(" select COUNT(RECORD_ID) FROM c_post_bar_13 where TRADE_TYPE='"+i+"'");
         System.out.println(sql);
         return Integer.parseInt(this.commondao.queryOne(sql.toString(), paramList));
+    }
+
+    public List<Map<String,Object>> queryappearanceSaleInfo22(int tradeType, int startNum) throws Exception {
+        String sql = "select * from D_POST_BAR_16 WHERE TRADE_TYPE ='"+tradeType+"' ORDER BY FAVOR_DATE DESC LIMIT "+startNum+",20";
+        List<Object> paramList = new ArrayList<Object>();
+        listSql =sql;
+        System.out.println(sql);
+        return this.commondao.query(sql, paramList);
+    }
+
+    public List<Map<String,Object>> queryappearanceSaleInfo222(int tradeType, String selectTion1, String selectTion2, String selectTion3, Map<String, Set<String>> map, int startNum, int endNum, String shape) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append("SELECT a.* " +
+                " FROM" +
+                " D_POST_BAR_16 a " +
+                " WHERE a.trade_type = '"+tradeType+"'");
+        if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3)) {
+            if(!"".equals(selectTion3)){
+                sql.append(" AND (REPLACE (" +
+                        " REPLACE (a.BELONG_QF, '[', '')," +
+                        " ']'," +
+                        " ''" +
+                        " ) = '" + selectTion1 + "' " +
+                        " || REPLACE (" +
+                        "REPLACE (a.BELONG_QF, '[', '')," +
+                        "']'," +
+                        "''" +
+                        ") = '" + selectTion1 + selectTion2 + "' " +
+                        " || REPLACE (" +
+                        "REPLACE (a.BELONG_QF, '[', '')," +
+                        "']'," +
+                        "''" +
+                        ") = '" + selectTion1 + selectTion2 + selectTion3 + "' " +
+                        " || a.BELONG_QF is null || a.BELONG_QF ='' )");
+            }else if(!"".equals(selectTion2)){
+                sql.append(" AND (REPLACE (" +
+                        " REPLACE (a.BELONG_QF, '[', '')," +
+                        " ']'," +
+                        " ''" +
+                        " ) = '" + selectTion1 + "' " +
+                        " || a.BELONG_QF "+
+                        " like '%" + selectTion1 + selectTion2 + "%' " +
+                        " || a.BELONG_QF is null || a.BELONG_QF ='' )");
+            }else{
+                sql.append(" AND (a.BELONG_QF like '%" + selectTion1 + "%' " +
+                        " || a.BELONG_QF is null || a.BELONG_QF ='' )");
+            }
+        }
+        if(map.size()>0) {
+            for (Map.Entry<String, Set<String>> entry : map.entrySet()) {
+                String key = entry.getKey();
+                if("waiguan".equals(key)){
+                    Object[] objArr = entry.getValue().toArray();
+                    String[] arr = new String[objArr.length];
+                    for(int i =0;i<objArr.length;i++){
+                        arr[i] = objArr[i].toString();
+                    }
+                    sql.append(" AND (A.VIEW_NAME like '%"+arr[0]+"%'");
+                    for(int i=1;i<arr.length;i++){
+                        sql.append(" || A.VIEW_NAME like '%"+arr[i]+"%'");
+                    }
+                    sql.append(" || A.FAVOR_INFO like '%"+shape+"%' )");
+                }
+            }
+        }else{
+            sql.append(" AND A.FAVOR_INFO like '%"+shape+"%'");
+        }
+        sql.append(
+                " AND a.BELONG_QF is not NULL" +
+                        " AND a.VIEW_NAME is not NULL" +
+                        " AND a.FAVOR_INFO IS NOT NULL" +
+                        " ORDER BY" +
+                        " a.FAVOR_DATE DESC" +
+                        " LIMIT "+startNum+"," + endNum);
+        listSql = sql.toString();
+        System.out.println(sql);
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
+    public String queryappearanceSaleSource22(String mainId) throws Exception {
+        String sql = " SELECT a.USER_QQ FROM f_user_info a,d_post_bar_16 b where b.FAVOR_ID = '"+mainId+"' and b.USER_ID = a.USER_ID ";
+        List<Object> paramList = new ArrayList<Object>();
+        System.out.println(sql);
+        return this.commondao.queryOne(sql, paramList);
+    }
+
+    public List<Map<String,Object>> queryappearanceSaleInfo33(int startNum) throws Exception {
+        String sql = "select * from D_POST_BAR_17  ORDER BY TRADE_DATE DESC LIMIT "+startNum+",20";
+        List<Object> paramList = new ArrayList<Object>();
+        listSql =sql;
+        System.out.println(sql);
+        return this.commondao.query(sql, paramList);
+    }
+
+    public List<Map<String,Object>> queryappearanceSaleInfo333(String selectTion1, String selectTion2, String selectTion3, String shape, int startNum, int endNum) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append("SELECT" +
+                " a.* " +
+                " FROM" +
+                " D_POST_BAR_17 a " +
+                " WHERE" +
+                " 1 = 1 ");
+        if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3)) {
+            if(!"".equals(selectTion3)){
+                sql.append(" AND (REPLACE (" +
+                        " REPLACE (a.BELONG_QF, '[', '')," +
+                        " ']'," +
+                        " ''" +
+                        " ) = '" + selectTion1 + "' " +
+                        " || REPLACE (" +
+                        "REPLACE (a.BELONG_QF, '[', '')," +
+                        "']'," +
+                        "''" +
+                        ") = '" + selectTion1 + selectTion2 + "' " +
+                        " || REPLACE (" +
+                        "REPLACE (a.BELONG_QF, '[', '')," +
+                        "']'," +
+                        "''" +
+                        ") = '" + selectTion1 + selectTion2 + selectTion3 + "' " +
+                        " || a.BELONG_QF is null || a.BELONG_QF ='' )");
+            }else if(!"".equals(selectTion2)){
+                sql.append(" AND (REPLACE (" +
+                        " REPLACE (a.BELONG_QF, '[', '')," +
+                        " ']'," +
+                        " ''" +
+                        " ) = '" + selectTion1 + "' " +
+                        " || a.BELONG_QF "+
+                        " like '%" + selectTion1 + selectTion2 + "%' " +
+                        " || a.BELONG_QF is null || a.BELONG_QF ='' )");
+            }else{
+                sql.append(" AND (a.BELONG_QF like '%" + selectTion1 + "%' " +
+                        " || a.BELONG_QF is null || a.BELONG_QF ='' )");
+            }
+        }
+        if(!"".equals(shape)){
+            sql.append(" AND a.VIEW_NAME like '%"+shape+"%' || a.VIEW_NAME_1 like '%"+shape+"%'");
+        }
+        sql.append(
+                " AND a.BELONG_QF is not NULL" +
+                        " AND a.VIEW_NAME is not NULL" +
+                        " ORDER BY" +
+                        " a.TRADE_DATE DESC" +
+                        " LIMIT "+startNum+"," + endNum);
+        listSql = sql.toString();
+        System.out.println(sql);
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
+    public List<Map<String,Object>> queryappearanceSaleInfo4(int startNum) throws Exception {
+        String sql = "select * from D_POST_BAR_17_1  ORDER BY TRADE_DATE DESC LIMIT "+startNum+",20";
+        List<Object> paramList = new ArrayList<Object>();
+        listSql =sql;
+        System.out.println(sql);
+        return this.commondao.query(sql, paramList);
+    }
+
+    public List<Map<String,Object>> queryappearanceSaleInfo44(String selectTion1, String selectTion2, String selectTion3, String shape, int startNum, int endNum) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append("SELECT" +
+                " a.* " +
+                " FROM" +
+                " D_POST_BAR_17_1 a " +
+                " WHERE" +
+                " 1 = 1 ");
+        if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3)) {
+            if(!"".equals(selectTion3)){
+                sql.append(" AND (REPLACE (" +
+                        " REPLACE (a.BELONG_QF, '[', '')," +
+                        " ']'," +
+                        " ''" +
+                        " ) = '" + selectTion1 + "' " +
+                        " || REPLACE (" +
+                        "REPLACE (a.BELONG_QF, '[', '')," +
+                        "']'," +
+                        "''" +
+                        ") = '" + selectTion1 + selectTion2 + "' " +
+                        " || REPLACE (" +
+                        "REPLACE (a.BELONG_QF, '[', '')," +
+                        "']'," +
+                        "''" +
+                        ") = '" + selectTion1 + selectTion2 + selectTion3 + "' " +
+                        " || a.BELONG_QF is null || a.BELONG_QF ='' )");
+            }else if(!"".equals(selectTion2)){
+                sql.append(" AND (REPLACE (" +
+                        " REPLACE (a.BELONG_QF, '[', '')," +
+                        " ']'," +
+                        " ''" +
+                        " ) = '" + selectTion1 + "' " +
+                        " || a.BELONG_QF "+
+                        " like '%" + selectTion1 + selectTion2 + "%' " +
+                        " || a.BELONG_QF is null || a.BELONG_QF ='' )");
+            }else{
+                sql.append(" AND (a.BELONG_QF like '%" + selectTion1 + "%' " +
+                        " || a.BELONG_QF is null || a.BELONG_QF ='' )");
+            }
+        }
+        if(!"".equals(shape)){
+            sql.append(" AND a.VIEW_NAME like '%"+shape+"%' || a.VIEW_NAME_1 like '%"+shape+"%'");
+        }
+        sql.append(
+                " AND a.BELONG_QF is not NULL" +
+                        " AND a.VIEW_NAME is not NULL" +
+                        " ORDER BY" +
+                        " a.TRADE_DATE DESC" +
+                        " LIMIT "+startNum+"," + endNum);
+        listSql = sql.toString();
+        System.out.println(sql);
+        return this.commondao.query(sql.toString(), paramList);
     }
 }
 

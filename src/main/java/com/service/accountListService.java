@@ -211,4 +211,26 @@ public class accountListService {
         }
         return resArr;
     }
+
+    public Object appearancePrice1(String qufu, String viewName, int priceNum, String favorDate,String userID) {
+        int resArr = 0;
+        try {
+            resArr = accountListDao.appearancePrice1(qufu,viewName,priceNum,favorDate,userID);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
+
+    public Object appearancePrice3(String qufu, String viewName, int priceLow, int priceHigh, String favorDate, String userID) {
+        int resArr = 0;
+        try {
+            resArr = accountListDao.appearancePrice3(qufu,viewName,priceLow,priceHigh,favorDate,userID);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
 }

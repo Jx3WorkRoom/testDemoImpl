@@ -2,6 +2,7 @@ package com.dao;
 
 import com.utils.CommonDao;
 import com.utils.MyDateTimeUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -9,6 +10,7 @@ import java.util.*;
 
 @Repository
 public class accountListDao {
+
     private JdbcTemplate jdbcTemplate;
     private CommonDao commondao;
     public String listSql = "";
@@ -395,5 +397,74 @@ public class accountListDao {
         sql.append(" select COUNT(RECORD_ID) FROM c_post_bar_12_1 where TRADE_TYPE='"+i+"'");
         System.out.println(sql);
         return Integer.parseInt(this.commondao.queryOne(sql.toString(), paramList));
+    }
+
+    public int appearancePrice1(String qufu, String viewName, int priceNum, String favorDate,String userID) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        String RECORD_ID = UUID.randomUUID().toString();
+        String CREATETIME = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
+        String UPDATETIME = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
+        int ISVALID = 1;
+        int favorId = getSequence3();
+        String USER_ID = userID;
+        String BELONG_QF = qufu;
+        String OTHER_QF = "";
+        String sql1 = " select KEYWORD_NAME_G from b_post_bar_big where KEYWORD_NAME = '"+viewName+"' limit 0,1";
+        String VIEW_NAME = "--";
+        try{
+            VIEW_NAME = this.commondao.queryOne(sql1, paramList);
+        }catch (Exception e){
+            VIEW_NAME = "--";
+        }finally {
+            String VIEW_NAME_1 = viewName;
+            int PRICE_NUM = priceNum;
+            String TRADE_DATE = favorDate;
+            sql.append(" insert into D_POST_BAR_17 values('"+RECORD_ID+"','"+CREATETIME+"','"+UPDATETIME+"','"+ISVALID+"','"+favorId+"','"+USER_ID+"','"+BELONG_QF+"','"+OTHER_QF+"','"+VIEW_NAME+"','"+VIEW_NAME_1+"','"+PRICE_NUM+"','"+TRADE_DATE+"')");
+            System.out.println(sql);
+            return this.commondao.update(sql.toString(), paramList);
+        }
+    }
+
+    public int getSequence3() {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" select nextval('Sequence_3')");
+        System.out.println(sql);
+        int sequence_3 = -1;
+        try {
+            sequence_3 = Integer.parseInt(this.commondao.queryOne(sql.toString(), paramList));
+        }catch (Exception e){
+            return sequence_3;//未查到
+        }
+        return sequence_3;
+    }
+
+    public int appearancePrice3(String qufu, String viewName, int priceLow, int priceHigh, String favorDate, String userID) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        String RECORD_ID = UUID.randomUUID().toString();
+        String CREATETIME = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
+        String UPDATETIME = new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
+        int ISVALID = 1;
+        int favorId = getSequence3();
+        String USER_ID = userID;
+        String BELONG_QF = qufu;
+        String OTHER_QF = "";
+        String sql1 = " select KEYWORD_NAME_G from b_post_bar_big where KEYWORD_NAME = '"+viewName+"' limit 0,1";
+        String VIEW_NAME = "--";
+        try{
+            VIEW_NAME = this.commondao.queryOne(sql1, paramList);
+        }catch (Exception e){
+            VIEW_NAME = "--";
+        }finally {
+            String VIEW_NAME_1 = viewName;
+            int PRICE_FLOOR = priceLow;
+            int PRICE_CEILING = priceHigh;
+            String TRADE_DATE = favorDate;
+            sql.append(" insert into D_POST_BAR_17_1 values('"+RECORD_ID+"','"+CREATETIME+"','"+UPDATETIME+"','"+ISVALID+"','"+favorId+"','"+USER_ID+"','"+BELONG_QF+"','"+OTHER_QF+"','"+VIEW_NAME+"','"+VIEW_NAME_1+"','"+PRICE_FLOOR+"','"+PRICE_CEILING+"','"+TRADE_DATE+"')");
+            System.out.println(sql);
+            return this.commondao.update(sql.toString(), paramList);
+        }
     }
 }

@@ -65,7 +65,7 @@ public class initPageDatasTimer {
         int appearanceSalelistPageNum1 = 0;
         try {
             //appearanceSale
-            appearanceSaleList1 = appearanceSaleDao.queryappearanceSaleInfo2(1, 0, 10);
+            appearanceSaleList1 = appearanceSaleDao.queryappearanceSaleInfo2( 0, 10);
             appearanceSalelistPageNum1 = appearanceSaleDao.quertLength(1);
         }catch (Exception e){
             e.printStackTrace();
@@ -73,22 +73,6 @@ public class initPageDatasTimer {
             Commons.appearanceSaleList1 = appearanceSaleList1;
             Commons.appearanceSalelistPageNum1 = appearanceSalelistPageNum1;
             System.out.println(appearanceSalelistPageNum1);
-        }
-    }
-
-    @Scheduled(cron="0 0/1 * * * ? ")//每1分钟执行一次
-    public void pullAppearanceSaleDatas2() {
-        Object appearanceSaleList2 = new Object();
-        int appearanceSalelistPageNum2 = 0;
-        try {
-            appearanceSaleList2 = appearanceSaleDao.queryappearanceSaleInfo2(2, 0, 10);
-            appearanceSalelistPageNum2 = appearanceSaleDao.quertLength(2);
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            Commons.appearanceSaleList2 = appearanceSaleList2;
-            Commons.appearanceSalelistPageNum2 = appearanceSalelistPageNum2;
-            System.out.println(appearanceSalelistPageNum2);
         }
     }
 

@@ -29,7 +29,6 @@ public class appearanceSaleAction {
     @RequestMapping(value="appearanceSale",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> getAppearanceSaleAction(
-            @RequestParam(value="tradeType",required=false,defaultValue = "0") int tradeType,
             @RequestParam(value="areaSelection",required=false,defaultValue ="") String areaSelection,
             @RequestParam(value="shape",required=false,defaultValue ="") String shape,
             @RequestParam(value="pageNumSelected",required=false,defaultValue ="1") int pageNumSelected,
@@ -41,27 +40,91 @@ public class appearanceSaleAction {
         Object dataList = new Object();
         Object pageList = new Object();
         if(!"".equals(shape)||!"".equals(areaSelection)) {
-            dataList = appearanceSaleService.queryAppearanceSaleInfo(tradeType, areaSelection, shape, pageNumSelected, startNum, endNum);
+            dataList = appearanceSaleService.queryAppearanceSaleInfo(areaSelection, shape, pageNumSelected, startNum, endNum);
             pageList = appearanceSaleService.queryPageListNum();
         }else{
-            if(tradeType==1) {
                 if(startNum!=0){
-                    dataList = appearanceSaleService.queryAppearanceSaleInfo(tradeType, areaSelection, shape, pageNumSelected, startNum, endNum);
+                    dataList = appearanceSaleService.queryAppearanceSaleInfo( areaSelection, shape, pageNumSelected, startNum, endNum);
                     pageList = Commons.appearanceSalelistPageNum1;
                 }else {
                     dataList = Commons.appearanceSaleList1;
                     pageList = Commons.appearanceSalelistPageNum1;
                 }
-            }else {
-                if(startNum!=0){
-                    dataList = appearanceSaleService.queryAppearanceSaleInfo(tradeType, areaSelection, shape, pageNumSelected, startNum, endNum);
-                    pageList = Commons.appearanceSalelistPageNum2;
-                }else {
-                    dataList = Commons.appearanceSaleList2;
-                    pageList = Commons.appearanceSalelistPageNum2;
-                }
-            }
         }
+        resmap.put("datas", dataList);
+        resmap.put("pageList", pageList);
+        resmap.put("success", true);
+        long post=System.currentTimeMillis();
+        System.out.println("查询外观交易接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+    @ApiOperation(value="获取外观交易页面填充信息", notes="默认返回根据发布时间排倒序的最近十条数据和选择框及数据字典等数据",produces = "application/json")
+    @RequestMapping(value="appearanceSale2",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> getAppearanceSaleAction2(
+            @RequestParam(value="tradeType",required=false,defaultValue = "0") int tradeType,
+            @RequestParam(value="areaSelection",required=false,defaultValue ="") String areaSelection,
+            @RequestParam(value="shape",required=false,defaultValue ="") String shape,
+            @RequestParam(value="pageNumSelected",required=false,defaultValue ="1") int pageNumSelected,
+            @RequestParam(value="startNum",required=false,defaultValue ="0") int startNum,
+            @RequestParam(value="endNum",required=false,defaultValue ="20") int endNum
+    ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object dataList = new Object();
+        Object pageList = new Object();
+        dataList = appearanceSaleService.queryAppearanceSaleInfo2(tradeType, areaSelection, shape, pageNumSelected, startNum, endNum);
+        pageList = appearanceSaleService.queryPageListNum();
+        resmap.put("datas", dataList);
+        resmap.put("pageList", pageList);
+        resmap.put("success", true);
+        long post=System.currentTimeMillis();
+        System.out.println("查询外观交易接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+
+    @ApiOperation(value="获取外观交易页面填充信息", notes="默认返回根据发布时间排倒序的最近十条数据和选择框及数据字典等数据",produces = "application/json")
+    @RequestMapping(value="appearanceSale3",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> getAppearanceSaleAction3(
+            @RequestParam(value="areaSelection",required=false,defaultValue ="") String areaSelection,
+            @RequestParam(value="shape",required=false,defaultValue ="") String shape,
+            @RequestParam(value="pageNumSelected",required=false,defaultValue ="1") int pageNumSelected,
+            @RequestParam(value="startNum",required=false,defaultValue ="0") int startNum,
+            @RequestParam(value="endNum",required=false,defaultValue ="20") int endNum
+    ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object dataList = new Object();
+        Object pageList = new Object();
+        dataList = appearanceSaleService.queryAppearanceSaleInfo3(areaSelection, shape, pageNumSelected, startNum, endNum);
+        pageList = appearanceSaleService.queryPageListNum();
+        resmap.put("datas", dataList);
+        resmap.put("pageList", pageList);
+        resmap.put("success", true);
+        long post=System.currentTimeMillis();
+        System.out.println("查询外观交易接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+    @ApiOperation(value="获取外观交易页面填充信息", notes="默认返回根据发布时间排倒序的最近十条数据和选择框及数据字典等数据",produces = "application/json")
+    @RequestMapping(value="appearanceSale4",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> getAppearanceSaleAction4(
+            @RequestParam(value="areaSelection",required=false,defaultValue ="") String areaSelection,
+            @RequestParam(value="shape",required=false,defaultValue ="") String shape,
+            @RequestParam(value="pageNumSelected",required=false,defaultValue ="1") int pageNumSelected,
+            @RequestParam(value="startNum",required=false,defaultValue ="0") int startNum,
+            @RequestParam(value="endNum",required=false,defaultValue ="20") int endNum
+    ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object dataList = new Object();
+        Object pageList = new Object();
+        dataList = appearanceSaleService.queryAppearanceSaleInfo4(areaSelection, shape, pageNumSelected, startNum, endNum);
+        pageList = appearanceSaleService.queryPageListNum();
         resmap.put("datas", dataList);
         resmap.put("pageList", pageList);
         resmap.put("success", true);
@@ -133,6 +196,24 @@ public class appearanceSaleAction {
         System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
     }
+
+
+    @ApiOperation(value="获取外观页面查看源信息", notes="默认返回数据",produces = "application/json")
+    @RequestMapping(value="appearanceSaleSource2",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> getAppearanceSaleSourceAction2(
+            @RequestParam(value="mainId",required=true) String mainId
+    ) throws Exception {
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object dataList = appearanceSaleService.queryappearanceSaleSource2(mainId);
+        resmap.put("datas", dataList);
+        resmap.put("success", true);
+        long post=System.currentTimeMillis();
+        System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
 
     @ApiOperation(value="提交失效信息", notes="默认返回数据",produces = "application/json")
     @RequestMapping(value="protDisable",method = RequestMethod.GET)

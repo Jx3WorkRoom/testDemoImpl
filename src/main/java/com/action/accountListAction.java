@@ -191,4 +191,75 @@ public class accountListAction {
         System.out.println("提交失效详情记录接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
     }
+
+    @ApiOperation(value="单个外观成交价格", notes="",produces = "application/json")
+    @RequestMapping(value="appearancePrice1",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> appearancePrice1(
+            @RequestParam(value="qufu",required=true) String qufu,
+            @RequestParam(value="viewName",required=true) String viewName,
+            @RequestParam(value="priceNum",required=true) int priceNum,
+            @RequestParam(value="favorDate",required=true) String favorDate,
+            @RequestParam(value="userID",required=true) String userID
+    ) throws Exception {
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object info = accountListService.appearancePrice1(qufu,viewName,priceNum,favorDate,userID);
+        resmap.put("info", info);
+        long post=System.currentTimeMillis();
+        System.out.println("单个外观成交价格接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+    @ApiOperation(value="批量外观成交价格", notes="",produces = "application/json")
+    @RequestMapping(value="appearancePrice2",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> appearancePrice2(
+            @RequestParam(value="mainId",required=true) String mainId,
+            @RequestParam(value="username",required=true) String username
+    ) throws Exception {
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object info = accountListService.queryHasCollected(mainId,username);
+        resmap.put("info", info);
+        long post=System.currentTimeMillis();
+        System.out.println("批量外观成交价格接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+    @ApiOperation(value="单个外观预期价格", notes="",produces = "application/json")
+    @RequestMapping(value="appearancePrice3",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> appearancePrice3(
+            @RequestParam(value="qufu",required=true) String qufu,
+            @RequestParam(value="viewName",required=true) String viewName,
+            @RequestParam(value="priceLow",required=true) int priceLow,
+            @RequestParam(value="priceHigh",required=true) int priceHigh,
+            @RequestParam(value="favorDate",required=true) String favorDate,
+            @RequestParam(value="userID",required=true) String userID
+    ) throws Exception {
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object info = accountListService.appearancePrice3(qufu,viewName,priceLow,priceHigh,favorDate,userID);
+        resmap.put("info", info);
+        long post=System.currentTimeMillis();
+        System.out.println("单个外观预期价格接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+    @ApiOperation(value="批量外观预期价格", notes="",produces = "application/json")
+    @RequestMapping(value="appearancePrice4",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> appearancePrice4(
+            @RequestParam(value="mainId",required=true) String mainId,
+            @RequestParam(value="username",required=true) String username
+    ) throws Exception {
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object info = accountListService.queryHasCollected(mainId,username);
+        resmap.put("info", info);
+        long post=System.currentTimeMillis();
+        System.out.println("批量外观预期价格接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
 }
