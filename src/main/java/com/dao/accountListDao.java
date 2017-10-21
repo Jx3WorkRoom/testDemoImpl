@@ -377,6 +377,9 @@ public class accountListDao {
                         " a.REPLY_TIME DESC" +
 //                        " LIMIT "+startNum+"," + endNum
         "" );
+        if(map.size()==0){
+            sql.append(" LIMIT "+startNum+"," + endNum);
+        }
         System.out.println(sql);
         listSql = sql.toString();
         return this.commondao.query(sql.toString(), paramList);
