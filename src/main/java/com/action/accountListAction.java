@@ -233,14 +233,17 @@ public class accountListAction {
     public Map<String,Object> appearancePrice3(
             @RequestParam(value="qufu",required=true) String qufu,
             @RequestParam(value="viewName",required=true) String viewName,
+            @RequestParam(value="viewContent",required=true) String viewContent,
             @RequestParam(value="priceLow",required=true) int priceLow,
             @RequestParam(value="priceHigh",required=true) int priceHigh,
+            @RequestParam(value="priceHN",required=true) int priceHN,
+            @RequestParam(value="PRICE_HN_HIGH",required=true) int PRICE_HN_HIGH,
             @RequestParam(value="favorDate",required=true) String favorDate,
             @RequestParam(value="userID",required=true) String userID
     ) throws Exception {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
-        Object info = accountListService.appearancePrice3(qufu,viewName,priceLow,priceHigh,favorDate,userID);
+        Object info = accountListService.appearancePrice3(qufu,viewName,viewContent,priceLow,priceHigh,priceHN,PRICE_HN_HIGH,favorDate,userID);
         resmap.put("info", info);
         long post=System.currentTimeMillis();
         System.out.println("单个外观预期价格接口执行时间（单位：毫秒）："+ (post-pre));

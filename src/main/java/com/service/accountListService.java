@@ -223,10 +223,10 @@ public class accountListService {
         return resArr;
     }
 
-    public Object appearancePrice3(String qufu, String viewName, int priceLow, int priceHigh, String favorDate, String userID) {
+    public Object appearancePrice3(String qufu, String viewName,String viewContent, int priceLow, int priceHigh,int priceHN,int PRICE_HN_HIGH, String favorDate, String userID) {
         int resArr = 0;
         try {
-            resArr = accountListDao.appearancePrice3(qufu,viewName,priceLow,priceHigh,favorDate,userID);
+            resArr = accountListDao.appearancePrice3(qufu,viewName,viewContent,priceLow,priceHigh,priceHN,PRICE_HN_HIGH,favorDate,userID);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

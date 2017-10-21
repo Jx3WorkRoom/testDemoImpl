@@ -88,9 +88,14 @@ public class accountListDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         int num = listSql.indexOf("LIMIT");
-        sql.append(listSql.substring(0,num-1));
+        if(num>0) {
+            sql.append(listSql.substring(0, num - 1));
+        }else{
+            sql.append(listSql);
+        }
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
+
     }
 
     public List<Map<String,Object>> queryTixinListInfo() throws Exception {
@@ -370,7 +375,8 @@ public class accountListDao {
 //                        " AND a.PRICE_NUM is NOT null"+
                         " ORDER BY" +
                         " a.REPLY_TIME DESC" +
-                        " LIMIT "+startNum+"," + endNum);
+//                        " LIMIT "+startNum+"," + endNum
+        "" );
         System.out.println(sql);
         listSql = sql.toString();
         return this.commondao.query(sql.toString(), paramList);
@@ -440,7 +446,7 @@ public class accountListDao {
         return sequence_3;
     }
 
-    public int appearancePrice3(String qufu, String viewName, int priceLow, int priceHigh, String favorDate, String userID) throws Exception {
+    public int appearancePrice3(String qufu, String viewName, String viewContent,int priceLow, int priceHigh,int priceHN,int priceHNHIGH, String favorDate, String userID) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         String RECORD_ID = UUID.randomUUID().toString();
@@ -459,10 +465,13 @@ public class accountListDao {
             VIEW_NAME = "--";
         }finally {
             String VIEW_NAME_1 = viewName;
+            String VIEW_CONTENT = viewContent;
             int PRICE_FLOOR = priceLow;
             int PRICE_CEILING = priceHigh;
+            int PRICE_HN = priceHN;
+            int PRICE_HN_HIGH = priceHNHIGH;
             String TRADE_DATE = favorDate;
-            sql.append(" insert into D_POST_BAR_17_1 values('"+RECORD_ID+"','"+CREATETIME+"','"+UPDATETIME+"','"+ISVALID+"','"+favorId+"','"+USER_ID+"','"+BELONG_QF+"','"+OTHER_QF+"','"+VIEW_NAME+"','"+VIEW_NAME_1+"','"+PRICE_FLOOR+"','"+PRICE_CEILING+"','"+TRADE_DATE+"')");
+            sql.append(" insert into D_POST_BAR_17_1 values('"+RECORD_ID+"','"+CREATETIME+"','"+UPDATETIME+"','"+ISVALID+"','"+favorId+"','"+USER_ID+"','"+BELONG_QF+"','"+OTHER_QF+"','"+VIEW_NAME+"','"+VIEW_NAME_1+"','"+VIEW_CONTENT+"','"+PRICE_FLOOR+"','"+PRICE_CEILING+"','"+PRICE_HN+"','"+PRICE_HN_HIGH+"','"+TRADE_DATE+"')");
             System.out.println(sql);
             return this.commondao.update(sql.toString(), paramList);
         }
