@@ -234,10 +234,10 @@ public class accountListAction {
             @RequestParam(value="qufu",required=true) String qufu,
             @RequestParam(value="viewName",required=true) String viewName,
             @RequestParam(value="viewContent",required=true) String viewContent,
-            @RequestParam(value="priceLow",required=true) int priceLow,
-            @RequestParam(value="priceHigh",required=true) int priceHigh,
-            @RequestParam(value="priceHN",required=true) int priceHN,
-            @RequestParam(value="PRICE_HN_HIGH",required=true) int PRICE_HN_HIGH,
+            @RequestParam(value="priceLow",required=false,defaultValue = "0") int priceLow,
+            @RequestParam(value="priceHigh",required=false,defaultValue = "0") int priceHigh,
+            @RequestParam(value="priceHN",required=false,defaultValue = "0") int priceHN,
+            @RequestParam(value="PRICE_HN_HIGH",required=false,defaultValue = "0") int PRICE_HN_HIGH,
             @RequestParam(value="favorDate",required=true) String favorDate,
             @RequestParam(value="userID",required=true) String userID
     ) throws Exception {
