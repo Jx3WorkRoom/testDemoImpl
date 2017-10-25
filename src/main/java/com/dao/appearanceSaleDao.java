@@ -435,48 +435,103 @@ public class appearanceSaleDao {
     }
 
     public List<Map<String,Object>> queryappearanceSaleInfo4(int startNum) throws Exception {
-        String sql = "select * from D_POST_BAR_17_1  ORDER BY TRADE_DATE DESC LIMIT "+startNum+",20";
+        String sql = " SELECT" +
+                " *" +
+                " FROM" +
+                " (" +
+                " SELECT" +
+                " a.FAVOR_ID," +
+                " a.USER_ID," +
+                " a.BELONG_QF," +
+                " a.OTHER_QF," +
+                " a.VIEW_NAME," +
+                " a.VIEW_NAME_1," +
+                " a.VIEW_CONTENT," +
+                " a.PRICE_FLOOR," +
+                " a.PRICE_CEILING," +
+                " a.PRICE_HN," +
+                " a.PRICE_HN_HIGH," +
+                " a.TRADE_DATE," +
+                " b.*" +
+                " FROM" +
+                " D_POST_BAR_17_1 a" +
+                " LEFT JOIN b_post_bar_6 b ON a.VIEW_NAME = b.WAIGUAN_NAME" +
+                " WHERE" +
+                " 1 = 1" +
+                " GROUP BY" +
+                " a.BELONG_QF," +
+                " a.VIEW_NAME" +
+                " ORDER BY" +
+                " a.TRADE_DATE DESC" +
+                " ) c" +
+                " ORDER BY" +
+                " c.WAIGUAN_TYPE," +
+                " c.WAIGUAN_SERIES LIMIT "+startNum+",20";
         List<Object> paramList = new ArrayList<Object>();
         listSql =sql;
         System.out.println(sql);
         return this.commondao.query(sql, paramList);
     }
 
-    public List<Map<String,Object>> queryappearanceSaleInfo44(String selectTion1, String selectTion2, String selectTion3, String shape, int startNum, int endNum) throws Exception {
+    public List<Map<String,Object>> queryappearanceSaleInfo44(String selectTion1, String selectTion2, String selectTion3,String selectTion4, String shape, int startNum, int endNum) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append("SELECT" +
-                " a.* " +
-                " FROM" +
-                " D_POST_BAR_17_1 a " +
-                " WHERE" +
-                " 1 = 1 ");
-        if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3)) {
-            if(!"".equals(selectTion3)){
+        sql.append(" SELECT * FROM ( SELECT a.FAVOR_ID, a.USER_ID, a.BELONG_QF, a.OTHER_QF, a.VIEW_NAME,"+
+                   " a.VIEW_NAME_1, a.VIEW_CONTENT, a.PRICE_FLOOR, a.PRICE_CEILING, a.PRICE_HN,"+
+                   " a.PRICE_HN_HIGH, a.TRADE_DATE, b.* FROM D_POST_BAR_17_1 a LEFT JOIN b_post_bar_6 b ON a.VIEW_NAME = b.WAIGUAN_NAME "+
+                   " WHERE" +
+                   " 1 = 1 ");
+        if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3)||!"".equals(selectTion4)) {
+            if(!"".equals(selectTion4)){
                 sql.append(" AND (REPLACE (" +
                         " REPLACE (a.BELONG_QF, '[', '')," +
                         " ']'," +
                         " ''" +
-                        " ) = '" + selectTion1 + "' " +
+                        " ) like '%" + selectTion4 + "%'" +
                         " || REPLACE (" +
                         "REPLACE (a.BELONG_QF, '[', '')," +
                         "']'," +
                         "''" +
-                        ") = '" + selectTion1 + selectTion2 + "' " +
+                        ") like '%" + selectTion3 + "%'" +
                         " || REPLACE (" +
                         "REPLACE (a.BELONG_QF, '[', '')," +
                         "']'," +
                         "''" +
-                        ") = '" + selectTion1 + selectTion2 + selectTion3 + "' " +
+                        ") like '%" + selectTion2 + "%'" +
+                        " || REPLACE (" +
+                        "REPLACE (a.BELONG_QF, '[', '')," +
+                        "']'," +
+                        "''" +
+                        ") like '%" + selectTion1 + "%'" +
+                        " || a.BELONG_QF is null || a.BELONG_QF ='' )");
+            }else if(!"".equals(selectTion3)){
+                sql.append(" AND (REPLACE (" +
+                        " REPLACE (a.BELONG_QF, '[', '')," +
+                        " ']'," +
+                        " ''" +
+                        " ) like '%" + selectTion1 + "%'" +
+                        " || REPLACE (" +
+                        "REPLACE (a.BELONG_QF, '[', '')," +
+                        "']'," +
+                        "''" +
+                        ") like '%" + selectTion2 + "%'" +
+                        " || REPLACE (" +
+                        "REPLACE (a.BELONG_QF, '[', '')," +
+                        "']'," +
+                        "''" +
+                        ") like '%" + selectTion3 + "%' " +
                         " || a.BELONG_QF is null || a.BELONG_QF ='' )");
             }else if(!"".equals(selectTion2)){
                 sql.append(" AND (REPLACE (" +
                         " REPLACE (a.BELONG_QF, '[', '')," +
                         " ']'," +
                         " ''" +
-                        " ) = '" + selectTion1 + "' " +
-                        " || a.BELONG_QF "+
-                        " like '%" + selectTion1 + selectTion2 + "%' " +
+                        " ) like '%" + selectTion1 + "%' " +
+                        " || REPLACE (" +
+                        "REPLACE (a.BELONG_QF, '[', '')," +
+                        "']'," +
+                        "''" +
+                        ") like '%" + selectTion2 + "%' " +
                         " || a.BELONG_QF is null || a.BELONG_QF ='' )");
             }else{
                 sql.append(" AND (a.BELONG_QF like '%" + selectTion1 + "%' " +
@@ -489,9 +544,10 @@ public class appearanceSaleDao {
         sql.append(
                 " AND a.BELONG_QF is not NULL" +
                         " AND a.VIEW_NAME is not NULL" +
+                        " GROUP BY a.BELONG_QF,a.VIEW_NAME " +
                         " ORDER BY" +
-                        " a.TRADE_DATE DESC" +
-                        " LIMIT "+startNum+"," + endNum);
+                        " a.TRADE_DATE DESC ) C ORDER BY c.WAIGUAN_TYPE,c.WAIGUAN_SERIES" );
+        sql.append(" LIMIT "+startNum+"," + endNum );
         listSql = sql.toString();
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);

@@ -279,6 +279,7 @@ public class appearanceSaleService {
                 String selectTion1 = "";
                 String selectTion2 = "";
                 String selectTion3 = "";
+                String selectTion4 = "";
                 if(!"".equals(areaSelection)) {
                     int length = areaSelection.split(",").length;
                     if(length==1){
@@ -293,9 +294,14 @@ public class appearanceSaleService {
                         selectTion1 = areaSelection.split(",")[0];
                         selectTion2 = areaSelection.split(",")[1];
                         selectTion3 = areaSelection.split(",")[2];
+                    }else if(length==4){
+                        selectTion1 = areaSelection.split(",")[0];
+                        selectTion2 = areaSelection.split(",")[1];
+                        selectTion3 = areaSelection.split(",")[2];
+                        selectTion4 = areaSelection.split(",")[3];
                     }
                 }
-                resArr = appearanceSaleDao.queryappearanceSaleInfo44(selectTion1,selectTion2,selectTion3,shape,startNum,endNum);
+                resArr = appearanceSaleDao.queryappearanceSaleInfo44(selectTion1,selectTion2,selectTion3,selectTion4,shape,startNum,endNum);
             }
         } catch (Exception e) {
             // TODO Auto-generated catch block
