@@ -13,10 +13,10 @@ public class IndexService {
     @Autowired
     IndexDao indexDao;
 
-    public Object queryIndexInfo(int tradeType) {
+    public Object queryIndexInfo() {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
-            resArr = indexDao.queryIndex(tradeType);
+            resArr = indexDao.queryIndex();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

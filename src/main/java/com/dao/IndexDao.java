@@ -20,16 +20,10 @@ public class IndexDao {
             this.commondao = new CommonDao(this.jdbcTemplate);
     }
 
-    public List<Map<String,Object>> queryIndex(int tradeType) throws Exception {
+    public List<Map<String,Object>> queryIndex() throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(" select a.*,b.USER_FOLLOW,B.USER_ISVALID FROM c_post_bar_12 a LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
-                    " WHERE a.TRADE_TYPE = "+tradeType+
-                    " AND a.BELONG_QF is not NULL" +
-                    " AND a.TIXIN is not NULL" +
-                    " AND a.REPLY_CONTENT IS NOT NULL" +
-                    " AND a.PRICE_NUM is NOT null"+
-                    " ORDER BY a.REPLY_TIME DESC LIMIT 0,10");
+        sql.append(" select * from d_post_bar_30 order by RECORD_DATE");
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }

@@ -38,7 +38,7 @@ public class accountListDao {
                     " AND a.BELONG_QF like '%"+selectTion1+"%"+selectTion2+"%"+selectTion3+"%'");
         if(!"".equals(shape)) {
             sql.append(
-                    " AND a.TIXIN like '%" + shape + "%'");
+                    " AND a.TIXIN_1 like '%" + shape + "%'");
         }
         if(!"".equals(info)) {
             sql.append(
@@ -46,7 +46,7 @@ public class accountListDao {
         }
         sql.append(
                 " AND a.BELONG_QF is not NULL" +
-                " AND a.TIXIN is not NULL" +
+                " AND a.TIXIN_1 is not NULL" +
                 " AND a.REPLY_CONTENT IS NOT NULL" +
 //                " AND a.PRICE_NUM is NOT null"+
                 " ORDER BY" +
@@ -65,7 +65,7 @@ public class accountListDao {
                         " WHERE " +
                         "  a.TRADE_TYPE = "+tradeType +
                         " AND a.BELONG_QF is not NULL" +
-                        " AND a.TIXIN is not NULL" +
+                        " AND a.TIXIN_1 is not NULL" +
                         " AND a.REPLY_CONTENT IS NOT NULL" +
 //                        " AND a.PRICE_NUM is NOT null"+
                         " ORDER BY a.REPLY_TIME DESC " +
@@ -101,7 +101,7 @@ public class accountListDao {
     public List<Map<String,Object>> queryTixinListInfo() throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(" select distinct MENPAI_NAME  from b_post_bar_2 union select TIXIN_NAME_1 from b_post_bar_2 ");
+        sql.append(" select menpai_name from b_post_bar_1 ");
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }
@@ -124,11 +124,10 @@ public class accountListDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append(" SELECT" +
-                " a.MAIN_ID,a.REPLY_CONTENT,a.REPLY_TIME,a.SOURCE_TYPE, b.*,c.USER_ISVALID" +
+                " a.*, b.WENJIAN_PATH,b.WENJIAN_SEQ" +
                 " FROM" +
-                " c_post_bar_12 a" +
+                " c_post_bar_12_1 a" +
                 " LEFT JOIN A_POST_BAR_JX3_3 b ON a.THEME_ID = b.THEME_ID and  a.BELONG_FLOOR = b.BELONG_FLOOR " +
-                " LEFT JOIN f_user_follow c ON a.main_id = c.main_id" +
                 " WHERE" +
                 " a.FAVOR_ID =" +favorId);
         System.out.println(sql);
@@ -289,7 +288,7 @@ public class accountListDao {
         }
         if(!"".equals(shape)) {
             sql.append(
-                    " AND a.TIXIN like '%" + shape + "%'");
+                    " AND a.TIXIN_1 like '%" + shape + "%'");
         }
         if(map.size()>0) {
             sql.append(" AND( ");
@@ -370,7 +369,7 @@ public class accountListDao {
         }
         sql.append(
                 " AND a.BELONG_QF is not NULL" +
-                        " AND a.TIXIN is not NULL" +
+                        " AND a.TIXIN_1 is not NULL" +
                         " AND a.REPLY_CONTENT IS NOT NULL" +
 //                        " AND a.PRICE_NUM is NOT null"+
                         " ORDER BY" +
@@ -389,11 +388,10 @@ public class accountListDao {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append(" SELECT" +
-                " a.*, b.*, c.*" +
+                " a.*, b.*" +
                 " FROM" +
-                " c_post_bar_12 a" +
+                " c_post_bar_12_1 a" +
                 " LEFT JOIN d_post_bar_21  b ON a.favor_id = b.favor_id " +
-                " LEFT JOIN f_user_follow c ON a.main_id = c.main_id" +
                 " WHERE" +
                 " a.FAVOR_ID =" +favorId);
         System.out.println(sql);
