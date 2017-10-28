@@ -319,14 +319,15 @@ public class IwantReleaseService {
     }
 
     //账号快售快速发布
-    public String saveZhssInfo(String userId,int tradeType, String belongQf,String tixin,int priceNum,String accoInfo,List<String> imgList, boolean uploadImg){
+    public String saveZhssInfo(String userId,int tradeType, String belongQf,String tixin,String menpai,int priceNum,String accoInfo,List<String> imgList, boolean uploadImg){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
             String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
             int favorId = iwantReleaseDao.getSequence3();
-            int insertResult = iwantReleaseDao.saveZhssInfo(recordId,favorId,tradeType,userId,"["+belongQf+"]","["+tixin+"]",priceNum,accoInfo);  //D_POST_BAR_13
+            int insertResult = iwantReleaseDao.saveZhssInfo(recordId,favorId,tradeType,userId,"["+belongQf+"]",tixin, menpai,priceNum,accoInfo);  //D_POST_BAR_13
             Map<String,Set<String>> splitWordMap = segmentDemo.test(accoInfo);
-            int insertResult2 = iwantReleaseDao.saveZhjyxxInfo(recordId,favorId,tradeType,userId,"["+belongQf+"]","["+tixin+"]",String.valueOf(priceNum),accoInfo,splitWordMap);  //C_POST_BAR_12
+            String menPai = iwantReleaseDao.queryMpTrans(tixin+menpai); //门派转换
+            int insertResult2 = iwantReleaseDao.saveZhjyxxInfo(recordId,favorId,tradeType,userId,"["+belongQf+"]",menPai,String.valueOf(priceNum),accoInfo,splitWordMap);  //C_POST_BAR_12
             String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
@@ -355,13 +356,14 @@ public class IwantReleaseService {
         }
         return "保存失败!";
     }
-    public String updateZhssInfo(int favorId, String userId,int tradeType, String belongQf,String tixin,int priceNum,String accoInfo,List<String> imgList, String imgTotal){
+    public String updateZhssInfo(int favorId, String userId,int tradeType, String belongQf,String tixin,String menpai,int priceNum,String accoInfo,List<String> imgList, String imgTotal){
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
             String recordId = UUID.randomUUID().toString()/*.replace("-", "")*/;
-            int insertResult = iwantReleaseDao.updateZhssInfo(recordId,favorId,tradeType,userId,"["+belongQf+"]","["+tixin+"]",priceNum,accoInfo);  //D_POST_BAR_13
+            int insertResult = iwantReleaseDao.updateZhssInfo(recordId,favorId,tradeType,userId,"["+belongQf+"]",tixin , menpai,priceNum,accoInfo);  //D_POST_BAR_13
             Map<String,Set<String>> splitWordMap = segmentDemo.test(accoInfo);
-            int insertResult2 = iwantReleaseDao.updateZhjyxxInfo(recordId,favorId,tradeType,userId,"["+belongQf+"]","["+tixin+"]",String.valueOf(priceNum),accoInfo,splitWordMap);  //C_POST_BAR_12
+            String menPai = iwantReleaseDao.queryMpTrans(tixin+menpai); //门派转换
+            int insertResult2 = iwantReleaseDao.updateZhjyxxInfo(recordId,favorId,tradeType,userId,"["+belongQf+"]",menPai,String.valueOf(priceNum),accoInfo,splitWordMap);  //C_POST_BAR_12
             String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
             String updateTime = createTime;
             String favorDate = createTime;
@@ -428,6 +430,19 @@ public class IwantReleaseService {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
             resArr = iwantReleaseDao.getTzc(type, parNum, cate);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
+
+    //门派
+    public Object queryMpListInfo() {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = iwantReleaseDao.queryMpListInfo();
 
         } catch (Exception e) {
             // TODO Auto-generated catch block

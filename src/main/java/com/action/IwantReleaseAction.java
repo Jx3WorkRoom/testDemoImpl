@@ -404,15 +404,16 @@ public class IwantReleaseAction {
                 int tradeType = request.getParameter("tradeType") == null ? -1 : Integer.parseInt(request.getParameter("tradeType"));
                 String belongQf = request.getParameter("belongQf");
                 String tixin = request.getParameter("tixin");
+                String tixin2 = request.getParameter("tixin2");
                 int priceNum = request.getParameter("priceNum") == null ? -1 : Integer.parseInt(request.getParameter("priceNum"));    //价格
                 String accoInfo = request.getParameter("accoInfo");
 
                 if (operate.equals("save")) {
-                    returnVal = iwantReleaseService.saveZhssInfo(userId, tradeType, belongQf, tixin, priceNum, accoInfo, imgList3, true);
+                    returnVal = iwantReleaseService.saveZhssInfo(userId, tradeType, belongQf, tixin, tixin2, priceNum, accoInfo, imgList3, true);
                 } else {
                     String imgTotal = request.getParameter("imgTotal");
                     int favorId = request.getParameter("favorId") == null ? -1 : Integer.parseInt(request.getParameter("favorId"));
-                    returnVal = iwantReleaseService.updateZhssInfo(favorId, userId, tradeType, belongQf, tixin, priceNum, accoInfo, imgList3,imgTotal);
+                    returnVal = iwantReleaseService.updateZhssInfo(favorId, userId, tradeType, belongQf, tixin, tixin2, priceNum, accoInfo, imgList3,imgTotal);
                 }
                 long post = System.currentTimeMillis();
                 System.out.println("查询账号交易接口执行时间（单位：毫秒）：" + (post - pre));
@@ -432,6 +433,7 @@ public class IwantReleaseAction {
             @RequestParam(value="tradeType",required=false,defaultValue = "") int tradeType,
             @RequestParam(value="belongQf",required=false,defaultValue ="") String belongQf,
             @RequestParam(value="tixin",required=false,defaultValue ="") String tixin,
+            @RequestParam(value="tixin2",required=false,defaultValue ="") String tixin2,
             @RequestParam(value="priceNum",required=false,defaultValue ="") int priceNum,
             @RequestParam(value="accoInfo",required=false,defaultValue ="") String accoInfo
     ){
@@ -439,9 +441,9 @@ public class IwantReleaseAction {
         long pre=System.currentTimeMillis();
         String returnVal = "";
         if(operate.equals("save")){
-            returnVal = iwantReleaseService.saveZhssInfo(userId, tradeType, belongQf, tixin, priceNum, accoInfo, imgList3, false);
+            returnVal = iwantReleaseService.saveZhssInfo(userId, tradeType, belongQf, tixin, tixin2, priceNum, accoInfo, imgList3, false);
         }else {
-            returnVal = iwantReleaseService.updateZhssInfo(favorId, userId, tradeType, belongQf, tixin, priceNum, accoInfo, imgList3, "0");
+            returnVal = iwantReleaseService.updateZhssInfo(favorId, userId, tradeType, belongQf, tixin, tixin2, priceNum, accoInfo, imgList3, "0");
         }
         long post=System.currentTimeMillis();
         System.out.println("查询账号交易接口执行时间（单位：毫秒）："+ (post-pre));
@@ -684,7 +686,8 @@ public class IwantReleaseAction {
         long pre=System.currentTimeMillis();
 
         Object SelectionList = accountListService.querySelectionListInfo();
-        Object tixinList = accountListService.queryTixinListInfo();//体型
+        //Object tixinList = accountListService.queryTixinListInfo();//体型 2017-10-28 del
+        Object tixinList = iwantReleaseService.queryMpListInfo();//门派 2017-10-28 add
         Object dataList = iwantReleaseService.getQuickRelease(mainId);
         Object imgList = iwantReleaseService.getImgList(mainId);
         resmap.put("selecttions", SelectionList);

@@ -659,22 +659,22 @@ public class IwantReleaseDao {
     }
 
     //账号快售快速发布(D_POST_BAR_13--C_POST_BAR_12)
-    public int saveZhssInfo(String recordId, int favorId,int tradeType, String userId, String belongQf,String tixin,int priceNum,String accoInfo) throws Exception {
+    public int saveZhssInfo(String recordId, int favorId,int tradeType, String userId, String belongQf,String tixin, String menpai,int priceNum,String accoInfo) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = createTime;
-        sql.append(" insert into D_POST_BAR_13(record_id,createtime,updatetime,isvalid,favor_id,user_id,trade_type,favor_date,belong_qf,tixin,price_num,acco_info) " +
-                " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+tradeType+"','"+favorDate+"','"+belongQf+"','"+tixin+"','"+priceNum+"','"+accoInfo+"')");
+        sql.append(" insert into D_POST_BAR_13(record_id,createtime,updatetime,isvalid,favor_id,user_id,trade_type,favor_date,belong_qf,tixin,menpai,price_num,acco_info) " +
+                " VAlUES('"+recordId+"','"+createTime+"','"+createTime+"','1','"+favorId+"','"+userId+"','"+tradeType+"','"+favorDate+"','"+belongQf+"','"+tixin+"','"+menpai+"','"+priceNum+"','"+accoInfo+"')");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }
-    public int updateZhssInfo(String recordId, int favorId,int tradeType, String userId, String belongQf,String tixin,int priceNum,String accoInfo) throws Exception {
+    public int updateZhssInfo(String recordId, int favorId,int tradeType, String userId, String belongQf,String tixin,String menpai,int priceNum,String accoInfo) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         String updatetime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("\\s*","");
         String favorDate = updatetime;
-        sql.append(" update D_POST_BAR_13 set updatetime='"+updatetime+"',trade_type='"+tradeType+"',belong_qf='"+belongQf+"',tixin='"+tixin+"',price_num='"+priceNum+"',acco_info='"+accoInfo+"'" +
+        sql.append(" update D_POST_BAR_13 set updatetime='"+updatetime+"',trade_type='"+tradeType+"',belong_qf='"+belongQf+"',tixin='"+tixin+"',menpai='"+menpai+"',price_num='"+priceNum+"',acco_info='"+accoInfo+"'" +
                 " where favor_id='"+favorId+"'");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
@@ -728,6 +728,25 @@ public class IwantReleaseDao {
         System.out.println(sql);
         listSql = sql.toString();
         return this.commondao.query(sql.toString(), paramList);
+    }
+
+    //获取门派  2017-10-28
+    public List<Map<String,Object>> queryMpListInfo() throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        //sql.append(" select distinct MENPAI_NAME  from b_post_bar_2 union select TIXIN_NAME_1 from b_post_bar_2 ");
+        sql.append(" select menpai_name MENPAI_NAME from b_post_bar_1 ");
+        System.out.println(sql);
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
+    //门派转换
+    public String queryMpTrans(String tixin) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" select tixin_name from b_post_bar_2 where tixin_name_4 = '"+tixin +"'");
+        System.out.println(sql);
+        return this.commondao.queryOne(sql.toString(), paramList);
     }
 
     //获取图片地址
