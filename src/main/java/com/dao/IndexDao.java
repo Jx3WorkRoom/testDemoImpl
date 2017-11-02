@@ -23,7 +23,7 @@ public class IndexDao {
     public List<Map<String,Object>> queryIndex() throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
-        sql.append(" select * from d_post_bar_30 order by RECORD_DATE");
+        sql.append(" select * from d_post_bar_30 order by RECORD_DATE desc limit 0,1");
         System.out.println(sql);
         return this.commondao.query(sql.toString(), paramList);
     }
