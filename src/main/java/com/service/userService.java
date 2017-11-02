@@ -57,4 +57,15 @@ public class userService {
         }
         return resArr;
     }
+
+    public Object queryUserById(String userId) {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = userDao.queryUserById(userId);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
 }

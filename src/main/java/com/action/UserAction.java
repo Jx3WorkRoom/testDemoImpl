@@ -107,4 +107,18 @@ public class UserAction {
         int testAddTableFlag = userService.testAddTable(str);
         return testAddTableFlag;
     }
+
+    @RequestMapping(value ="getUserInfoByID")
+    public  Map<String,Object> getUserInfoByID(
+            @RequestParam(value="userId") String userId
+    ) throws Exception {
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object dataList = userService.queryUserById(userId);
+        resmap.put("datas", dataList);
+        resmap.put("success", true);
+        long post=System.currentTimeMillis();
+        System.out.println("查询接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
 }
