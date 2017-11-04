@@ -31,21 +31,23 @@ public class accountListAction {
             @RequestParam(value="areaSelection",required=false,defaultValue ="") String areaSelection,
             @RequestParam(value="shape",required=false,defaultValue ="") String shape,
             @RequestParam(value="info",required=false,defaultValue ="") String info,
+            @RequestParam(value="lowPrice",required=false,defaultValue ="0") String lowPrice,
+            @RequestParam(value="highPrice",required=false,defaultValue ="0") String highPrice,
             @RequestParam(value="pageNumSelected",required=false,defaultValue ="1") int pageNumSelected,
             @RequestParam(value="startNum",required=false,defaultValue ="0") int startNum,
-            @RequestParam(value="endNum",required=false,defaultValue ="10") int endNum
+            @RequestParam(value="endNum",required=false,defaultValue ="30") int endNum
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
         Object dataList = new Object();
         Object pageList = new Object();
-        if(!"".equals(shape)||!"".equals(info)||!"".equals(areaSelection)) {
-            dataList = accountListService.queryAccountListInfo(tradeType, areaSelection, shape, info, pageNumSelected, startNum, endNum);
+        if(!"".equals(shape)||!"".equals(info)||!"".equals(areaSelection)||!"0".equals(lowPrice)||!"0".equals(highPrice)) {
+            dataList = accountListService.queryAccountListInfo(tradeType, areaSelection, shape, info, pageNumSelected, startNum, endNum,lowPrice,highPrice);
             pageList = accountListService.queryPageListNum();
         }else{
             if(tradeType==1) {
                 if(startNum!=0){
-                    dataList = accountListService.queryAccountListInfo(tradeType, areaSelection, shape, info, pageNumSelected, startNum, endNum);
+                    dataList = accountListService.queryAccountListInfo(tradeType, areaSelection, shape, info, pageNumSelected, startNum, endNum,lowPrice,highPrice);
                     pageList = Commons.accountlistPageNum1;
                 }else {
                     dataList = Commons.accountList1;
@@ -53,7 +55,7 @@ public class accountListAction {
                 }
             }else{
                 if(startNum!=0){
-                    dataList = accountListService.queryAccountListInfo(tradeType, areaSelection, shape, info, pageNumSelected, startNum, endNum);
+                    dataList = accountListService.queryAccountListInfo(tradeType, areaSelection, shape, info, pageNumSelected, startNum, endNum,lowPrice,highPrice);
                     pageList = Commons.accountlistPageNum2;
                 }else {
                     dataList = Commons.accountList2;
@@ -81,8 +83,26 @@ public class accountListAction {
         long pre=System.currentTimeMillis();
         Object SelectionList = accountListService.querySelectionListInfo();
         Object tixinList = accountListService.queryTixinListInfo();
+        Object faxinList = accountListService.queryFaxinListInfo();
+        Object heziList = accountListService.queryHeziListInfo();
+        Object pifengList = accountListService.queryPifengListInfo();
+        Object wuxianList = accountListService.queryWuxianListInfo();
+        Object liuxianList = accountListService.queryliuxianListInfo();
+        Object chengyiList = accountListService.querychengyiListInfo();
+        Object qiyuList = accountListService.queryqiyuListInfo();
+        Object c5List = accountListService.queryc5ListInfo();
+        Object guajianList = accountListService.queryguajianListInfo();
         resmap.put("selecttions", SelectionList);
         resmap.put("tixin", tixinList);
+        resmap.put("faxin", faxinList);
+        resmap.put("hezi", heziList);
+        resmap.put("pifeng", pifengList);
+        resmap.put("wuxian", wuxianList);
+        resmap.put("liuxian", liuxianList);
+        resmap.put("chengyi", chengyiList);
+        resmap.put("qiyu", qiyuList);
+        resmap.put("c5", c5List);
+        resmap.put("guajian", guajianList);
         resmap.put("success", true);
         long post=System.currentTimeMillis();
         System.out.println("查询账号交易页面搜索框填充信息接口执行时间（单位：毫秒）："+ (post-pre));

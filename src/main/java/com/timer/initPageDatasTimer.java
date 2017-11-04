@@ -48,7 +48,7 @@ public class initPageDatasTimer {
         int accountlistPageNum2 = 0;
         try {
             //accountList
-            accountList2 = accountListDao.queryAccountListInfo2(2, 0, 10);
+            accountList2 = accountListDao.queryAccountListInfo2(2, 0, 30);
             accountlistPageNum2 = accountListDao.quertLength(2);
         }catch (Exception e){
             e.printStackTrace();

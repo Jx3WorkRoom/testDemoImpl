@@ -18,14 +18,14 @@ public class accountListService {
     @Autowired
     segmentWordDao segmentWordDao;
 
-    public Object queryAccountListInfo(int tradeType, String areaSelection, String shape, String info, int pageNumSelected, int startNum, int endNum) {
+    public Object queryAccountListInfo(int tradeType, String areaSelection, String shape, String info, int pageNumSelected, int startNum, int endNum,String lowPrice,String highPrice) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
             if((startNum==0 || endNum ==10) && pageNumSelected !=1){
-                startNum = (pageNumSelected-1)*10;
-                endNum = 10;
+                startNum = (pageNumSelected-1)*30;
+                endNum = 30;
             }
-            if("".equals(areaSelection)&&"".equals(shape)&&"".equals(info)){
+            if("".equals(areaSelection)&&"".equals(shape)&&"".equals(info)&&"0".equals(lowPrice)&&"0".equals(highPrice)){
                 resArr = accountListDao.queryAccountListInfo2(tradeType,startNum,endNum);
             }else{
                 String selectTion1 = "";
@@ -49,7 +49,7 @@ public class accountListService {
                 }
                 Map<String,Set<String>> map =segmentWordDao.test(info);
                 Commons.segMentWordMap = map;
-                resArr = accountListDao.queryAccountListInfo3(tradeType,selectTion1,selectTion2,selectTion3,shape,map,startNum,endNum,info);
+                resArr = accountListDao.queryAccountListInfo3(tradeType,selectTion1,selectTion2,selectTion3,shape,map,startNum,endNum,info,lowPrice,highPrice);
             }
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -71,7 +71,7 @@ public class accountListService {
     }
 
     public Object queryPageListNum() {
-        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        String resArr = "";
         try {
             resArr = accountListDao.queryPageListNum();
 
@@ -79,7 +79,7 @@ public class accountListService {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return resArr.size();
+        return resArr;
     }
 
     public Object queryTixinListInfo() {
@@ -227,6 +227,114 @@ public class accountListService {
         int resArr = 0;
         try {
             resArr = accountListDao.appearancePrice3(qufu,viewName,viewContent,priceLow,priceHigh,priceHN,PRICE_HN_HIGH,favorDate,userID);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
+
+    public Object queryFaxinListInfo() {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = accountListDao.queryFaxinListInfo();
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
+
+    public Object queryHeziListInfo() {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = accountListDao.queryHeziListInfo();
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
+
+    public Object queryPifengListInfo() {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = accountListDao.queryPifengListInfo();
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
+
+    public Object queryWuxianListInfo() {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = accountListDao.queryWuxianListInfo();
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
+
+    public Object queryliuxianListInfo() {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = accountListDao.queryliuxianListInfo();
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
+
+    public Object querychengyiListInfo() {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = accountListDao.querychengyiListInfo();
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
+
+    public Object queryqiyuListInfo() {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = accountListDao.queryqiyuListInfo();
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
+
+    public Object queryc5ListInfo() {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = accountListDao.queryc5ListInfo();
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
+
+    public Object queryguajianListInfo() {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = accountListDao.queryguajianListInfo();
+
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

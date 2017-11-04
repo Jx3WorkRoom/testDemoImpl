@@ -84,17 +84,15 @@ public class accountListDao {
         return this.commondao.query(sql.toString(), paramList);
     }
 
-    public List<Map<String,Object>> queryPageListNum() throws Exception {
+    public String queryPageListNum() throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         int num = listSql.indexOf("LIMIT");
-        if(num>0) {
-            sql.append(listSql.substring(0, num - 1));
-        }else{
-            sql.append(listSql);
-        }
+        sql.append(" SELECT COUNT(*) FROM ( ");
+        sql.append(listSql.substring(0, num - 1));
+        sql.append(" ) allNum ");
         System.out.println(sql);
-        return this.commondao.query(sql.toString(), paramList);
+        return this.commondao.queryOne(sql.toString(), paramList);
 
     }
 
@@ -244,7 +242,7 @@ public class accountListDao {
         return this.commondao.query(sql.toString(), paramList);
     }
 
-    public List<Map<String,Object>> queryAccountListInfo3(int tradeType, String selectTion1, String selectTion2, String selectTion3, String shape, Map<String, Set<String>> map, int startNum, int endNum,String info) throws Exception {
+    public List<Map<String,Object>> queryAccountListInfo3(int tradeType, String selectTion1, String selectTion2, String selectTion3, String shape, Map<String, Set<String>> map, int startNum, int endNum,String info,String lowPrice,String highPrice) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append("SELECT" +
@@ -367,6 +365,9 @@ public class accountListDao {
         }else{
             sql.append(" AND A.REPLY_CONTENT like '%"+info+"%'");
         }
+        if(!"0".equals(lowPrice)&&!"0".equals(highPrice)) {
+            sql.append(" AND ( A.PRICE_NUM >='" + lowPrice + "' and A.PRICE_NUM <='" + highPrice + "' ||  A.PRICE_NUM = 0 || A.PRICE_NUM like '%k%' )");
+        }
         sql.append(
                 " AND a.BELONG_QF is not NULL" +
                         " AND a.TIXIN_1 is not NULL" +
@@ -374,11 +375,8 @@ public class accountListDao {
 //                        " AND a.PRICE_NUM is NOT null"+
                         " ORDER BY" +
                         " a.REPLY_TIME DESC" +
-//                        " LIMIT "+startNum+"," + endNum
+                        " LIMIT "+startNum+"," + endNum+
         "" );
-        if(map.size()==0){
-            sql.append(" LIMIT "+startNum+"," + endNum);
-        }
         System.out.println(sql);
         listSql = sql.toString();
         return this.commondao.query(sql.toString(), paramList);
@@ -476,5 +474,73 @@ public class accountListDao {
             System.out.println(sql);
             return this.commondao.update(sql.toString(), paramList);
         }
+    }
+
+    public List<Map<String,Object>> queryFaxinListInfo() throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" Select WAIGUAN_NAME,WAIGUAN_NAME_2 from B_POST_BAR_6 where WAIGUAN_TYPE=1 order by VIEW_ID ");
+        System.out.println(sql);
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
+    public List<Map<String,Object>> queryHeziListInfo() throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" Select WAIGUAN_NAME,WAIGUAN_NAME_2 from B_POST_BAR_6 where WAIGUAN_TYPE=5 order by VIEW_ID ");
+        System.out.println(sql);
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
+    public List<Map<String,Object>> queryPifengListInfo() throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" Select WAIGUAN_NAME,WAIGUAN_NAME_2 from B_POST_BAR_6 where WAIGUAN_TYPE=4 order by VIEW_ID ");
+        System.out.println(sql);
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
+    public List<Map<String,Object>> queryWuxianListInfo() throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" Select WAIGUAN_NAME,WAIGUAN_NAME_2 from B_POST_BAR_6 where WAIGUAN_TYPE in (2,3) and XIANLIANG_TYPE ='五限' order by VIEW_ID ");
+        System.out.println(sql);
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
+    public List<Map<String,Object>> queryliuxianListInfo() throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" Select WAIGUAN_NAME,WAIGUAN_NAME_2 from B_POST_BAR_6 where WAIGUAN_TYPE in (2,3) and XIANLIANG_TYPE ='六限' order by VIEW_ID ");
+        System.out.println(sql);
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
+    public List<Map<String,Object>> querychengyiListInfo() throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" Select WAIGUAN_NAME,WAIGUAN_NAME_2 from B_POST_BAR_6 where WAIGUAN_TYPE in (2,3) and XIANLIANG_TYPE<>'五限' and XIANLIANG_TYPE <>'六限' order by VIEW_ID ");
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
+    public List<Map<String,Object>> queryqiyuListInfo() throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" select stra_name from B_POST_BAR_13 where stra_type in (1,2,3) order by stra_id ");
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
+    public List<Map<String,Object>> queryc5ListInfo() throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" select arm_name from B_POST_BAR_8 where arm_type=1 order by arm_id ");
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
+    public List<Map<String,Object>> queryguajianListInfo() throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" select pend_name from B_POST_BAR_14 where pend_type=1 order by pend_id ");
+        return this.commondao.query(sql.toString(), paramList);
     }
 }
