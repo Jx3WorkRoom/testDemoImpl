@@ -341,4 +341,16 @@ public class accountListService {
         }
         return resArr;
     }
+
+    public Object keepQuery(String tradeType, String areaSelection, String menpai, String tixin, String faxin, String hezi, String pifeng, String wuxian, String liuxian, String chengyi, String qiyu, String chengwu, String guajia, String lowPrice, String highPrice, String info, String username,String fanganName) {
+       int res  = 0;
+        try {
+            res = accountListDao.keepQuery(tradeType,areaSelection,menpai,tixin,faxin,hezi,pifeng,wuxian,liuxian,chengyi,qiyu,chengwu,guajia,lowPrice,highPrice,info,username,fanganName);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return res;
+    }
 }

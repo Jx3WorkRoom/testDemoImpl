@@ -286,4 +286,38 @@ public class accountListAction {
         System.out.println("批量外观预期价格接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
     }
+
+
+    @ApiOperation(value="保存用户搜索记录", notes="",produces = "application/json")
+    @RequestMapping(value="keepQuery",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> keepQueryAction(
+            @RequestParam(value="tradeType",required=false,defaultValue = "") String tradeType,
+            @RequestParam(value="areaSelection",required=false,defaultValue = "") String areaSelection,
+            @RequestParam(value="menpai",required=false,defaultValue = "") String menpai,
+            @RequestParam(value="tixin",required=false,defaultValue = "") String tixin,
+            @RequestParam(value="faxin",required=false,defaultValue = "") String faxin,
+            @RequestParam(value="hezi",required=false,defaultValue = "") String hezi,
+            @RequestParam(value="pifeng",required=false,defaultValue = "") String pifeng,
+            @RequestParam(value="wuxian",required=false,defaultValue = "") String wuxian,
+            @RequestParam(value="liuxian",required=false,defaultValue = "") String liuxian,
+            @RequestParam(value="chengyi",required=false,defaultValue = "") String chengyi,
+            @RequestParam(value="qiyu",required=false,defaultValue = "") String qiyu,
+            @RequestParam(value="chengwu",required=false,defaultValue = "") String chengwu,
+            @RequestParam(value="guajia",required=false,defaultValue = "") String guajia,
+            @RequestParam(value="lowPrice",required=false,defaultValue = "0") String lowPrice,
+            @RequestParam(value="highPrice",required=false,defaultValue = "0") String highPrice,
+            @RequestParam(value="info",required=false,defaultValue = "") String info,
+            @RequestParam(value="username",required=false,defaultValue = "") String username,
+            @RequestParam(value="fanganName",required=false,defaultValue = "") String fanganName
+    ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object result = accountListService.keepQuery(tradeType,areaSelection,menpai,tixin,faxin,hezi,pifeng,wuxian,liuxian,chengyi,qiyu,chengwu,guajia,lowPrice,highPrice,info,username,fanganName);
+        resmap.put("info", result);
+        resmap.put("success", true);
+        long post=System.currentTimeMillis();
+        System.out.println("保存用户搜索记录接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
 }

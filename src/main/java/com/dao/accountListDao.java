@@ -547,4 +547,58 @@ public class accountListDao {
         sql.append(" select pend_name from B_POST_BAR_14 where pend_type=1 order by pend_id ");
         return this.commondao.query(sql.toString(), paramList);
     }
+
+    public int keepQuery(String tradeType, String areaSelection, String menpai, String tixin, String faxin, String hezi, String pifeng, String wuxian, String liuxian, String chengyi, String qiyu, String chengwu, String guajia, String lowPrice, String highPrice, String info, String username,String fanganName) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        String RECORD_ID =UUID.randomUUID().toString();
+        String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("s*","");
+        List<Object> paramList = new ArrayList<Object>();
+        int traType = 1;
+        String qu1 = "";
+        String qu2 = "";
+        String qu3 = "";
+        if(!"".equals(areaSelection)) {
+            qu1 = areaSelection.split(",")[0];
+            qu2 = areaSelection.split(",")[1];
+            qu3 = areaSelection.split(",")[2];
+        }
+        if("出售".equals(tradeType)){
+            traType =2;
+        }
+        sql.append(" insert into F_SYS_INFO_10(" +
+                " RECORD_ID,CREATETIME,UPDATETIME,ISVALID,USER_ID,FANG_AN_TYPE," +
+                " FANG_AN_NAME,TRADE_TYPE,QF_FACTOR_1,QF_FACTOR_2,QF_FACTOR_3," +
+                " MENPAI_FACTOR,TIXIN_FACTOR,PRICE_LOW,PRICE_UP,FAXIN,HEZHI,PIFENG," +
+                " WUXIAN,LIUXIAN,CHENYI,QIYU,GUJIAN,CHENWU,SEARCH_FACTOR,FAVOR_TIME)" +
+                " values (" +
+                " '"+RECORD_ID+"'," +
+                " '"+createTime+"'," +
+                " '"+createTime+"'," +
+                " '"+1+"'," +
+                " (select user_id from F_USER_INFO where login_name = '"+username+"' limit 0,1)," +
+                " '"+1+"'," +
+                " '"+fanganName+"'," +
+                " '"+traType+"'," +
+                " '"+qu1+"'," +
+                " '"+qu2+"'," +
+                " '"+qu3+"'," +
+                " '"+menpai+"'," +
+                " '"+tixin+"'," +
+                " '"+lowPrice+"'," +
+                " '"+highPrice+"'," +
+                " '"+faxin+"'," +
+                " '"+hezi+"'," +
+                " '"+pifeng+"'," +
+                " '"+wuxian+"'," +
+                " '"+liuxian+"'," +
+                " '"+chengyi+"'," +
+                " '"+qiyu+"'," +
+                " '"+guajia+"'," +
+                " '"+chengwu+"'," +
+                " '"+info+"'," +
+                " '"+createTime+"'" +
+                " ) " );
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(), paramList);
+    }
 }
