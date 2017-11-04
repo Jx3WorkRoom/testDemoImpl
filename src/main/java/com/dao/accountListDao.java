@@ -371,6 +371,18 @@ public class accountListDao {
             }else{
                 sql.append(" AND ( A.PRICE_NUM >='" + lowPrice + "' and A.PRICE_NUM <='" + highPrice + "' )");
             }
+        }else if(!"0".equals(lowPrice)){
+            if("true".equals(hasChecked)) {
+                sql.append(" AND ( A.PRICE_NUM >='" + lowPrice + "'  ||  A.PRICE_NUM = 0 || A.PRICE_NUM like '%k%' )");
+            }else{
+                sql.append(" AND ( A.PRICE_NUM >='" + lowPrice + "' )");
+            }
+        }else if(!"0".equals(highPrice)){
+            if("true".equals(hasChecked)) {
+                sql.append(" AND ( A.PRICE_NUM <='" + highPrice + "' ||  A.PRICE_NUM = 0 || A.PRICE_NUM like '%k%' )");
+            }else{
+                sql.append(" AND ( A.PRICE_NUM <='" + highPrice + "' )");
+            }
         }
         sql.append(
                 " AND a.BELONG_QF is not NULL" +
@@ -598,6 +610,22 @@ public class accountListDao {
                 " '"+info+"'," +
                 " '"+createTime+"'" +
                 " ) " );
+        System.out.println(sql);
+        return this.commondao.update(sql.toString(), paramList);
+    }
+
+    public List<Map<String,Object>> getKeepQuery(String username) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" select * from F_SYS_INFO_10 where user_id = ( select user_id from F_USER_INFO where login_name ='"+username+"') order by favor_time desc ");
+        System.out.println(sql);
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
+    public int delectKeepQuery(String selectId) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(" delete from  F_SYS_INFO_10 where user_seq = '"+selectId+"'");
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
     }

@@ -320,4 +320,78 @@ public class accountListAction {
         System.out.println("保存用户搜索记录接口执行时间（单位：毫秒）："+ (post-pre));
         return resmap;
     }
+
+
+    @ApiOperation(value="修改用户搜索记录", notes="",produces = "application/json")
+    @RequestMapping(value="keepQuery2",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> keepQuery2Action(
+            @RequestParam(value="tradeType",required=false,defaultValue = "") String tradeType,
+            @RequestParam(value="areaSelection",required=false,defaultValue = "") String areaSelection,
+            @RequestParam(value="menpai",required=false,defaultValue = "") String menpai,
+            @RequestParam(value="tixin",required=false,defaultValue = "") String tixin,
+            @RequestParam(value="faxin",required=false,defaultValue = "") String faxin,
+            @RequestParam(value="hezi",required=false,defaultValue = "") String hezi,
+            @RequestParam(value="pifeng",required=false,defaultValue = "") String pifeng,
+            @RequestParam(value="wuxian",required=false,defaultValue = "") String wuxian,
+            @RequestParam(value="liuxian",required=false,defaultValue = "") String liuxian,
+            @RequestParam(value="chengyi",required=false,defaultValue = "") String chengyi,
+            @RequestParam(value="qiyu",required=false,defaultValue = "") String qiyu,
+            @RequestParam(value="chengwu",required=false,defaultValue = "") String chengwu,
+            @RequestParam(value="guajia",required=false,defaultValue = "") String guajia,
+            @RequestParam(value="lowPrice",required=false,defaultValue = "0") String lowPrice,
+            @RequestParam(value="highPrice",required=false,defaultValue = "0") String highPrice,
+            @RequestParam(value="info",required=false,defaultValue = "") String info,
+            @RequestParam(value="username",required=false,defaultValue = "") String username,
+            @RequestParam(value="fanganName",required=false,defaultValue = "") String fanganName,
+            @RequestParam(value="selectId",required=false,defaultValue = "") String selectId
+    ){
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        int res = accountListService.delectKeepQuery(selectId);
+        Object result = new Object();
+        if(res!=0) {
+            result = accountListService.keepQuery(tradeType, areaSelection, menpai, tixin, faxin, hezi, pifeng, wuxian, liuxian, chengyi, qiyu, chengwu, guajia, lowPrice, highPrice, info, username, fanganName);
+
+        }else{
+            resmap.put("info", 0);
+            return resmap;
+        }
+        resmap.put("info", result);
+        resmap.put("success", true);
+        long post=System.currentTimeMillis();
+        System.out.println("修改用户搜索记录接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+
+    @ApiOperation(value="获取用户保存的搜索方案", notes="",produces = "application/json")
+    @RequestMapping(value="getKeepQuery",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> getKeepQuery(
+            @RequestParam(value="username",required=true) String username
+    ) throws Exception {
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object dataList = accountListService.getKeepQuery(username);
+        resmap.put("datas", dataList);
+        long post=System.currentTimeMillis();
+        System.out.println("获取用户保存的搜索方案接口执行时间（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
+
+    @ApiOperation(value="删除用户保存的搜索方案", notes="",produces = "application/json")
+    @RequestMapping(value="delQuery",method = RequestMethod.GET)
+    @Produces("application/json")
+    public Map<String,Object> delQuery(
+            @RequestParam(value="seq",required=true) String seq
+    ) throws Exception {
+        Map<String,Object> resmap=new HashMap<String,Object>();
+        long pre=System.currentTimeMillis();
+        Object dataList = accountListService.delectKeepQuery(seq);
+        resmap.put("info", dataList);
+        long post=System.currentTimeMillis();
+        System.out.println("删除用户保存的搜索方案（单位：毫秒）："+ (post-pre));
+        return resmap;
+    }
 }

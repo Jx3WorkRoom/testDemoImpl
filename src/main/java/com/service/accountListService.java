@@ -353,4 +353,27 @@ public class accountListService {
         }
         return res;
     }
+
+    public Object getKeepQuery(String username) {
+        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        try {
+            resArr = accountListDao.getKeepQuery(username);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resArr;
+    }
+
+    public int delectKeepQuery(String selectId) {
+        int res  = 0;
+        try {
+            res = accountListDao.delectKeepQuery(selectId);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return res;
+    }
 }
