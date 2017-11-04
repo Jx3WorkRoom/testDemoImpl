@@ -33,6 +33,7 @@ public class accountListAction {
             @RequestParam(value="info",required=false,defaultValue ="") String info,
             @RequestParam(value="lowPrice",required=false,defaultValue ="0") String lowPrice,
             @RequestParam(value="highPrice",required=false,defaultValue ="0") String highPrice,
+            @RequestParam(value="hasChecked",required=false,defaultValue ="true") String hasChecked,
             @RequestParam(value="pageNumSelected",required=false,defaultValue ="1") int pageNumSelected,
             @RequestParam(value="startNum",required=false,defaultValue ="0") int startNum,
             @RequestParam(value="endNum",required=false,defaultValue ="30") int endNum
@@ -42,12 +43,12 @@ public class accountListAction {
         Object dataList = new Object();
         Object pageList = new Object();
         if(!"".equals(shape)||!"".equals(info)||!"".equals(areaSelection)||!"0".equals(lowPrice)||!"0".equals(highPrice)) {
-            dataList = accountListService.queryAccountListInfo(tradeType, areaSelection, shape, info, pageNumSelected, startNum, endNum,lowPrice,highPrice);
+            dataList = accountListService.queryAccountListInfo(tradeType, areaSelection, shape, info, pageNumSelected, startNum, endNum,lowPrice,highPrice,hasChecked);
             pageList = accountListService.queryPageListNum();
         }else{
             if(tradeType==1) {
                 if(startNum!=0){
-                    dataList = accountListService.queryAccountListInfo(tradeType, areaSelection, shape, info, pageNumSelected, startNum, endNum,lowPrice,highPrice);
+                    dataList = accountListService.queryAccountListInfo(tradeType, areaSelection, shape, info, pageNumSelected, startNum, endNum,lowPrice,highPrice,hasChecked);
                     pageList = Commons.accountlistPageNum1;
                 }else {
                     dataList = Commons.accountList1;
@@ -55,7 +56,7 @@ public class accountListAction {
                 }
             }else{
                 if(startNum!=0){
-                    dataList = accountListService.queryAccountListInfo(tradeType, areaSelection, shape, info, pageNumSelected, startNum, endNum,lowPrice,highPrice);
+                    dataList = accountListService.queryAccountListInfo(tradeType, areaSelection, shape, info, pageNumSelected, startNum, endNum,lowPrice,highPrice,hasChecked);
                     pageList = Commons.accountlistPageNum2;
                 }else {
                     dataList = Commons.accountList2;

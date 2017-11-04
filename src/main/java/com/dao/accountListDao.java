@@ -242,7 +242,7 @@ public class accountListDao {
         return this.commondao.query(sql.toString(), paramList);
     }
 
-    public List<Map<String,Object>> queryAccountListInfo3(int tradeType, String selectTion1, String selectTion2, String selectTion3, String shape, Map<String, Set<String>> map, int startNum, int endNum,String info,String lowPrice,String highPrice) throws Exception {
+    public List<Map<String,Object>> queryAccountListInfo3(int tradeType, String selectTion1, String selectTion2, String selectTion3, String shape, Map<String, Set<String>> map, int startNum, int endNum,String info,String lowPrice,String highPrice,String hasChecked) throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
         sql.append("SELECT" +
@@ -366,7 +366,11 @@ public class accountListDao {
             sql.append(" AND A.REPLY_CONTENT like '%"+info+"%'");
         }
         if(!"0".equals(lowPrice)&&!"0".equals(highPrice)) {
-            sql.append(" AND ( A.PRICE_NUM >='" + lowPrice + "' and A.PRICE_NUM <='" + highPrice + "' ||  A.PRICE_NUM = 0 || A.PRICE_NUM like '%k%' )");
+            if("true".equals(hasChecked)) {
+                sql.append(" AND ( A.PRICE_NUM >='" + lowPrice + "' and A.PRICE_NUM <='" + highPrice + "' ||  A.PRICE_NUM = 0 || A.PRICE_NUM like '%k%' )");
+            }else{
+                sql.append(" AND ( A.PRICE_NUM >='" + lowPrice + "' and A.PRICE_NUM <='" + highPrice + "' )");
+            }
         }
         sql.append(
                 " AND a.BELONG_QF is not NULL" +

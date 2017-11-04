@@ -18,7 +18,7 @@ public class accountListService {
     @Autowired
     segmentWordDao segmentWordDao;
 
-    public Object queryAccountListInfo(int tradeType, String areaSelection, String shape, String info, int pageNumSelected, int startNum, int endNum,String lowPrice,String highPrice) {
+    public Object queryAccountListInfo(int tradeType, String areaSelection, String shape, String info, int pageNumSelected, int startNum, int endNum,String lowPrice,String highPrice,String hasChecked) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
             if((startNum==0 || endNum ==10) && pageNumSelected !=1){
@@ -49,7 +49,7 @@ public class accountListService {
                 }
                 Map<String,Set<String>> map =segmentWordDao.test(info);
                 Commons.segMentWordMap = map;
-                resArr = accountListDao.queryAccountListInfo3(tradeType,selectTion1,selectTion2,selectTion3,shape,map,startNum,endNum,info,lowPrice,highPrice);
+                resArr = accountListDao.queryAccountListInfo3(tradeType,selectTion1,selectTion2,selectTion3,shape,map,startNum,endNum,info,lowPrice,highPrice,hasChecked);
             }
         } catch (Exception e) {
             // TODO Auto-generated catch block
