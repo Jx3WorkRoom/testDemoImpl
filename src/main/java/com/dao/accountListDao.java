@@ -76,6 +76,26 @@ public class accountListDao {
         return this.commondao.query(sql.toString(), paramList);
     }
 
+
+    public List<Map<String,Object>> queryAccountListInfoFirst(int tradeType, int startNum, int endNum) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        List<Object> paramList = new ArrayList<Object>();
+        sql.append(
+                " select a.*,b.USER_FOLLOW,B.USER_ISVALID  FROM c_post_bar_12_1 a LEFT JOIN f_user_follow b on a.main_id = b.main_id " +
+                        " WHERE " +
+                        "  a.TRADE_TYPE = "+tradeType +
+                        " AND a.BELONG_QF is not NULL" +
+                        " AND a.TIXIN_1 is not NULL" +
+                        " AND a.SOURCE_TYPE = 2" +
+                        " AND a.REPLY_CONTENT IS NOT NULL" +
+                        " ORDER BY a.REPLY_TIME DESC " +
+                        " LIMIT "+startNum+","+endNum);
+
+        System.out.println(sql);
+        listSql = sql.toString();
+        return this.commondao.query(sql.toString(), paramList);
+    }
+
     public List<Map<String,Object>> querySelectionListInfo() throws Exception {
         StringBuilder sql = new StringBuilder();
         List<Object> paramList = new ArrayList<Object>();
