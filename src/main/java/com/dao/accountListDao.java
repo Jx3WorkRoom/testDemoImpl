@@ -1,6 +1,7 @@
 package com.dao;
 
 import com.utils.CommonDao;
+import com.utils.Commons;
 import com.utils.MyDateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -309,6 +310,50 @@ public class accountListDao {
                     " AND a.TIXIN_1 like '%" + shape + "%'");
         }
         if(map.size()>0) {
+            sql.delete(0,sql.length());
+            sql.append(" SELECT ");
+            int segNum = 0;
+            for (String key : map.keySet()) {
+                Object[] objArr = map.get(key).toArray();
+                String[] arr = new String[objArr.length];
+                for(int i =0;i<objArr.length;i++){
+                    String sqlKey = "";
+                    if("title".equals(key)){
+                        sqlKey = "TITLE_NAME";
+                        arr[i] = objArr[i].toString();
+                        segNum++;
+                        sql.append(" (char_length(A."+sqlKey+")-char_length(replace(A."+sqlKey+",'"+arr[i]+"','')))/char_length('"+arr[i]+"') as rate"+segNum+",");
+                    }else if("waiguan".equals(key)){
+                        sqlKey = "WAIGUAN_NAME";
+                        arr[i] = objArr[i].toString();
+                        segNum++;
+                        sql.append(" (char_length(A."+sqlKey+")-char_length(replace(A."+sqlKey+",'"+arr[i]+"','')))/char_length('"+arr[i]+"') as rate"+segNum+",");
+                    }else if("horse".equals(key)){
+                        sqlKey = "HORSE_NAME";
+                        arr[i] = objArr[i].toString();
+                        segNum++;
+                        sql.append(" (char_length(A."+sqlKey+")-char_length(replace(A."+sqlKey+",'"+arr[i]+"','')))/char_length('"+arr[i]+"') as rate"+segNum+",");
+                    }else if("arm".equals(key)){
+                        sqlKey = "ARM_NAME";
+                        arr[i] = objArr[i].toString();
+                        segNum++;
+                        sql.append(" (char_length(A."+sqlKey+")-char_length(replace(A."+sqlKey+",'"+arr[i]+"','')))/char_length('"+arr[i]+"') as rate"+segNum+",");
+                    }else if("stra".equals(key)){
+                        sqlKey = "STRA_NAME";
+                        arr[i] = objArr[i].toString();
+                        segNum++;
+                        sql.append(" (char_length(A."+sqlKey+")-char_length(replace(A."+sqlKey+",'"+arr[i]+"','')))/char_length('"+arr[i]+"') as rate"+segNum+",");
+                    }else if("pend".equals(key)){
+                        sqlKey = "PEND_NAME";
+                        arr[i] = objArr[i].toString();
+                        segNum++;
+                        sql.append(" (char_length(A."+sqlKey+")-char_length(replace(A."+sqlKey+",'"+arr[i]+"','')))/char_length('"+arr[i]+"') as rate"+segNum+",");
+                    }
+                }
+            }
+            Commons.segMentWordMap = segNum;
+            sql.append(" a.*, b.USER_FOLLOW, B.USER_ISVALID");
+            sql.append(" FROM c_post_bar_12_1 a LEFT JOIN f_user_follow b ON a.main_id = b.main_id WHERE a.TRADE_TYPE = "+tradeType);
             sql.append(" AND( ");
             for (Map.Entry<String, Set<String>> entry : map.entrySet()) {
                 String key = entry.getKey();
@@ -382,6 +427,74 @@ public class accountListDao {
             }
             sql.append(" A.REPLY_CONTENT like '%"+info+"%'");
             sql.append(")");
+            if(!"".equals(selectTion1)||!"".equals(selectTion2)||!"".equals(selectTion3)) {
+                if(!"".equals(selectTion3)){
+                    sql.append(" AND (REPLACE (" +
+                            " REPLACE (a.BELONG_QF, '[', '')," +
+                            " ']'," +
+                            " ''" +
+                            " ) = '" + selectTion1 + "' " +
+                            " || REPLACE (" +
+                            "REPLACE (a.BELONG_QF, '[', '')," +
+                            "']'," +
+                            "''" +
+                            ") = '" + selectTion1 + selectTion2 + "' " +
+                            " || REPLACE (" +
+                            "REPLACE (a.BELONG_QF, '[', '')," +
+                            "']'," +
+                            "''" +
+                            ") = '" + selectTion1 + selectTion2 + selectTion3 + "' " +
+                            " || a.BELONG_QF is null || a.BELONG_QF ='' )");
+                }else if(!"".equals(selectTion2)){
+                    sql.append(" AND (REPLACE (" +
+                            " REPLACE (a.BELONG_QF, '[', '')," +
+                            " ']'," +
+                            " ''" +
+                            " ) = '" + selectTion1 + "' " +
+                            " || a.BELONG_QF "+
+                            " like '%" + selectTion1 + selectTion2 + "%' " +
+                            " || a.BELONG_QF is null || a.BELONG_QF ='' )");
+                }else{
+                    sql.append(" AND (a.BELONG_QF like '%" + selectTion1 + "%' " +
+                            " || a.BELONG_QF is null || a.BELONG_QF ='' )");
+                }
+            }
+            if(!"".equals(shape)) {
+                sql.append(
+                        " AND a.TIXIN_1 like '%" + shape + "%'");
+            }
+            if(!"0".equals(lowPrice)&&!"0".equals(highPrice)) {
+                if("true".equals(hasChecked)) {
+                    sql.append(" AND ( A.PRICE_NUM >='" + lowPrice + "' and A.PRICE_NUM <='" + highPrice + "' ||  A.PRICE_NUM = 0 || A.PRICE_NUM like '%k%' )");
+                }else{
+                    sql.append(" AND ( A.PRICE_NUM >='" + lowPrice + "' and A.PRICE_NUM <='" + highPrice + "' )");
+                }
+            }else if(!"0".equals(lowPrice)){
+                if("true".equals(hasChecked)) {
+                    sql.append(" AND ( A.PRICE_NUM >='" + lowPrice + "'  ||  A.PRICE_NUM = 0 || A.PRICE_NUM like '%k%' )");
+                }else{
+                    sql.append(" AND ( A.PRICE_NUM >='" + lowPrice + "' )");
+                }
+            }else if(!"0".equals(highPrice)){
+                if("true".equals(hasChecked)) {
+                    sql.append(" AND ( A.PRICE_NUM <='" + highPrice + "' ||  A.PRICE_NUM = 0 || A.PRICE_NUM like '%k%' )");
+                }else{
+                    sql.append(" AND ( A.PRICE_NUM <='" + highPrice + "' )");
+                }
+            }
+
+            sql.append(" AND a.BELONG_QF IS NOT NULL AND a.TIXIN_1 IS NOT NULL AND a.REPLY_CONTENT IS NOT NULL ORDER BY ");
+            for(int num = 1;num<=segNum;num++){
+                if(num!=segNum) {
+                    sql.append(" rate" + num + "+");
+                }else{
+                    sql.append(" rate" + num + " desc");
+                }
+            }
+            sql.append( " LIMIT "+startNum+"," + endNum+"");
+            System.out.println(sql);
+            listSql = sql.toString();
+            return this.commondao.query(sql.toString(), paramList);
         }else{
             sql.append(" AND A.REPLY_CONTENT like '%"+info+"%'");
         }
@@ -408,7 +521,6 @@ public class accountListDao {
                 " AND a.BELONG_QF is not NULL" +
                         " AND a.TIXIN_1 is not NULL" +
                         " AND a.REPLY_CONTENT IS NOT NULL" +
-//                        " AND a.PRICE_NUM is NOT null"+
                         " ORDER BY" +
                         " a.REPLY_TIME DESC" +
                         " LIMIT "+startNum+"," + endNum+
