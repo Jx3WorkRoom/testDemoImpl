@@ -868,8 +868,15 @@ public class IwantReleaseDao {
             int pixindex = imgList.get(i).lastIndexOf(".");
 
             String imgRecordId = imgList.get(i).substring(0,pixindex);
-            sql.append("INSERT INTO `grab`.`d_post_bar_21` (`RECORD_ID`, `CREATETIME`, `UPDATETIME`, `ISVALID`, `FAVOR_ID`, `SEQ_NUM`, `PIC_PATH`) \n" +
-                    "VALUES ('" + imgRecordId + "','" + createTime + "','" + createTime + "','1','" + favorId + "','" + j + "','" + upaloadUrl + "')");
+            //SEQ_NUM 计算得到 2017-11-11 Del
+            //sql.append("INSERT INTO `grab`.`d_post_bar_21` (`RECORD_ID`, `CREATETIME`, `UPDATETIME`, `ISVALID`, `FAVOR_ID`, `SEQ_NUM`, `PIC_PATH`) \n" +
+            //        //"VALUES ('" + imgRecordId + "','" + createTime + "','" + createTime + "','1','" + favorId + "','" + j + "','" + upaloadUrl + "')");
+            //       "VALUES ('" + imgRecordId + "','" + createTime + "','" + createTime + "','1','" + favorId + "',select max(seq_num)+1 from d_post_bar_21 where favor_id ='" + favorId + "','" + upaloadUrl + "')");
+
+            //SEQ_NUM 改为自增 2017-11-11 Add
+            sql.append("INSERT INTO `grab`.`d_post_bar_21` (`RECORD_ID`, `CREATETIME`, `UPDATETIME`, `ISVALID`, `FAVOR_ID`, `SEQ_NUM`, `PIC_PATH`) " +
+            "select '" + imgRecordId + "','" + createTime + "','" + createTime + "','1','" + favorId + "',ifnull(max(seq_num),0)+1 SEQ_NUM,'" + upaloadUrl + "' from d_post_bar_21 where favor_id ='" + favorId + "'");
+
             System.out.println(sql);
             this.commondao.update(sql.toString(), paramList);
         }

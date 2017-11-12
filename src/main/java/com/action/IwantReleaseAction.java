@@ -253,6 +253,7 @@ public class IwantReleaseAction {
     ){
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
+        int imgNum = Integer.parseInt(request.getParameter("imgNum"));
         try{
             System.out.println("收到图片!");
             MultipartHttpServletRequest Murequest = (MultipartHttpServletRequest)request;
@@ -266,6 +267,13 @@ public class IwantReleaseAction {
             if(!dir.exists())//目录不存在则创建
                 dir.mkdirs();
             System.out.println(files.values().size());
+            //imgList2.size()>本次上传文件数则手动处理清空imgList2 2017-11-11 Add
+            System.out.println("imgNum:"+imgNum);
+            if(imgList2.size()>imgNum){
+                imgList2.clear();
+                System.out.println("imgList2.clear()，清空1");
+            }
+
             for(MultipartFile file :files.values()){
                 String fileName=file.getOriginalFilename();
                 int pixindex = fileName.lastIndexOf(".");
@@ -283,6 +291,7 @@ public class IwantReleaseAction {
                     }
                 }
             }
+            System.out.println("imgList2.size():"+imgList2.size());
             String filePath = pathUrl+saveFileName;
 
             System.out.println("接收完毕");
@@ -292,7 +301,9 @@ public class IwantReleaseAction {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }finally{
-            int imgNum = Integer.parseInt(request.getParameter("imgNum"));
+
+
+
             while(imgList2.size()==imgNum) {
                 String returnVal = "";
                 System.out.println("执行!");
@@ -407,6 +418,8 @@ public class IwantReleaseAction {
                 String tixin2 = request.getParameter("tixin2");
                 int priceNum = request.getParameter("priceNum") == null ? -1 : Integer.parseInt(request.getParameter("priceNum"));    //价格
                 String accoInfo = request.getParameter("accoInfo");
+                //替换 账号描述回车换行为</br> 2017-11-11 Add
+                accoInfo = accoInfo.replaceAll("\r\n|\r|\n|\n\r", "<br>");
 
                 if (operate.equals("save")) {
                     returnVal = iwantReleaseService.saveZhssInfo(userId, tradeType, belongQf, tixin, tixin2, priceNum, accoInfo, imgList3, true);
@@ -440,6 +453,9 @@ public class IwantReleaseAction {
         Map<String,Object> resmap=new HashMap<String,Object>();
         long pre=System.currentTimeMillis();
         String returnVal = "";
+        //替换 账号描述回车换行为</br> 2017-11-11 Add
+        accoInfo = accoInfo.replaceAll("\r\n|\r|\n|\n\r", "<br>");
+
         if(operate.equals("save")){
             returnVal = iwantReleaseService.saveZhssInfo(userId, tradeType, belongQf, tixin, tixin2, priceNum, accoInfo, imgList3, false);
         }else {
@@ -689,6 +705,10 @@ public class IwantReleaseAction {
         //Object tixinList = accountListService.queryTixinListInfo();//体型 2017-10-28 del
         Object tixinList = iwantReleaseService.queryMpListInfo();//门派 2017-10-28 add
         Object dataList = iwantReleaseService.getQuickRelease(mainId);
+        List<Map<String, Object>> resArr = (List<Map<String, Object>>)dataList;
+        String accoInfo = resArr.get(0).get("ACCO_INFO").toString();
+        accoInfo = accoInfo.replaceAll("<br>", "\r\n");
+        resArr.get(0).put("ACCO_INFO",accoInfo);
         Object imgList = iwantReleaseService.getImgList(mainId);
         resmap.put("selecttions", SelectionList);
         resmap.put("tixinList", tixinList);
