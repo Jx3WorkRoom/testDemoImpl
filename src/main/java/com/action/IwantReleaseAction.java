@@ -706,9 +706,11 @@ public class IwantReleaseAction {
         Object tixinList = iwantReleaseService.queryMpListInfo();//门派 2017-10-28 add
         Object dataList = iwantReleaseService.getQuickRelease(mainId);
         List<Map<String, Object>> resArr = (List<Map<String, Object>>)dataList;
-        String accoInfo = resArr.get(0).get("ACCO_INFO").toString();
-        accoInfo = accoInfo.replaceAll("<br>", "\r\n");
-        resArr.get(0).put("ACCO_INFO",accoInfo);
+        if(resArr.size()>0){
+            String accoInfo = resArr.get(0).get("ACCO_INFO").toString();
+            accoInfo = accoInfo.replaceAll("<br>", "\r\n");
+            resArr.get(0).put("ACCO_INFO",accoInfo);
+        }
         Object imgList = iwantReleaseService.getImgList(mainId);
         resmap.put("selecttions", SelectionList);
         resmap.put("tixinList", tixinList);
