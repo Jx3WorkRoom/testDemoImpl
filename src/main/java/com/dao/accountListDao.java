@@ -488,7 +488,7 @@ public class accountListDao {
                 if(num!=segNum) {
                     sql.append(" rate" + num + "+");
                 }else{
-                    sql.append(" rate" + num + " desc");
+                    sql.append(" rate" + num + " desc,reply_time desc");
                 }
             }
             sql.append( " LIMIT "+startNum+"," + endNum+"");
@@ -692,7 +692,7 @@ public class accountListDao {
         return this.commondao.query(sql.toString(), paramList);
     }
 
-    public int keepQuery(String tradeType, String areaSelection, String menpai, String tixin, String faxin, String hezi, String pifeng, String wuxian, String liuxian, String chengyi, String qiyu, String chengwu, String guajia, String lowPrice, String highPrice, String info, String username,String fanganName) throws Exception {
+    public int keepQuery(String tradeType, String areaSelection, String menpai, String tixin, String faxin, String hezi, String pifeng, String wuxian, String liuxian, String chengyi, String qiyu, String chengwu, String guajia, String lowPrice, String highPrice, String info, String username,String fanganName,int fanganType,int pipeidu) throws Exception {
         StringBuilder sql = new StringBuilder();
         String RECORD_ID =UUID.randomUUID().toString();
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("s*","");
@@ -713,14 +713,14 @@ public class accountListDao {
                 " RECORD_ID,CREATETIME,UPDATETIME,ISVALID,USER_ID,FANG_AN_TYPE," +
                 " FANG_AN_NAME,TRADE_TYPE,QF_FACTOR_1,QF_FACTOR_2,QF_FACTOR_3," +
                 " MENPAI_FACTOR,TIXIN_FACTOR,PRICE_LOW,PRICE_UP,FAXIN,HEZHI,PIFENG," +
-                " WUXIAN,LIUXIAN,CHENYI,QIYU,GUJIAN,CHENWU,SEARCH_FACTOR,FAVOR_TIME)" +
+                " WUXIAN,LIUXIAN,CHENYI,QIYU,GUJIAN,CHENWU,SEARCH_FACTOR,FAVOR_TIME,PIPEI_DU)" +
                 " values (" +
                 " '"+RECORD_ID+"'," +
                 " '"+createTime+"'," +
                 " '"+createTime+"'," +
                 " '"+1+"'," +
                 " (select user_id from F_USER_INFO where login_name = '"+username+"' limit 0,1)," +
-                " '"+1+"'," +
+                " '"+fanganType+"'," +
                 " '"+fanganName+"'," +
                 " '"+traType+"'," +
                 " '"+qu1+"'," +
@@ -740,7 +740,8 @@ public class accountListDao {
                 " '"+guajia+"'," +
                 " '"+chengwu+"'," +
                 " '"+info+"'," +
-                " '"+createTime+"'" +
+                " '"+createTime+"'," +
+                " '"+pipeidu+"'" +
                 " ) " );
         System.out.println(sql);
         return this.commondao.update(sql.toString(), paramList);
