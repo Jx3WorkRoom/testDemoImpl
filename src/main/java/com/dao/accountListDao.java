@@ -483,13 +483,17 @@ public class accountListDao {
                 }
             }
 
-            sql.append(" AND a.BELONG_QF IS NOT NULL AND a.TIXIN_1 IS NOT NULL AND a.REPLY_CONTENT IS NOT NULL ORDER BY ");
-            for(int num = 1;num<=segNum;num++){
-                if(num!=segNum) {
-                    sql.append(" rate" + num + "+");
-                }else{
-                    sql.append(" rate" + num + " desc");
+            sql.append(" AND a.BELONG_QF IS NOT NULL AND a.TIXIN_1 IS NOT NULL AND a.REPLY_CONTENT IS NOT NULL ORDER BY  ");
+            if(segNum>0) {
+                for (int num = 1; num <= segNum; num++) {
+                    if (num != segNum) {
+                        sql.append(" rate" + num + "+");
+                    } else {
+                        sql.append(" rate" + num + " desc");
+                    }
                 }
+            }else{
+                sql.append(" a.REPLY_TIME desc");
             }
             sql.append( " LIMIT "+startNum+"," + endNum+"");
             System.out.println(sql);
