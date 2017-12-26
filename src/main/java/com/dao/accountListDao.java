@@ -696,7 +696,7 @@ public class accountListDao {
         return this.commondao.query(sql.toString(), paramList);
     }
 
-    public int keepQuery(String tradeType, String areaSelection, String menpai, String tixin, String faxin, String hezi, String pifeng, String wuxian, String liuxian, String chengyi, String qiyu, String chengwu, String guajia, String lowPrice, String highPrice, String info, String username,String fanganName) throws Exception {
+    public int keepQuery(String tradeType, String areaSelection, String menpai, String tixin, String faxin, String hezi, String pifeng, String wuxian, String liuxian, String chengyi, String qiyu, String chengwu, String guajia, String lowPrice, String highPrice, String info, String username,String fanganName,int fanganType,int pipeidu) throws Exception {
         StringBuilder sql = new StringBuilder();
         String RECORD_ID =UUID.randomUUID().toString();
         String createTime =  new MyDateTimeUtils().DateTimeToStr(new Date(), "yyyy-MM-dd HH:mm:ss").replace("s*","");
