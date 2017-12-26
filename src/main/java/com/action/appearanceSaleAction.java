@@ -29,7 +29,7 @@ public class appearanceSaleAction {
     @RequestMapping(value="appearanceSale",method = RequestMethod.GET)
     @Produces("application/json")
     public Map<String,Object> getAppearanceSaleAction(
-            @RequestParam(value="areaSelection",required=false,defaultValue ="") String areaSelection,
+            @RequestParam(value="tieba",required=false,defaultValue ="") String tieba,
             @RequestParam(value="shape",required=false,defaultValue ="") String shape,
             @RequestParam(value="pageNumSelected",required=false,defaultValue ="1") int pageNumSelected,
             @RequestParam(value="startNum",required=false,defaultValue ="0") int startNum,
@@ -39,12 +39,12 @@ public class appearanceSaleAction {
         long pre=System.currentTimeMillis();
         Object dataList = new Object();
         Object pageList = new Object();
-        if(!"".equals(shape)||!"".equals(areaSelection)) {
-            dataList = appearanceSaleService.queryAppearanceSaleInfo(areaSelection, shape, pageNumSelected, startNum, endNum);
+        if(!"".equals(shape)||!"".equals(tieba)) {
+            dataList = appearanceSaleService.queryAppearanceSaleInfo(tieba, shape, pageNumSelected, startNum, endNum);
             pageList = appearanceSaleService.queryPageListNum();
         }else{
                 if(startNum!=0){
-                    dataList = appearanceSaleService.queryAppearanceSaleInfo( areaSelection, shape, pageNumSelected, startNum, endNum);
+                    dataList = appearanceSaleService.queryAppearanceSaleInfo( tieba, shape, pageNumSelected, startNum, endNum);
                     pageList = Commons.appearanceSalelistPageNum1;
                 }else {
                     dataList = Commons.appearanceSaleList1;

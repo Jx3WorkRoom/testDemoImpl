@@ -16,37 +16,18 @@ public class appearanceSaleService {
     @Autowired
     segmentWordDao segmentWordDao;
 
-    public Object queryAppearanceSaleInfo(String areaSelection, String shape, int pageNumSelected, int startNum, int endNum) {
+    public Object queryAppearanceSaleInfo(String tieba, String shape, int pageNumSelected, int startNum, int endNum) {
         List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
         try {
             if((startNum==0 || endNum ==20) && pageNumSelected !=1){
                 startNum = (pageNumSelected-1)*20;
                 endNum = 20;
             }
-            if("".equals(shape)&&"".equals(areaSelection)){
+            if("".equals(shape)&&"".equals(tieba)){
                 resArr = appearanceSaleDao.queryappearanceSaleInfo2(startNum,endNum);
             }else{
-                String selectTion1 = "";
-                String selectTion2 = "";
-                String selectTion3 = "";
-                if(!"".equals(areaSelection)) {
-                    int length = areaSelection.split(",").length;
-                    if(length==1){
-                        selectTion1 = areaSelection.split(",")[0];
-                        selectTion2 = "";
-                        selectTion3 = "";
-                    }else if(length==2){
-                        selectTion1 = areaSelection.split(",")[0];
-                        selectTion2 = areaSelection.split(",")[1];
-                        selectTion3 = "";
-                    }else if(length==3){
-                        selectTion1 = areaSelection.split(",")[0];
-                        selectTion2 = areaSelection.split(",")[1];
-                        selectTion3 = areaSelection.split(",")[2];
-                    }
-                }
                 Map<String,Set<String>> map =segmentWordDao.test(shape);
-                resArr = appearanceSaleDao.queryappearanceSaleInfo3(selectTion1,selectTion2,selectTion3,map,startNum,endNum,shape);
+                resArr = appearanceSaleDao.queryappearanceSaleInfo3(tieba,map,startNum,endNum,shape);
             }
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -68,7 +49,7 @@ public class appearanceSaleService {
     }
 
     public Object queryPageListNum() {
-        List<Map<String, Object>> resArr = new ArrayList<Map<String, Object>>();
+        String resArr = "";
         try {
             resArr = appearanceSaleDao.queryPageListNum();
 
@@ -76,7 +57,7 @@ public class appearanceSaleService {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return resArr.size();
+        return resArr;
     }
 
     public Object queryTixinListInfo() {

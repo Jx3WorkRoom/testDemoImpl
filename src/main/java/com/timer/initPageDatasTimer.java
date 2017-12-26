@@ -31,7 +31,7 @@ public class initPageDatasTimer {
         int accountlistPageNum1 = 0;
         try {
             //accountList
-            accountList1 = accountListDao.queryAccountListInfoFirst(1, 0, 10);
+            accountList1 = accountListDao.queryAccountListInfo2(1, 0, 10);
             accountlistPageNum1 = accountListDao.quertLength(1);
         }catch (Exception e){
             e.printStackTrace();
@@ -48,7 +48,7 @@ public class initPageDatasTimer {
         int accountlistPageNum2 = 0;
         try {
             //accountList
-            accountList2 = accountListDao.queryAccountListInfoFirst(2, 0, 30);
+            accountList2 = accountListDao.queryAccountListInfo2(2, 0, 30);
             accountlistPageNum2 = accountListDao.quertLength(2);
         }catch (Exception e){
             e.printStackTrace();
